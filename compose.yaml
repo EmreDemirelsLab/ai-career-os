@@ -1,0 +1,53 @@
+services:
+  postgres:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: career
+      POSTGRES_PASSWORD: local_dev_only
+      POSTGRES_DB: career
+    ports: ["127.0.0.1:5432:5432"]
+    volumes: ["pgdata:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U career -d career"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+  migrate:
+    build:
+      context: .
+      dockerfile: infra/docker/api.Dockerfile
+    environment:
+      DATABASE_URL: postgresql+psycopg://career:local_dev_only@postgres:5432/career
+    command: ["alembic", "upgrade", "head"]
+    depends_on:
+      postgres: {condition: service_healthy}
+  api:
+    build:
+      context: .
+      dockerfile: infra/docker/api.Dockerfile
+    environment:
+      DATABASE_URL: postgresql+psycopg://career:local_dev_only@postgres:5432/career
+    ports: ["127.0.0.1:8000:8000"]
+    depends_on:
+      migrate: {condition: service_completed_successfully}
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/ready', timeout=2)"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+  web:
+    build:
+      context: .
+      dockerfile: infra/docker/web.Dockerfile
+    ports: ["127.0.0.1:3000:3000"]
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:3000').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+  redis:
+    image: redis:7-alpine
+    profiles: ["queue"]
+    command: ["redis-server", "--appendonly", "yes"]
+volumes:
+  pgdata:

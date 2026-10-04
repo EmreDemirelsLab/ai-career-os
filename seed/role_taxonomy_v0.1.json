@@ -1,0 +1,50 @@
+{
+  "version": "0.1.0-seed",
+  "roles": [
+    {
+      "id": "AI_ENGINEER",
+      "label": "AI Engineer",
+      "priority": "primary"
+    },
+    {
+      "id": "APPLIED_AI_ENGINEER",
+      "label": "Applied AI Engineer",
+      "priority": "primary"
+    },
+    {
+      "id": "ML_ENGINEER",
+      "label": "Machine Learning Engineer",
+      "priority": "primary"
+    },
+    {
+      "id": "LLM_ENGINEER",
+      "label": "LLM / GenAI Engineer",
+      "priority": "primary"
+    },
+    {
+      "id": "MLOPS_ENGINEER",
+      "label": "MLOps / LLMOps Engineer",
+      "priority": "secondary"
+    },
+    {
+      "id": "DATA_SCIENTIST",
+      "label": "Data Scientist",
+      "priority": "secondary"
+    },
+    {
+      "id": "AI_PLATFORM_ENGINEER",
+      "label": "AI Platform Engineer",
+      "priority": "secondary"
+    },
+    {
+      "id": "APPLIED_SCIENTIST",
+      "label": "Applied Scientist",
+      "priority": "long_horizon"
+    },
+    {
+      "id": "RESEARCH_SCIENTIST",
+      "label": "Research Scientist",
+      "priority": "long_horizon"
+    }
+  ]
+}

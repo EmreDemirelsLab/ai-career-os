@@ -14,9 +14,10 @@ AI Career OS had an empty repository and a broad v1.2 design, but no executable 
 
 - Local: Ruff, format, strict Mypy, 20 tests, CLI two-run smoke, web lint/typecheck/build passed.
 - 15 tests skipped locally: PostgreSQL not available; SQLite concurrency cases intentionally skipped.
-- PostgreSQL integration and Compose smoke are configured in CI but NOT yet executed.
+- GitHub CI run 37240925117 passed: 33 tests passed / 2 SQLite-only concurrency variants skipped; PostgreSQL concurrency, migrations, immutable triggers, web and full Compose smoke succeeded.
+- CI evidence: https://github.com/EmreDemirelsLab/ai-career-os/actions/runs/37240925117
 - Phase 0 empirical research is NOT complete; five employer observations are qualitative only.
 
 ## Acceptance / limitations
 
-Draft until PostgreSQL tests and Compose CI pass. No LLM, extraction, agents, live scraping, learner data, market scoring or production deployment. Redis optional and unused by fixture CLI. Abrupt process death needs operator recovery; production queues/leases are deferred. Initial migration downgrade destroys foundation data and is for disposable environments only.
+Foundation CI gates passed; ready for human review. No LLM, extraction, agents, live scraping, learner data, market scoring or production deployment. Redis optional and unused by fixture CLI. Abrupt process death needs operator recovery; production queues/leases are deferred. Initial migration downgrade destroys foundation data and is for disposable environments only.

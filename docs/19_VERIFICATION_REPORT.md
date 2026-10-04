@@ -1,37 +1,38 @@
 # Verification report — 2026-10-05
 
-## Honest release status
+## Release status
 
-**Local foundation implemented; Sprint 1 not fully accepted.** PostgreSQL integration, Compose smoke and remote CI/PR gates remain blocked/unverified. Phase 0 empirical market gate remains open.
+**Sprint 1 foundation CI gates passed; PR open for review.** The empirical Phase 0 market gate remains open. Nothing has been merged or deployed.
 
-## Executed evidence
+Implementation commit: `972f44a47adaef8ae4f0d7dc681db8315ddd1884`.
+Evidence: [Foundation CI run 37240925117](https://github.com/EmreDemirelsLab/ai-career-os/actions/runs/37240925117), completed successfully on 2026-10-05 Europe/Istanbul. [PR #1](https://github.com/EmreDemirelsLab/ai-career-os/pull/1).
+
+## Verification evidence
 
 | Check | Result |
 | --- | --- |
-| Repository metadata and contents read | Public repository, default branch main, no commits/content at inspection |
-| Initial GitHub write | HTTP 403: Resource not accessible by integration; no remote changes made |
-| Previous packs | v1.1 and v1.2 materialized and read; v1.2 preserved with SHA-256 provenance manifest |
-| uv sync --locked | Passed, Python 3.12.14; uv 0.12.19 |
-| Ruff check and format | Passed |
-| Mypy strict | Passed, 9 application source files |
-| pytest | 20 passed, 15 skipped (13 PostgreSQL parameter cases + 2 SQLite cases reserved for PostgreSQL concurrency) |
-| Alembic migration roundtrip + metadata drift | Passed on disposable SQLite; PostgreSQL pending |
+| GitHub delivery | 65 source/config/document files on feat/foundation-ingestion; PR #1 created |
+| Previous packs | v1.1 and v1.2 read; v1.2 preserved with SHA-256 provenance manifest |
+| Python dependency install | uv sync --locked passed locally and in CI |
+| Ruff check and format | Passed locally and in CI |
+| Mypy strict | Passed locally and in CI, 9 application source files |
+| Local pytest | 20 passed, 15 skipped because PostgreSQL was unavailable locally |
+| CI pytest with PostgreSQL 17 | 33 passed, 2 skipped; skipped cases are SQLite variants of PostgreSQL-only concurrency tests |
+| PostgreSQL concurrency | Distinct-request dedupe and same-request idempotency passed |
+| Migration and immutability | Zero/head/base/head and metadata checks passed on SQLite and PostgreSQL; raw update/delete rejection passed |
 | CLI smoke | First run: fetched 3 / accepted 2 / inserted 2 / rejected 1; second key: inserted 0 / duplicates 2 / rejected 1 |
-| Web ESLint / TypeScript / production build | Passed, Next.js 16.3.8 |
-| Docker Compose live boot | Not run: Docker is not installed in this environment |
-| PostgreSQL integration/concurrency | Not run: no PostgreSQL server; server installation unavailable in environment |
-| GitHub Actions | Configuration committed locally; not executed remotely |
-| Remote branch / PR | Not created; GitHub integration write denied |
+| Web | npm ci, ESLint, TypeScript and production build passed in CI |
+| Compose smoke | Build and startup passed on GitHub runner; health/readiness/web HTTP checks, seed, two ingestion runs and SQL raw-row count passed |
+| Remote workflow result | Python, web and compose-smoke jobs all succeeded |
 
-The skipped tests are visible, not converted to successful checks. Starlette emits one deprecation warning about its httpx test transport; tests pass. Dependency versions are locked; no vulnerability audit or production security certification is claimed.
+No PostgreSQL or Docker execution is claimed for the local container. Those gates ran on GitHub's runner. Starlette emitted one non-failing deprecation warning for its httpx test transport. Versions are locked; no vulnerability audit or production security certification is claimed.
 
-## Definition of Done mapping
+## Definition of Done
 
-- Implemented and locally checked: adapter contract, validation, source governance, repeatable raw revision storage, observation links, rejection visibility, transactional failure handling, migration framework, health/readiness, structured safe run logs, CLI, frontend shell, docs and seeds.
-- Infrastructure definitions prepared: Docker Compose, optional Redis, Python/web/Compose CI jobs.
-- Outstanding acceptance gates: actual PostgreSQL behavior (including unique-key concurrency and immutable trigger), clean Compose boot, GitHub branch/PR and passing remote CI.
-- Production gates deferred by scope: live source policies, empirical market dataset, evaluated extraction, auth/tenant isolation, retention worker, queue recovery, backups, deployment.
+Implemented and checked: adapter contract, validation, source policy gate, immutable raw revisions, observation links, rejected-record visibility, transactional failure handling, migrations, health/readiness, safe structured logs, local operator CLI, minimal web shell, lockfiles, Docker/CI, documentation and original seeds.
 
-## Next authorized action when GitHub access is repaired
+The original GitHub write attempt returned HTTP 403. After the owner updated access, writes succeeded; main was initialized minimally, the requested feature branch was created, and PR #1 opened. This resolved the delivery blocker. No force push, merge or deployment was performed.
 
-Initialize main with a minimal repository README, create `feat/foundation-ingestion`, transfer this reviewed source, open a draft PR using PR_DESCRIPTION.md, run CI, and resolve any PostgreSQL/Compose failures before marking ready for review. Do not merge or deploy automatically. The local git history uses an empty baseline because the remote repository was empty; do not force-push over subsequent user commits.
+## Remaining gates outside Sprint 1
+
+Live collection policy reviews, 500–1,000-job empirical dataset, 100+ extraction gold examples, dedupe benchmark, evaluated extraction, authentication/tenant isolation, retention execution, queue retry/lease recovery, backup/restore and production deployment remain unimplemented. Five employer observations are qualitative only. Generated implementation is not independent learner mastery evidence.

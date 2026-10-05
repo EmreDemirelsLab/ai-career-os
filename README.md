@@ -74,3 +74,5 @@ Flow: fixture → validated envelope → immutable content revisions + per-run o
 Empirical market/model evaluation, live retention enforcement, scheduling, production hosting and user acceptance remain release gates. The current product is single-owner; multi-user SaaS is outside this slice. AI-generated implementation does not establish the learner's mastery.
 
 Single-owner hosting candidate: [deployment and recovery runbook](docs/24_HOSTING_RUNBOOK.md). Prepared configuration is not a completed deployment.
+
+Resume work from [CONTINUITY.md](CONTINUITY.md); delivery parts and remaining acceptance gates are tracked in [the delivery plan](docs/25_DELIVERY_PLAN.md).

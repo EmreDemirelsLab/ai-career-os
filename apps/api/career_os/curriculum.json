@@ -91,7 +91,7 @@
       "why": "Modelden önce eksik, yanlış ve dengesiz örnekleri görmelisin.",
       "build": "Bir veri setinde eksik değerleri ve hedef dağılımını raporla.",
       "english_question": "What did you learn from exploratory analysis?",
-      "source_url": "https://scikit-learn.org/stable/model_selection.html",
+      "source_url": "https://pandas.pydata.org/docs/getting_started/intro_tutorials/index.html",
       "source_checked_on": "2026-10-05",
       "prerequisites": [
         4
@@ -217,7 +217,7 @@
       "why": "Sonucun hangi veri ve ayardan geldiğini yeniden bulabilmelisin.",
       "build": "Üç deneyin seed, veri sürümü, ayar ve metriklerini kaydet.",
       "english_question": "How can someone reproduce your experiment?",
-      "source_url": "https://scikit-learn.org/stable/model_selection.html",
+      "source_url": "https://mlflow.org/docs/latest/ml/tracking/",
       "source_checked_on": "2026-10-05",
       "prerequisites": [
         10
@@ -280,7 +280,7 @@
       "why": "Benzer metinleri bulmak, cevabın doğru olduğunu tek başına kanıtlamaz.",
       "build": "Küçük bir belge koleksiyonunda retrieval baseline kur.",
       "english_question": "How is retrieval different from generation?",
-      "source_url": "https://huggingface.co/learn/llm-course/chapter1/1",
+      "source_url": "https://sbert.net/examples/sentence_transformer/applications/semantic-search/README.html",
       "source_checked_on": "2026-10-05",
       "prerequisites": [
         13
@@ -301,7 +301,7 @@
       "why": "Yanıtı dayandığı belgeyle değerlendirmek gerekir.",
       "build": "Kaynak referanslı RAG deneyi kur; kaynakta olmayan soruyu ekle.",
       "english_question": "How do you handle an unanswerable question?",
-      "source_url": "https://huggingface.co/learn/llm-course/chapter1/1",
+      "source_url": "https://huggingface.co/learn/cookbook/advanced_rag",
       "source_checked_on": "2026-10-05",
       "prerequisites": [
         14
@@ -322,7 +322,7 @@
       "why": "Örnek gösterim yerine sabit test kümesiyle değişiklikleri ölçersin.",
       "build": "Held-out sorular ve hata kategorileriyle eval raporu oluştur.",
       "english_question": "How do you avoid evaluating on your tuning examples?",
-      "source_url": "https://scikit-learn.org/stable/model_selection.html",
+      "source_url": "https://huggingface.co/docs/evaluate/index",
       "source_checked_on": "2026-10-05",
       "prerequisites": [
         15
@@ -343,7 +343,7 @@
       "why": "Dış işlemlere izin veren sınırları açıkça tanımlamalısın.",
       "build": "İzinli araç listesi ve geçersiz argüman testi yaz.",
       "english_question": "What should an agent never be allowed to decide?",
-      "source_url": "https://huggingface.co/learn/llm-course/chapter1/1",
+      "source_url": "https://huggingface.co/docs/transformers/chat_extras",
       "source_checked_on": "2026-10-05",
       "prerequisites": [
         16
@@ -427,7 +427,7 @@
       "why": "Veriye erişebilen her yolun aynı güven sınırlarına uyması gerekir.",
       "build": "Yetkisiz istek, secret redaction ve veri silme testlerini incele.",
       "english_question": "How do you separate authentication and authorization?",
-      "source_url": "https://fastapi.tiangolo.com/tutorial/",
+      "source_url": "https://fastapi.tiangolo.com/tutorial/security/",
       "source_checked_on": "2026-10-05",
       "prerequisites": [
         20
@@ -448,7 +448,7 @@
       "why": "Sorun çıktığında nedeni ve etkilenen kullanıcı akışını bulabilmelisin.",
       "build": "Log/metric/runbook ve restore senaryosu hazırla.",
       "english_question": "Which signals tell you your service is unhealthy?",
-      "source_url": "https://fastapi.tiangolo.com/tutorial/",
+      "source_url": "https://opentelemetry.io/docs/languages/python/",
       "source_checked_on": "2026-10-05",
       "prerequisites": [
         21
@@ -490,7 +490,7 @@
       "why": "İlan gereksinimi ile gösterebildiğin kanıtı eşleştirirsin.",
       "build": "Üç uygun ilanı incele; kanıt bağlantıları ve açık eksikleri yaz.",
       "english_question": "Tell me about a failure and the engineering decision that followed.",
-      "source_url": "https://fastapi.tiangolo.com/tutorial/",
+      "source_url": "https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes",
       "source_checked_on": "2026-10-05",
       "prerequisites": [
         23

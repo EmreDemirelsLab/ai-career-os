@@ -18,7 +18,7 @@ Scope: extends the completed foundation slice; does not declare the entire AI Ca
 
 Local: Ruff lint/format and mypy pass; pytest **24 passed, 17 skipped** (PostgreSQL unavailable). Web lint, TypeScript and production build passed. Chromium download failed in this environment; local browser verification is not claimed.
 
-CI gates configured: SQLite + PostgreSQL tests, migration roundtrip/metadata drift, frontend build, Docker Compose boot and fixture idempotency, Playwright real-browser login/profile/roadmap/learning/persistence/export/logout test. Initial CI found a container-origin mismatch; it was corrected to use the explicit browser origin. Remote result must be checked on the PR before this slice is accepted.
+CI gates configured: SQLite + PostgreSQL tests, migration roundtrip/metadata drift, frontend build, Docker Compose boot and fixture idempotency, Playwright real-browser login/profile/roadmap/learning/persistence/export/logout test. CI on 2026-10-05 confirmed **39 passed, 2 skipped** (the two SQLite variants of PostgreSQL-only concurrency tests), web lint/typecheck/build and Compose startup/ingestion. [Initial run](https://github.com/EmreDemirelsLab/ai-career-os/actions/runs/37298775549) found a browser container-origin mismatch; it was corrected to use the explicit browser origin. Browser acceptance must pass on the final PR head before this slice is accepted; see the PR checks for the authoritative current result.
 
 ## Operation and limitations
 

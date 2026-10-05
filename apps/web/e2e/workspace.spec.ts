@@ -18,7 +18,9 @@ test("private workspace persists profile, roadmap and learning without certifyin
     .getByLabel("Kişisel erişim anahtarı")
     .fill("incorrect-key-with-more-than-32-characters");
   await page.getByRole("button", { name: "Çalışma alanını aç" }).click();
-  await expect(page.getByRole("alert")).toBeVisible();
+  await expect(
+    page.getByText("Anahtar doğrulanamadı.", { exact: true }),
+  ).toBeVisible();
   await page.getByLabel("Kişisel erişim anahtarı").fill(token);
   await page.getByRole("button", { name: "Çalışma alanını aç" }).click();
   await expect(

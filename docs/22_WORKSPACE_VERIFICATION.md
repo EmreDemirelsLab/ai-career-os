@@ -18,11 +18,11 @@ Scope: extends the completed foundation slice; does not declare the entire AI Ca
 
 Local: Ruff lint/format and mypy pass; pytest **24 passed, 17 skipped** (PostgreSQL unavailable). Web lint, TypeScript and production build passed. Chromium download failed in this environment; local browser verification is not claimed.
 
-CI gates configured: SQLite + PostgreSQL tests, migration roundtrip/metadata drift, frontend build, Docker Compose boot and fixture idempotency, Playwright real-browser login/profile/roadmap/learning/persistence/export/logout test. Remote result must be checked on the PR before this slice is accepted.
+CI gates configured: SQLite + PostgreSQL tests, migration roundtrip/metadata drift, frontend build, Docker Compose boot and fixture idempotency, Playwright real-browser login/profile/roadmap/learning/persistence/export/logout test. Initial CI found a container-origin mismatch; it was corrected to use the explicit browser origin. Remote result must be checked on the PR before this slice is accepted.
 
 ## Operation and limitations
 
-Run `python3 scripts/init_workspace.py` once before Compose; existing .env is never overwritten. Read the key locally, never publish it. Restart API after rotating the key; old sessions then fail verification. Export personal data before destructive resets. Database volume persistence is not a backup strategy.
+Run `python3 scripts/init_workspace.py` once before Compose; existing .env is never overwritten. Read the key locally, never publish it. Browser mutations use the explicit `WORKSPACE_ORIGIN` (default `http://localhost:3000`), not the container-internal hostname or untrusted forwarding headers. Set it to the exact browser origin when changing the local address. For native Next.js, export it into the web process environment. Restart API after rotating the key; old sessions then fail verification. Export personal data before destructive resets. Database volume persistence is not a backup strategy.
 
 This local token is not multi-user identity or production session management. Public hosting, managed auth, TLS configuration, rate limits, background retention, encrypted backups and restore drills remain release gates. All workspace records are loaded together: pagination and large-volume benchmarks remain open. API-created profile/roadmap versions are preserved by behavior; database administrators can still alter them.
 

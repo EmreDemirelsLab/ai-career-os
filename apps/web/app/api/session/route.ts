@@ -1,7 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
-  if (request.headers.get("origin") !== request.nextUrl.origin)
+  if (
+    request.headers.get("origin") !==
+    (process.env.WORKSPACE_ORIGIN || "http://localhost:3000")
+  )
     return NextResponse.json({ detail: "Origin denied" }, { status: 403 });
   const body = await request.json().catch(() => null);
   const token = body?.token;
@@ -33,7 +36,9 @@ export async function POST(request: NextRequest) {
     result.cookies.set("career_session", token, {
       httpOnly: true,
       sameSite: "strict",
-      secure: request.nextUrl.protocol === "https:",
+      secure: (
+        process.env.WORKSPACE_ORIGIN || "http://localhost:3000"
+      ).startsWith("https://"),
       path: "/",
       maxAge: 8 * 60 * 60,
     });
@@ -46,7 +51,10 @@ export async function POST(request: NextRequest) {
   }
 }
 export async function DELETE(request: NextRequest) {
-  if (request.headers.get("origin") !== request.nextUrl.origin)
+  if (
+    request.headers.get("origin") !==
+    (process.env.WORKSPACE_ORIGIN || "http://localhost:3000")
+  )
     return NextResponse.json({ detail: "Origin denied" }, { status: 403 });
   const result = NextResponse.json({ ok: true });
   result.cookies.delete("career_session");

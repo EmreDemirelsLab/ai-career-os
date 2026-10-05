@@ -4,7 +4,8 @@ type Context = { params: Promise<{ path?: string[] }> };
 async function proxy(request: NextRequest, context: Context) {
   if (
     request.method !== "GET" &&
-    request.headers.get("origin") !== request.nextUrl.origin
+    request.headers.get("origin") !==
+      (process.env.WORKSPACE_ORIGIN || "http://localhost:3000")
   )
     return NextResponse.json({ detail: "Origin denied" }, { status: 403 });
   const token = request.cookies.get("career_session")?.value;

@@ -31,7 +31,7 @@ async function proxy(request: NextRequest, context: Context) {
         headers,
         body: body || undefined,
         cache: "no-store",
-        signal: AbortSignal.timeout(10000),
+        signal: AbortSignal.timeout(path.includes("feedback") ? 60000 : 10000),
       },
     );
     return new NextResponse(

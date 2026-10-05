@@ -15,7 +15,7 @@ def test_health_ready_and_schema_drift(engine):
         assert client.get("/ready").status_code == 503
         assert client.get("/health").status_code == 200
         with engine.begin() as connection:
-            connection.execute(text("UPDATE alembic_version SET version_num='0002_workspace'"))
+            connection.execute(text("UPDATE alembic_version SET version_num='0003_intelligence'"))
 
 
 def test_missing_schema_is_not_ready(tmp_path):

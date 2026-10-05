@@ -1,4 +1,5 @@
 "use client";
+import Intelligence from "./components/Intelligence";
 import {
   useCallback,
   useEffect,
@@ -89,6 +90,7 @@ const tabs = [
   "Mülakat",
   "Fırsatlar",
   "Başvurular",
+  "Analiz & AI",
   "Veri kontrolü",
 ];
 const levels = ["unknown", "none", "A1", "A2", "B1", "B2", "C1", "C2"];
@@ -284,8 +286,9 @@ export default function Home() {
         <button
           className="logout"
           onClick={async () => {
-            await fetch("/api/session", { method: "DELETE" });
-            setData(null);
+            const r = await fetch("/api/session", { method: "DELETE" });
+            if (r.ok) setData(null);
+            else setError("Oturum kapatılamadı; tekrar dene.");
           }}
         >
           Oturumu kapat
@@ -300,8 +303,8 @@ export default function Home() {
           <span className="badge">Kişisel sürüm</span>
         </header>
         <div className="connection">
-          Canlı ilan toplama ve AI öğretmeni henüz bağlı değil. Bu alandaki
-          çalışmalar ve kayıtlar kalıcı olarak saklanır.
+          Canlı kaynak ve AI yapılandırmasını Analiz & AI alanından kontrol et.
+          Bu alandaki çalışmalar ve kayıtlar kalıcı olarak saklanır.
         </div>
         {error && (
           <p className="error" role="alert">
@@ -744,7 +747,8 @@ export default function Home() {
               <p>
                 Teknik doğruluk, kanıt, alternatifler ve sınırları açıkla.
                 Ardından İngilizce açıklığın, yapın ve terim kullanımını ayrı
-                değerlendir. AI değerlendirmesi henüz bağlı değil.
+                değerlendir. Kaydettiğin yanıt için Analiz & AI alanından geri
+                bildirim isteyebilirsin.
               </p>
               <form
                 onSubmit={submit((f) =>
@@ -972,6 +976,13 @@ export default function Home() {
               </section>
             ))}
           </>
+        )}
+        {tab === "Analiz & AI" && (
+          <Intelligence
+            skills={data.skills}
+            attempts={data.attempts}
+            interviews={data.interviews}
+          />
         )}
         {tab === "Veri kontrolü" && (
           <section>

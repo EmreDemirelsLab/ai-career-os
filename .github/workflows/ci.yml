@@ -47,6 +47,8 @@ jobs:
       - run: npm run build
   compose-smoke:
     runs-on: ubuntu-latest
+    env:
+      CAREER_API_TOKEN: ci-disposable-workspace-token-at-least-32-characters
     steps:
       - uses: actions/checkout@v4
       - run: docker compose up --build -d --wait --wait-timeout 180
@@ -58,6 +60,15 @@ jobs:
           docker compose exec -T api career-os ingest-fixture --key ci-1
           docker compose exec -T api career-os ingest-fixture --key ci-2
           docker compose exec -T postgres psql -U career -d career -tAc "SELECT count(*) = 2 FROM raw_jobs" | grep -qx t
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npm ci
+        working-directory: apps/web
+      - run: npx playwright install --with-deps chromium
+        working-directory: apps/web
+      - run: npm run test:e2e
+        working-directory: apps/web
       - if: always()
         run: docker compose logs --no-color
       - if: always()

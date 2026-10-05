@@ -1,0 +1,9 @@
+{$CAREER_DOMAIN} {
+    encode gzip
+    header {
+        X-Content-Type-Options nosniff
+        Referrer-Policy same-origin
+        Strict-Transport-Security "max-age=31536000"
+    }
+    reverse_proxy web:3000
+}

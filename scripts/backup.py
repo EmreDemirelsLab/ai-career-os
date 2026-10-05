@@ -6,6 +6,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+from compose_command import compose_command
+
 path = Path(sys.argv[1]) if len(sys.argv) > 1 else Path("backups/career.dump")
 path.parent.mkdir(parents=True, exist_ok=True)
 fd = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
@@ -13,8 +15,7 @@ try:
     with os.fdopen(fd, "wb") as out:
         subprocess.run(
             [
-                "docker",
-                "compose",
+                *compose_command(),
                 "exec",
                 "-T",
                 "postgres",

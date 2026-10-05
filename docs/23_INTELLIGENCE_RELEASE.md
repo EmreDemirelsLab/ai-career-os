@@ -65,3 +65,5 @@ Full completion still requires real reviewed source coverage/gold extraction and
 ## Verification at implementation time
 
 Local Python lint/format/mypy passed. Pytest: **33 passed, 23 skipped** (PostgreSQL unavailable; three PostgreSQL-only concurrency cases also skip on SQLite). Frontend lint/typecheck/production build passed. Remote CI must verify PostgreSQL, concurrent budget reservation, expanded browser flow, Compose and backup restore before this PR is accepted. No paid model call, live employer collection or production deployment was executed.
+
+The [hosting runbook](24_HOSTING_RUNBOOK.md) now includes a concrete single-owner Compose target, generated separate owner/runtime credentials, Caddy TLS configuration and CI checks for restricted-role DDL denial. No target was deployed; live TLS, monitoring and offsite backup remain unverified.

@@ -137,7 +137,7 @@ export default function Intelligence({ skills, attempts, interviews }: Props) {
           >
             <label className="field">
               Kaynaklar
-              <select multiple name="sources" required>
+              <select aria-label="Kaynaklar" multiple name="sources" required>
                 {data.sources
                   .filter((x) => x.enabled)
                   .map((s) => (
@@ -172,7 +172,7 @@ export default function Intelligence({ skills, attempts, interviews }: Props) {
           >
             <label className="field">
               Piyasa sürümü
-              <select name="market" required>
+              <select aria-label="Piyasa sürümü" name="market" required>
                 <option value="">Seç</option>
                 {markets.map((m) => (
                   <option key={m.id} value={m.id}>
@@ -184,7 +184,13 @@ export default function Intelligence({ skills, attempts, interviews }: Props) {
             </label>
             <label className="field">
               Hedef beceriler
-              <select multiple name="targets" required size={5}>
+              <select
+                aria-label="Hedef beceriler"
+                multiple
+                name="targets"
+                required
+                size={5}
+              >
                 {skills.map((s) => (
                   <option key={s}>{s}</option>
                 ))}

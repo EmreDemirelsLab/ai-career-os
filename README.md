@@ -72,3 +72,5 @@ npm run build
 Flow: fixture → validated envelope → immutable content revisions + per-run observations → persisted counters/rejections. Revisions use source identity and content hash; cross-source logical-job deduplication is a later benchmarked feature.
 
 Empirical market/model evaluation, live retention enforcement, scheduling, production hosting and user acceptance remain release gates. The current product is single-owner; multi-user SaaS is outside this slice. AI-generated implementation does not establish the learner's mastery.
+
+Single-owner hosting candidate: [deployment and recovery runbook](docs/24_HOSTING_RUNBOOK.md). Prepared configuration is not a completed deployment.

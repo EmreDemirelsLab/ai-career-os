@@ -51,6 +51,10 @@ jobs:
       CAREER_API_TOKEN: ci-disposable-workspace-token-at-least-32-characters
     steps:
       - uses: actions/checkout@v4
+      - run: |
+          python3 scripts/init_hosted.py ci.example.invalid
+          docker compose --env-file .env.hosted -f compose.hosted.yaml config --quiet
+          docker run --rm -e CAREER_DOMAIN=ci.example.invalid -v "$PWD/infra/caddy/Caddyfile:/etc/caddy/Caddyfile:ro" caddy:2-alpine caddy adapt --config /etc/caddy/Caddyfile --validate > /dev/null
       - run: docker compose up --build -d --wait --wait-timeout 180
       - run: |
           curl --fail http://localhost:8000/health
@@ -60,6 +64,12 @@ jobs:
           docker compose exec -T api career-os ingest-fixture --key ci-1
           docker compose exec -T api career-os ingest-fixture --key ci-2
           docker compose exec -T postgres psql -U career -d career -tAc "SELECT count(*) = 2 FROM raw_jobs" | grep -qx t
+      - run: |
+          docker compose exec -T -e CAREER_DB_RUNTIME_PASSWORD=ci-runtime-only postgres sh -s < infra/postgres/runtime-role.sh
+          docker compose exec -T -e PGPASSWORD=ci-runtime-only postgres psql -h localhost -U career_runtime -d career -v ON_ERROR_STOP=1 -c "SELECT count(*) FROM raw_jobs"
+          if docker compose exec -T -e PGPASSWORD=ci-runtime-only postgres psql -h localhost -U career_runtime -d career -v ON_ERROR_STOP=1 -c "ALTER TABLE raw_jobs DISABLE TRIGGER raw_immutable"; then
+            exit 1
+          fi
       - uses: actions/setup-node@v4
         with:
           node-version: "22"

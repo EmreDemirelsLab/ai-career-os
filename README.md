@@ -2,20 +2,21 @@
 
 A market-driven AI/ML learning and career evidence platform. Flagship production engineering portfolio, built in reviewable slices.
 
-**Current:** v1.3 architecture review, Sprint 1 foundation. Synthetic data only. No market analytics, skill scores or AI features yet. See [acceptance status](docs/19_VERIFICATION_REPORT.md) for checks actually executed.
+**Current:** v1.3 foundation plus a single-owner personal workspace: versioned profile and 24-week baseline, learning/English submissions, delayed recall, evidence, interview rehearsal, manually reviewed opportunities and application history. Live market collection and AI assessment are not implemented. See the [complete-product contract](docs/21_COMPLETE_PRODUCT_CONTRACT.md) and [workspace verification](docs/22_WORKSPACE_VERIFICATION.md).
 
 ## Start locally (Docker)
 
 Requires Docker Engine/Desktop with Compose v2. Local development only; example database credentials are disposable and must never be reused in production.
 
 ```sh
+python3 scripts/init_workspace.py
 docker compose up --build -d --wait
 docker compose exec api career-os seed
 docker compose exec api career-os ingest-fixture --key demo-1
 docker compose exec api career-os ingest-fixture --key demo-2
 ```
 
-Open http://localhost:3000. API: http://localhost:8000/health and http://localhost:8000/ready. First fixture run: 3 fetched, 2 accepted/inserted, 1 rejected. Second key: 0 inserted, 2 duplicates, 1 rejected. Same key/input returns the original run without adding observations. A changed input with the same key is refused.
+Open http://localhost:3000 and sign in using CAREER_API_TOKEN from your local .env. Never commit or share this value. An unset token disables the workspace. If .env already exists, preserve it and add a randomly generated token of at least 32 characters. API: http://localhost:8000/health and http://localhost:8000/ready. First fixture run: 3 fetched, 2 accepted/inserted, 1 rejected. Second key: 0 inserted, 2 duplicates, 1 rejected. Same key/input returns the original run without adding observations. A changed input with the same key is refused.
 
 Inspect errors with `docker compose exec api career-os run <run-id>`. Disable source: `docker compose exec api career-os source-state DEMO disable`. Original source candidates are disabled and cannot be enabled without reviewed policy metadata. Seed reruns preserve operator changes.
 
@@ -27,7 +28,7 @@ Python 3.12, uv 0.12.19, Node 22, npm. Start PostgreSQL through Compose or use a
 
 ```sh
 uv sync --locked
-cp .env.example .env
+python3 scripts/init_workspace.py
 uv run alembic upgrade head
 uv run career-os seed
 uv run uvicorn career_os.api:app --reload
@@ -70,4 +71,4 @@ npm run build
 
 Flow: fixture → validated envelope → immutable content revisions + per-run observations → persisted counters/rejections. Revisions use source identity and content hash; cross-source logical-job deduplication is a later benchmarked feature.
 
-Production collection, authentication, multi-user isolation, retention worker, crash leases, queue retries, extraction, graph scoring, tutoring and deployment remain later gates. AI-generated implementation does not establish the learner's mastery.
+Production collection, managed identity, multi-user isolation, retention worker, crash leases, queue retries, extraction, graph scoring, tutoring and deployment remain later gates. AI-generated implementation does not establish the learner's mastery.

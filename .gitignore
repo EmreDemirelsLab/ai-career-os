@@ -14,3 +14,5 @@ node_modules/
 *.tsbuildinfo
 coverage.xml
 .coverage
+test-results/
+playwright-report/

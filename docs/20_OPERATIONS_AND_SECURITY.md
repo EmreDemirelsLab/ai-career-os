@@ -1,3 +1,5 @@
+> Workspace extension: see docs/21 and docs/22. The foundation-only interface inventory below predates authenticated personal workspace routes. Single-owner access uses a local bearer token and HttpOnly same-origin browser session; this is not production identity management.
+
 # Operations, security and learner defense
 
 Date: 2026-10-05. Scope: trusted local development, not hosted production.

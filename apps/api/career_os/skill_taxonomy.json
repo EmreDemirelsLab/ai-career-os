@@ -1,0 +1,135 @@
+{
+  "version": "0.1.0-seed",
+  "categories": {
+    "FOUNDATION": [
+      "Python",
+      "SQL",
+      "Git",
+      "Linux",
+      "HTTP/REST",
+      "Data Structures & Algorithms",
+      "Software Testing",
+      "System Design"
+    ],
+    "DATA": [
+      "NumPy",
+      "Pandas",
+      "Data Cleaning",
+      "Feature Engineering",
+      "Data Pipelines",
+      "PostgreSQL",
+      "Redis",
+      "Spark/PySpark"
+    ],
+    "MATH_ML": [
+      "Probability",
+      "Statistics",
+      "Linear Algebra",
+      "Calculus",
+      "Supervised Learning",
+      "Unsupervised Learning",
+      "Model Evaluation",
+      "Imbalanced Learning",
+      "Experiment Design"
+    ],
+    "DEEP_LEARNING": [
+      "Neural Networks",
+      "Backpropagation",
+      "PyTorch",
+      "TensorFlow",
+      "Transformers",
+      "Embeddings",
+      "Hugging Face"
+    ],
+    "GENAI": [
+      "LLM Fundamentals",
+      "Prompt/Context Engineering",
+      "Structured Outputs",
+      "RAG",
+      "Vector Databases",
+      "Hybrid Search",
+      "Reranking",
+      "LLM Evaluation",
+      "Fine-tuning",
+      "PEFT",
+      "LoRA",
+      "QLoRA",
+      "Quantization"
+    ],
+    "AGENTIC": [
+      "Tool Calling",
+      "Agent Workflows",
+      "LangChain",
+      "LangGraph",
+      "LlamaIndex",
+      "MCP",
+      "Multi-Agent Systems",
+      "State/Memory",
+      "Failure Recovery"
+    ],
+    "BACKEND": [
+      "FastAPI",
+      "API Integration",
+      "Async Python",
+      "Microservice Concepts",
+      "Authentication/Authorization"
+    ],
+    "MLOPS": [
+      "Docker",
+      "Kubernetes",
+      "CI/CD",
+      "MLflow",
+      "Weights & Biases",
+      "Model Serving",
+      "Model Monitoring",
+      "Drift Detection",
+      "Observability",
+      "Tracing",
+      "Prompt/Model Governance"
+    ],
+    "CLOUD": [
+      "AWS",
+      "Amazon Bedrock",
+      "Amazon SageMaker",
+      "S3",
+      "Lambda",
+      "ECS/ECR",
+      "SQS",
+      "GCP",
+      "Azure",
+      "Infrastructure as Code",
+      "Terraform"
+    ],
+    "PRODUCTION": [
+      "Security",
+      "IAM/Secrets",
+      "Cost Optimization",
+      "Latency Optimization",
+      "Caching",
+      "Reliability/SLOs",
+      "Responsible AI",
+      "Documentation"
+    ],
+    "COMMUNICATION": [
+      "Technical English",
+      "Technical Writing",
+      "Stakeholder Communication",
+      "Architecture Explanation",
+      "Interview Communication"
+    ]
+  },
+  "aliases": {
+    "Amazon Web Services": "AWS",
+    "AWS Cloud": "AWS",
+    "Postgres": "PostgreSQL",
+    "Large Language Models": "LLM Fundamentals",
+    "LLMs": "LLM Fundamentals",
+    "Retrieval-Augmented Generation": "RAG",
+    "Retrieval Augmented Generation": "RAG",
+    "K8s": "Kubernetes",
+    "HF": "Hugging Face",
+    "W&B": "Weights & Biases",
+    "Model Context Protocol": "MCP",
+    "IaC": "Infrastructure as Code"
+  }
+}

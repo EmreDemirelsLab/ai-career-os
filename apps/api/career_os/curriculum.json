@@ -1,0 +1,508 @@
+{
+  "version": "workspace-baseline/1",
+  "status": "activity_scaffold_not_validated_course",
+  "units": [
+    {
+      "week": 1,
+      "title": "Python ile veri sözleşmesi",
+      "skill": "Python",
+      "why": "Doğru girdiyi tanımlamak, sonraki hataları görünür yapar.",
+      "build": "Bir ilan kaydını doğrulayan fonksiyon ve üç sınır testi yaz.",
+      "english_question": "How do you validate untrusted input?",
+      "source_url": "https://docs.python.org/3/tutorial/",
+      "source_checked_on": "2026-10-05",
+      "prerequisites": [],
+      "stages": [
+        "Önce nedenini kendi cümlelerinle anlat.",
+        "Küçük, somut bir örnek çiz veya çalıştır.",
+        "Resmî kaynaktan ilgili kısmı oku; bilmediğin sembol ve terimleri aç.",
+        "Kodla, sınır durumunu boz ve düzelt.",
+        "İngilizce üç cümleyle iddianı, kanıtını ve sınırını anlat.",
+        "3/7/14/30 gün sonra kaynağa bakmadan tekrar et."
+      ]
+    },
+    {
+      "week": 2,
+      "title": "SQL ve veri bütünlüğü",
+      "skill": "SQL",
+      "why": "İlişkiler ve kısıtlar aynı veriye farklı yollardan erişirken tutarlılığı korumaya yarar.",
+      "build": "Source ve Job tabloları kur; JOIN sorgusu ve duplicate testi yaz.",
+      "english_question": "Why enforce uniqueness in the database?",
+      "source_url": "https://www.postgresql.org/docs/current/tutorial.html",
+      "source_checked_on": "2026-10-05",
+      "prerequisites": [
+        1
+      ],
+      "stages": [
+        "Önce nedenini kendi cümlelerinle anlat.",
+        "Küçük, somut bir örnek çiz veya çalıştır.",
+        "Resmî kaynaktan ilgili kısmı oku; bilmediğin sembol ve terimleri aç.",
+        "Kodla, sınır durumunu boz ve düzelt.",
+        "İngilizce üç cümleyle iddianı, kanıtını ve sınırını anlat.",
+        "3/7/14/30 gün sonra kaynağa bakmadan tekrar et."
+      ]
+    },
+    {
+      "week": 3,
+      "title": "API ve hata durumları",
+      "skill": "FastAPI",
+      "why": "Bir modeli başkalarının kullanabileceği bir sözleşmeyle sunmak gerekir.",
+      "build": "Doğrulanmış istek alan API yaz; 200 ve 422 yanıtlarını test et.",
+      "english_question": "How do you design a reliable API contract?",
+      "source_url": "https://fastapi.tiangolo.com/tutorial/",
+      "source_checked_on": "2026-10-05",
+      "prerequisites": [
+        2
+      ],
+      "stages": [
+        "Önce nedenini kendi cümlelerinle anlat.",
+        "Küçük, somut bir örnek çiz veya çalıştır.",
+        "Resmî kaynaktan ilgili kısmı oku; bilmediğin sembol ve terimleri aç.",
+        "Kodla, sınır durumunu boz ve düzelt.",
+        "İngilizce üç cümleyle iddianı, kanıtını ve sınırını anlat.",
+        "3/7/14/30 gün sonra kaynağa bakmadan tekrar et."
+      ]
+    },
+    {
+      "week": 4,
+      "title": "Tekrarlanabilir veri akışı",
+      "skill": "Data Pipelines",
+      "why": "Tekrar çalıştırma yeni veriyle eski veriyi ayırabilmelidir.",
+      "build": "AI Career OS ingestion testini bağımsız olarak açıkla ve hata ekleyip düzelt.",
+      "english_question": "What makes an operation idempotent?",
+      "source_url": "https://www.postgresql.org/docs/current/tutorial.html",
+      "source_checked_on": "2026-10-05",
+      "prerequisites": [
+        3
+      ],
+      "stages": [
+        "Önce nedenini kendi cümlelerinle anlat.",
+        "Küçük, somut bir örnek çiz veya çalıştır.",
+        "Resmî kaynaktan ilgili kısmı oku; bilmediğin sembol ve terimleri aç.",
+        "Kodla, sınır durumunu boz ve düzelt.",
+        "İngilizce üç cümleyle iddianı, kanıtını ve sınırını anlat.",
+        "3/7/14/30 gün sonra kaynağa bakmadan tekrar et."
+      ]
+    },
+    {
+      "week": 5,
+      "title": "Veriyi tanıma",
+      "skill": "Pandas",
+      "why": "Modelden önce eksik, yanlış ve dengesiz örnekleri görmelisin.",
+      "build": "Bir veri setinde eksik değerleri ve hedef dağılımını raporla.",
+      "english_question": "What did you learn from exploratory analysis?",
+      "source_url": "https://pandas.pydata.org/docs/getting_started/intro_tutorials/index.html",
+      "source_checked_on": "2026-10-05",
+      "prerequisites": [
+        4
+      ],
+      "stages": [
+        "Önce nedenini kendi cümlelerinle anlat.",
+        "Küçük, somut bir örnek çiz veya çalıştır.",
+        "Resmî kaynaktan ilgili kısmı oku; bilmediğin sembol ve terimleri aç.",
+        "Kodla, sınır durumunu boz ve düzelt.",
+        "İngilizce üç cümleyle iddianı, kanıtını ve sınırını anlat.",
+        "3/7/14/30 gün sonra kaynağa bakmadan tekrar et."
+      ]
+    },
+    {
+      "week": 6,
+      "title": "Veri bölme ve sızıntı",
+      "skill": "Model Evaluation",
+      "why": "Geleceği temsil etmeyen değerlendirme yanıltıcı olabilir.",
+      "build": "Train/validation/test bölmesini gerekçelendir; leakage örneğini düzelt.",
+      "english_question": "How do you prevent data leakage?",
+      "source_url": "https://scikit-learn.org/stable/model_selection.html",
+      "source_checked_on": "2026-10-05",
+      "prerequisites": [
+        5
+      ],
+      "stages": [
+        "Önce nedenini kendi cümlelerinle anlat.",
+        "Küçük, somut bir örnek çiz veya çalıştır.",
+        "Resmî kaynaktan ilgili kısmı oku; bilmediğin sembol ve terimleri aç.",
+        "Kodla, sınır durumunu boz ve düzelt.",
+        "İngilizce üç cümleyle iddianı, kanıtını ve sınırını anlat.",
+        "3/7/14/30 gün sonra kaynağa bakmadan tekrar et."
+      ]
+    },
+    {
+      "week": 7,
+      "title": "Baseline ve metrikler",
+      "skill": "Supervised Learning",
+      "why": "Karmaşık modelin değerini basit bir referansla karşılaştırırsın.",
+      "build": "Baseline ve bir sınıflandırıcıyı aynı bölmede karşılaştır.",
+      "english_question": "Why did you choose this evaluation metric?",
+      "source_url": "https://scikit-learn.org/stable/model_selection.html",
+      "source_checked_on": "2026-10-05",
+      "prerequisites": [
+        6
+      ],
+      "stages": [
+        "Önce nedenini kendi cümlelerinle anlat.",
+        "Küçük, somut bir örnek çiz veya çalıştır.",
+        "Resmî kaynaktan ilgili kısmı oku; bilmediğin sembol ve terimleri aç.",
+        "Kodla, sınır durumunu boz ve düzelt.",
+        "İngilizce üç cümleyle iddianı, kanıtını ve sınırını anlat.",
+        "3/7/14/30 gün sonra kaynağa bakmadan tekrar et."
+      ]
+    },
+    {
+      "week": 8,
+      "title": "Hata analizi ve ilk başvurular",
+      "skill": "Imbalanced Learning",
+      "why": "Ortalama skor hangi örneklerin başarısız olduğunu saklayabilir.",
+      "build": "Yanlış pozitif/negatifleri incele; İngilizce proje özeti yaz.",
+      "english_question": "How do false positives and false negatives affect users?",
+      "source_url": "https://scikit-learn.org/stable/model_selection.html",
+      "source_checked_on": "2026-10-05",
+      "prerequisites": [
+        7
+      ],
+      "stages": [
+        "Önce nedenini kendi cümlelerinle anlat.",
+        "Küçük, somut bir örnek çiz veya çalıştır.",
+        "Resmî kaynaktan ilgili kısmı oku; bilmediğin sembol ve terimleri aç.",
+        "Kodla, sınır durumunu boz ve düzelt.",
+        "İngilizce üç cümleyle iddianı, kanıtını ve sınırını anlat.",
+        "3/7/14/30 gün sonra kaynağa bakmadan tekrar et."
+      ]
+    },
+    {
+      "week": 9,
+      "title": "Tensor ve gradient",
+      "skill": "PyTorch",
+      "why": "Öğrenme, parametre değişiminin kayba etkisini hesaplamayı gerektirir.",
+      "build": "Küçük tensor örneğinde gradient hesapla ve el hesabıyla karşılaştır.",
+      "english_question": "What does a gradient represent?",
+      "source_url": "https://docs.pytorch.org/tutorials/beginner/basics/intro.html",
+      "source_checked_on": "2026-10-05",
+      "prerequisites": [
+        8
+      ],
+      "stages": [
+        "Önce nedenini kendi cümlelerinle anlat.",
+        "Küçük, somut bir örnek çiz veya çalıştır.",
+        "Resmî kaynaktan ilgili kısmı oku; bilmediğin sembol ve terimleri aç.",
+        "Kodla, sınır durumunu boz ve düzelt.",
+        "İngilizce üç cümleyle iddianı, kanıtını ve sınırını anlat.",
+        "3/7/14/30 gün sonra kaynağa bakmadan tekrar et."
+      ]
+    },
+    {
+      "week": 10,
+      "title": "Eğitim döngüsü",
+      "skill": "Neural Networks",
+      "why": "Veri, tahmin, kayıp ve güncelleme adımlarını ayırt etmelisin.",
+      "build": "Eğitim/validation döngüsü yaz; iki veri grubunu ayrı tut.",
+      "english_question": "Why do training and validation losses diverge?",
+      "source_url": "https://docs.pytorch.org/tutorials/beginner/basics/intro.html",
+      "source_checked_on": "2026-10-05",
+      "prerequisites": [
+        9
+      ],
+      "stages": [
+        "Önce nedenini kendi cümlelerinle anlat.",
+        "Küçük, somut bir örnek çiz veya çalıştır.",
+        "Resmî kaynaktan ilgili kısmı oku; bilmediğin sembol ve terimleri aç.",
+        "Kodla, sınır durumunu boz ve düzelt.",
+        "İngilizce üç cümleyle iddianı, kanıtını ve sınırını anlat.",
+        "3/7/14/30 gün sonra kaynağa bakmadan tekrar et."
+      ]
+    },
+    {
+      "week": 11,
+      "title": "Deney takibi",
+      "skill": "Experiment Design",
+      "why": "Sonucun hangi veri ve ayardan geldiğini yeniden bulabilmelisin.",
+      "build": "Üç deneyin seed, veri sürümü, ayar ve metriklerini kaydet.",
+      "english_question": "How can someone reproduce your experiment?",
+      "source_url": "https://mlflow.org/docs/latest/ml/tracking/",
+      "source_checked_on": "2026-10-05",
+      "prerequisites": [
+        10
+      ],
+      "stages": [
+        "Önce nedenini kendi cümlelerinle anlat.",
+        "Küçük, somut bir örnek çiz veya çalıştır.",
+        "Resmî kaynaktan ilgili kısmı oku; bilmediğin sembol ve terimleri aç.",
+        "Kodla, sınır durumunu boz ve düzelt.",
+        "İngilizce üç cümleyle iddianı, kanıtını ve sınırını anlat.",
+        "3/7/14/30 gün sonra kaynağa bakmadan tekrar et."
+      ]
+    },
+    {
+      "week": 12,
+      "title": "Model servisi",
+      "skill": "Model Serving",
+      "why": "Model dosyası ile çalışan servis farklı sorumluluklar taşır.",
+      "build": "Modeli API arkasına al; geçersiz girdi ve çıktı şeklini test et.",
+      "english_question": "How do you deploy and roll back a model?",
+      "source_url": "https://fastapi.tiangolo.com/tutorial/",
+      "source_checked_on": "2026-10-05",
+      "prerequisites": [
+        11
+      ],
+      "stages": [
+        "Önce nedenini kendi cümlelerinle anlat.",
+        "Küçük, somut bir örnek çiz veya çalıştır.",
+        "Resmî kaynaktan ilgili kısmı oku; bilmediğin sembol ve terimleri aç.",
+        "Kodla, sınır durumunu boz ve düzelt.",
+        "İngilizce üç cümleyle iddianı, kanıtını ve sınırını anlat.",
+        "3/7/14/30 gün sonra kaynağa bakmadan tekrar et."
+      ]
+    },
+    {
+      "week": 13,
+      "title": "Transformer ve token",
+      "skill": "Transformers",
+      "why": "Metnin modele nasıl girdiğini bilmek sınırları anlamayı sağlar.",
+      "build": "Aynı metnin token çıktısını incele; context sınırını açıkla.",
+      "english_question": "What is the role of tokenization?",
+      "source_url": "https://huggingface.co/learn/llm-course/chapter1/1",
+      "source_checked_on": "2026-10-05",
+      "prerequisites": [
+        12
+      ],
+      "stages": [
+        "Önce nedenini kendi cümlelerinle anlat.",
+        "Küçük, somut bir örnek çiz veya çalıştır.",
+        "Resmî kaynaktan ilgili kısmı oku; bilmediğin sembol ve terimleri aç.",
+        "Kodla, sınır durumunu boz ve düzelt.",
+        "İngilizce üç cümleyle iddianı, kanıtını ve sınırını anlat.",
+        "3/7/14/30 gün sonra kaynağa bakmadan tekrar et."
+      ]
+    },
+    {
+      "week": 14,
+      "title": "Embedding ve retrieval",
+      "skill": "Embeddings",
+      "why": "Benzer metinleri bulmak, cevabın doğru olduğunu tek başına kanıtlamaz.",
+      "build": "Küçük bir belge koleksiyonunda retrieval baseline kur.",
+      "english_question": "How is retrieval different from generation?",
+      "source_url": "https://sbert.net/examples/sentence_transformer/applications/semantic-search/README.html",
+      "source_checked_on": "2026-10-05",
+      "prerequisites": [
+        13
+      ],
+      "stages": [
+        "Önce nedenini kendi cümlelerinle anlat.",
+        "Küçük, somut bir örnek çiz veya çalıştır.",
+        "Resmî kaynaktan ilgili kısmı oku; bilmediğin sembol ve terimleri aç.",
+        "Kodla, sınır durumunu boz ve düzelt.",
+        "İngilizce üç cümleyle iddianı, kanıtını ve sınırını anlat.",
+        "3/7/14/30 gün sonra kaynağa bakmadan tekrar et."
+      ]
+    },
+    {
+      "week": 15,
+      "title": "RAG ve kaynaklar",
+      "skill": "RAG",
+      "why": "Yanıtı dayandığı belgeyle değerlendirmek gerekir.",
+      "build": "Kaynak referanslı RAG deneyi kur; kaynakta olmayan soruyu ekle.",
+      "english_question": "How do you handle an unanswerable question?",
+      "source_url": "https://huggingface.co/learn/cookbook/advanced_rag",
+      "source_checked_on": "2026-10-05",
+      "prerequisites": [
+        14
+      ],
+      "stages": [
+        "Önce nedenini kendi cümlelerinle anlat.",
+        "Küçük, somut bir örnek çiz veya çalıştır.",
+        "Resmî kaynaktan ilgili kısmı oku; bilmediğin sembol ve terimleri aç.",
+        "Kodla, sınır durumunu boz ve düzelt.",
+        "İngilizce üç cümleyle iddianı, kanıtını ve sınırını anlat.",
+        "3/7/14/30 gün sonra kaynağa bakmadan tekrar et."
+      ]
+    },
+    {
+      "week": 16,
+      "title": "LLM değerlendirme",
+      "skill": "LLM Evaluation",
+      "why": "Örnek gösterim yerine sabit test kümesiyle değişiklikleri ölçersin.",
+      "build": "Held-out sorular ve hata kategorileriyle eval raporu oluştur.",
+      "english_question": "How do you avoid evaluating on your tuning examples?",
+      "source_url": "https://huggingface.co/docs/evaluate/index",
+      "source_checked_on": "2026-10-05",
+      "prerequisites": [
+        15
+      ],
+      "stages": [
+        "Önce nedenini kendi cümlelerinle anlat.",
+        "Küçük, somut bir örnek çiz veya çalıştır.",
+        "Resmî kaynaktan ilgili kısmı oku; bilmediğin sembol ve terimleri aç.",
+        "Kodla, sınır durumunu boz ve düzelt.",
+        "İngilizce üç cümleyle iddianı, kanıtını ve sınırını anlat.",
+        "3/7/14/30 gün sonra kaynağa bakmadan tekrar et."
+      ]
+    },
+    {
+      "week": 17,
+      "title": "Tool calling",
+      "skill": "Tool Calling",
+      "why": "Dış işlemlere izin veren sınırları açıkça tanımlamalısın.",
+      "build": "İzinli araç listesi ve geçersiz argüman testi yaz.",
+      "english_question": "What should an agent never be allowed to decide?",
+      "source_url": "https://huggingface.co/docs/transformers/chat_extras",
+      "source_checked_on": "2026-10-05",
+      "prerequisites": [
+        16
+      ],
+      "stages": [
+        "Önce nedenini kendi cümlelerinle anlat.",
+        "Küçük, somut bir örnek çiz veya çalıştır.",
+        "Resmî kaynaktan ilgili kısmı oku; bilmediğin sembol ve terimleri aç.",
+        "Kodla, sınır durumunu boz ve düzelt.",
+        "İngilizce üç cümleyle iddianı, kanıtını ve sınırını anlat.",
+        "3/7/14/30 gün sonra kaynağa bakmadan tekrar et."
+      ]
+    },
+    {
+      "week": 18,
+      "title": "Workflow ve kurtarma",
+      "skill": "Failure Recovery",
+      "why": "Bir adımın başarısızlığı tüm işin hangi durumda kaldığını belirsiz bırakmamalı.",
+      "build": "Timeout ve yeniden deneme senaryolarını tasarla.",
+      "english_question": "How do you prevent duplicate side effects during retries?",
+      "source_url": "https://fastapi.tiangolo.com/tutorial/",
+      "source_checked_on": "2026-10-05",
+      "prerequisites": [
+        17
+      ],
+      "stages": [
+        "Önce nedenini kendi cümlelerinle anlat.",
+        "Küçük, somut bir örnek çiz veya çalıştır.",
+        "Resmî kaynaktan ilgili kısmı oku; bilmediğin sembol ve terimleri aç.",
+        "Kodla, sınır durumunu boz ve düzelt.",
+        "İngilizce üç cümleyle iddianı, kanıtını ve sınırını anlat.",
+        "3/7/14/30 gün sonra kaynağa bakmadan tekrar et."
+      ]
+    },
+    {
+      "week": 19,
+      "title": "Fine-tuning karar deneyi",
+      "skill": "Fine-tuning",
+      "why": "Ek eğitimden önce ölçülebilir bir sorunu ve baselineı tanımlamalısın.",
+      "build": "Prompt/RAG alternatifi ile eğitim ihtiyacını karşılaştıran karar notu yaz.",
+      "english_question": "When would you avoid fine-tuning?",
+      "source_url": "https://huggingface.co/learn/llm-course/chapter1/1",
+      "source_checked_on": "2026-10-05",
+      "prerequisites": [
+        18
+      ],
+      "stages": [
+        "Önce nedenini kendi cümlelerinle anlat.",
+        "Küçük, somut bir örnek çiz veya çalıştır.",
+        "Resmî kaynaktan ilgili kısmı oku; bilmediğin sembol ve terimleri aç.",
+        "Kodla, sınır durumunu boz ve düzelt.",
+        "İngilizce üç cümleyle iddianı, kanıtını ve sınırını anlat.",
+        "3/7/14/30 gün sonra kaynağa bakmadan tekrar et."
+      ]
+    },
+    {
+      "week": 20,
+      "title": "Gecikme ve maliyet",
+      "skill": "Cost Optimization",
+      "why": "Kalite, gecikme ve maliyet birlikte değerlendirilmelidir.",
+      "build": "İstek başına süre ve maliyet raporunun şemasını oluştur.",
+      "english_question": "How would you reduce cost without hiding quality loss?",
+      "source_url": "https://huggingface.co/learn/llm-course/chapter1/1",
+      "source_checked_on": "2026-10-05",
+      "prerequisites": [
+        19
+      ],
+      "stages": [
+        "Önce nedenini kendi cümlelerinle anlat.",
+        "Küçük, somut bir örnek çiz veya çalıştır.",
+        "Resmî kaynaktan ilgili kısmı oku; bilmediğin sembol ve terimleri aç.",
+        "Kodla, sınır durumunu boz ve düzelt.",
+        "İngilizce üç cümleyle iddianı, kanıtını ve sınırını anlat.",
+        "3/7/14/30 gün sonra kaynağa bakmadan tekrar et."
+      ]
+    },
+    {
+      "week": 21,
+      "title": "Güvenlik ve erişim",
+      "skill": "Security",
+      "why": "Veriye erişebilen her yolun aynı güven sınırlarına uyması gerekir.",
+      "build": "Yetkisiz istek, secret redaction ve veri silme testlerini incele.",
+      "english_question": "How do you separate authentication and authorization?",
+      "source_url": "https://fastapi.tiangolo.com/tutorial/security/",
+      "source_checked_on": "2026-10-05",
+      "prerequisites": [
+        20
+      ],
+      "stages": [
+        "Önce nedenini kendi cümlelerinle anlat.",
+        "Küçük, somut bir örnek çiz veya çalıştır.",
+        "Resmî kaynaktan ilgili kısmı oku; bilmediğin sembol ve terimleri aç.",
+        "Kodla, sınır durumunu boz ve düzelt.",
+        "İngilizce üç cümleyle iddianı, kanıtını ve sınırını anlat.",
+        "3/7/14/30 gün sonra kaynağa bakmadan tekrar et."
+      ]
+    },
+    {
+      "week": 22,
+      "title": "Operasyon ve gözlem",
+      "skill": "Observability",
+      "why": "Sorun çıktığında nedeni ve etkilenen kullanıcı akışını bulabilmelisin.",
+      "build": "Log/metric/runbook ve restore senaryosu hazırla.",
+      "english_question": "Which signals tell you your service is unhealthy?",
+      "source_url": "https://opentelemetry.io/docs/languages/python/",
+      "source_checked_on": "2026-10-05",
+      "prerequisites": [
+        21
+      ],
+      "stages": [
+        "Önce nedenini kendi cümlelerinle anlat.",
+        "Küçük, somut bir örnek çiz veya çalıştır.",
+        "Resmî kaynaktan ilgili kısmı oku; bilmediğin sembol ve terimleri aç.",
+        "Kodla, sınır durumunu boz ve düzelt.",
+        "İngilizce üç cümleyle iddianı, kanıtını ve sınırını anlat.",
+        "3/7/14/30 gün sonra kaynağa bakmadan tekrar et."
+      ]
+    },
+    {
+      "week": 23,
+      "title": "Mimari savunması",
+      "skill": "Architecture Explanation",
+      "why": "Seçimleri ve reddedilen alternatifleri kanıtlarıyla anlatmalısın.",
+      "build": "AI Career OS için üç ve on beş dakikalık İngilizce savunma hazırla.",
+      "english_question": "What would you change if your traffic grew tenfold?",
+      "source_url": "https://fastapi.tiangolo.com/tutorial/",
+      "source_checked_on": "2026-10-05",
+      "prerequisites": [
+        22
+      ],
+      "stages": [
+        "Önce nedenini kendi cümlelerinle anlat.",
+        "Küçük, somut bir örnek çiz veya çalıştır.",
+        "Resmî kaynaktan ilgili kısmı oku; bilmediğin sembol ve terimleri aç.",
+        "Kodla, sınır durumunu boz ve düzelt.",
+        "İngilizce üç cümleyle iddianı, kanıtını ve sınırını anlat.",
+        "3/7/14/30 gün sonra kaynağa bakmadan tekrar et."
+      ]
+    },
+    {
+      "week": 24,
+      "title": "Portfolyo ve mülakat",
+      "skill": "Interview Communication",
+      "why": "İlan gereksinimi ile gösterebildiğin kanıtı eşleştirirsin.",
+      "build": "Üç uygun ilanı incele; kanıt bağlantıları ve açık eksikleri yaz.",
+      "english_question": "Tell me about a failure and the engineering decision that followed.",
+      "source_url": "https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes",
+      "source_checked_on": "2026-10-05",
+      "prerequisites": [
+        23
+      ],
+      "stages": [
+        "Önce nedenini kendi cümlelerinle anlat.",
+        "Küçük, somut bir örnek çiz veya çalıştır.",
+        "Resmî kaynaktan ilgili kısmı oku; bilmediğin sembol ve terimleri aç.",
+        "Kodla, sınır durumunu boz ve düzelt.",
+        "İngilizce üç cümleyle iddianı, kanıtını ve sınırını anlat.",
+        "3/7/14/30 gün sonra kaynağa bakmadan tekrar et."
+      ]
+    }
+  ]
+}

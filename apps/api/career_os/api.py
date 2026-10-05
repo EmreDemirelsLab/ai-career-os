@@ -7,19 +7,25 @@ from sqlalchemy import Engine, text
 
 from career_os.config import Settings
 from career_os.db import build_engine
+from career_os.workspace import router
 
-SCHEMA_REVISION = "0001_foundation"
+SCHEMA_REVISION = "0002_workspace"
 
 
-def create_app(engine: Engine | None = None) -> FastAPI:
+def create_app(engine: Engine | None = None, api_token: str | None = None) -> FastAPI:
     @asynccontextmanager
     async def lifespan(app: FastAPI) -> AsyncIterator[None]:
-        app.state.engine = engine if engine is not None else build_engine(Settings().database_url)
+        settings = Settings() if engine is None else None
+        app.state.api_token = (
+            api_token if api_token is not None else (settings.career_api_token if settings else "")
+        )
+        app.state.engine = engine if engine is not None else build_engine(settings.database_url)  # type: ignore[union-attr]
         yield
         if engine is None:
             app.state.engine.dispose()
 
     app = FastAPI(title="AI Career OS", lifespan=lifespan)
+    app.include_router(router)
 
     @app.get("/health")
     def health() -> dict[str, str]:

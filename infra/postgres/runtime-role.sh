@@ -1,0 +1,10 @@
+#!/bin/sh
+set -eu
+psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<'SQL'
+\getenv runtime_password CAREER_DB_RUNTIME_PASSWORD
+CREATE ROLE career_runtime LOGIN PASSWORD :'runtime_password' NOSUPERUSER NOCREATEDB NOCREATEROLE;
+GRANT CONNECT ON DATABASE career TO career_runtime;
+GRANT USAGE ON SCHEMA public TO career_runtime;
+GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO career_runtime;
+ALTER DEFAULT PRIVILEGES FOR ROLE career IN SCHEMA public GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO career_runtime;
+SQL

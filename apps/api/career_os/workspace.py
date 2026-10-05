@@ -1,14 +1,15 @@
-import hmac
 import json
 from datetime import UTC, datetime, timedelta
 from importlib.resources import files
 from typing import Any
 from uuid import uuid4
 
-from fastapi import APIRouter, Depends, Header, HTTPException, Request
+from fastapi import APIRouter, Depends, HTTPException, Request
 from sqlalchemy import delete, select
 from sqlalchemy.orm import Session
 
+from career_os.auth import authorize
+from career_os.intelligence_models import AIRequest, EngineRecord
 from career_os.workspace_contracts import (
     Application,
     Evidence,
@@ -38,19 +39,6 @@ TAXONOMY: dict[str, Any] = json.loads(
 )
 SKILLS = {name for names in TAXONOMY["categories"].values() for name in names}
 LEVELS = {level: i for i, level in enumerate(["none", "A1", "A2", "B1", "B2", "C1", "C2"])}
-
-
-def authorize(request: Request, authorization: str | None = Header(default=None)) -> None:
-    expected: str = request.app.state.api_token
-    if len(expected) < 32:
-        raise HTTPException(503, "Workspace is disabled until CAREER_API_TOKEN is configured")
-    supplied = (authorization or "").removeprefix("Bearer ")
-    if (
-        not authorization
-        or not authorization.startswith("Bearer ")
-        or not hmac.compare_digest(expected.encode(), supplied.encode())
-    ):
-        raise HTTPException(401, "Authentication required")
 
 
 router = APIRouter(prefix="/workspace", dependencies=[Depends(authorize)])
@@ -166,8 +154,8 @@ def workspace(request: Request) -> dict[str, Any]:
             "curriculum": CURRICULUM,
             "skills": sorted(SKILLS),
             "integrations": {
-                "live_market": "not_configured",
-                "llm_tutor": "not_configured",
+                "live_market": "operator_configured_greenhouse",
+                "llm_tutor": "see_intelligence_status",
                 "deployment": "local_personal_workspace",
             },
         }
@@ -354,6 +342,10 @@ def add_application_event(application_id: str, body: Stage, request: Request) ->
 def export_workspace(request: Request) -> dict[str, Any]:
     result = workspace(request)
     with Session(request.app.state.engine) as session:
+        result["engine_records"] = [serialize(x) for x in all_rows(session, EngineRecord)]
+        result["ai_requests"] = [
+            {**serialize(x), "status": x.status} for x in all_rows(session, AIRequest)
+        ]
         result["profile_history"] = [serialize(x) for x in all_rows(session, LearnerSnapshot)]
     return {"export_version": "1", "exported_at": datetime.now(UTC).isoformat(), **result}
 
@@ -364,6 +356,8 @@ def delete_workspace(request: Request) -> None:
         raise HTTPException(400, "Explicit deletion confirmation required")
     with Session(request.app.state.engine) as session, session.begin():
         for model in [
+            AIRequest,
+            EngineRecord,
             ApplicationEvent,
             ApplicationRecord,
             OpportunityRecord,

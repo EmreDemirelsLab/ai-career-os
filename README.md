@@ -2,7 +2,7 @@
 
 A market-driven AI/ML learning and career evidence platform. Flagship production engineering portfolio, built in reviewable slices.
 
-**Current:** v1.3 foundation plus a single-owner personal workspace: versioned profile and 24-week baseline, learning/English submissions, delayed recall, evidence, interview rehearsal, manually reviewed opportunities and application history. Live market collection and AI assessment are not implemented. See the [complete-product contract](docs/21_COMPLETE_PRODUCT_CONTRACT.md) and [workspace verification](docs/22_WORKSPACE_VERIFICATION.md).
+**Current:** v1.3 foundation plus a single-owner personal workspace: versioned profile and 24-week baseline, learning/English submissions, delayed recall, evidence, interview rehearsal, manually reviewed opportunities and application history. Greenhouse collection, evidence-linked mention snapshots, prerequisite planning and an opt-in AI feedback gateway are implemented; live source/model quality and hosted production acceptance are not yet verified. See [v1.4 engines and release gates](docs/23_INTELLIGENCE_RELEASE.md). See the [complete-product contract](docs/21_COMPLETE_PRODUCT_CONTRACT.md) and [workspace verification](docs/22_WORKSPACE_VERIFICATION.md).
 
 ## Start locally (Docker)
 
@@ -71,4 +71,8 @@ npm run build
 
 Flow: fixture → validated envelope → immutable content revisions + per-run observations → persisted counters/rejections. Revisions use source identity and content hash; cross-source logical-job deduplication is a later benchmarked feature.
 
-Production collection, managed identity, multi-user isolation, retention worker, crash leases, queue retries, extraction, graph scoring, tutoring and deployment remain later gates. AI-generated implementation does not establish the learner's mastery.
+Empirical market/model evaluation, live retention enforcement, scheduling, production hosting and user acceptance remain release gates. The current product is single-owner; multi-user SaaS is outside this slice. AI-generated implementation does not establish the learner's mastery.
+
+Single-owner hosting candidate: [deployment and recovery runbook](docs/24_HOSTING_RUNBOOK.md). Prepared configuration is not a completed deployment.
+
+Resume work from [CONTINUITY.md](CONTINUITY.md); delivery parts and remaining acceptance gates are tracked in [the delivery plan](docs/25_DELIVERY_PLAN.md).

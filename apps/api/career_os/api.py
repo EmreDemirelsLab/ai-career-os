@@ -5,11 +5,13 @@ from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 from sqlalchemy import Engine, text
 
+from career_os.auth import router as auth_router
 from career_os.config import Settings
 from career_os.db import build_engine
+from career_os.intelligence import router as intelligence_router
 from career_os.workspace import router
 
-SCHEMA_REVISION = "0002_workspace"
+SCHEMA_REVISION = "0003_intelligence"
 
 
 def create_app(engine: Engine | None = None, api_token: str | None = None) -> FastAPI:
@@ -25,7 +27,9 @@ def create_app(engine: Engine | None = None, api_token: str | None = None) -> Fa
             app.state.engine.dispose()
 
     app = FastAPI(title="AI Career OS", lifespan=lifespan)
+    app.include_router(auth_router)
     app.include_router(router)
+    app.include_router(intelligence_router)
 
     @app.get("/health")
     def health() -> dict[str, str]:

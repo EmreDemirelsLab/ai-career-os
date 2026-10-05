@@ -1,3 +1,5 @@
+> Implementation update 2026-10-05: docs/23 records the implemented intelligence engines and supersedes the older absence statements below. Empirical, live-model and hosted acceptance gates remain open.
+
 # Complete product contract and staged delivery
 
 Date: 2026-10-05. Owner request: complete the AI Career OS system.

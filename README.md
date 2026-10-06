@@ -48,7 +48,7 @@ Checks from repository root:
 uv run ruff check .
 uv run ruff format --check .
 uv run mypy
-uv run pytest -q
+uv run --group labs pytest -q
 ```
 
 Without `TEST_DATABASE_URL`, PostgreSQL tests are explicitly skipped. CI uses a disposable `career_test` database and runs both backends, concurrent ingestion, migration roundtrip and metadata drift. **Tests downgrade/reset that database**. Never point them at production. SQLite exists only for local contract verification and is not a production substitute.
@@ -76,3 +76,5 @@ Empirical market/model evaluation, live retention enforcement, scheduling, produ
 Single-owner hosting candidate: [deployment and recovery runbook](docs/24_HOSTING_RUNBOOK.md). Prepared configuration is not a completed deployment.
 
 Resume work from [CONTINUITY.md](CONTINUITY.md); delivery parts and remaining acceptance gates are tracked in [the delivery plan](docs/25_DELIVERY_PLAN.md).
+
+Foundation and data/ML practice (authored weeks 1–8 pilot): use **Temel alıştırmalar** in the workspace. Local exercise setup and checks: [foundation labs](labs/foundation/README.md), [data/ML labs](labs/data_ml/README.md). Install optional lab dependencies with `uv sync --locked --group labs`. Objective checks do not certify independent skill or English level.

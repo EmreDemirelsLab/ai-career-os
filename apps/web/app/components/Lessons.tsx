@@ -53,7 +53,7 @@ export default function Lessons({ onSaved }: { onSaved: () => Promise<void> }) {
   if (!lesson || !data) return <p role="status">{error || "Dersler yükleniyor…"}</p>;
   return <section>
     <h2>Temel alıştırmalar</h2>
-    <p>İlk dört haftanın çalışma paketi. Kısa sorular tanı içindir; doğru cevaplar ustalık veya İngilizce seviyesi kanıtı değildir.</p>
+    <p>İlk sekiz haftanın çalışma paketi. Kısa sorular tanı içindir; doğru cevaplar ustalık veya İngilizce seviyesi kanıtı değildir.</p>
     {error && <p role="alert">{error}</p>}
     <label className="field"><span>Ders seç</span><select value={selected} disabled={busy} onChange={e => { setSelected(e.target.value); setResult(null); }}>
       {data.catalog.units.map(x => <option key={x.id} value={x.id}>{x.week}. hafta — {x.title}</option>)}

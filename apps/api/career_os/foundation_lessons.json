@@ -1,6 +1,6 @@
 {
-  "version": "foundation-lessons/1",
-  "status": "authored_foundation_pilot_not_validated_full_course",
+  "version": "foundation-lessons/2",
+  "status": "authored_weeks_1_to_8_pilot_not_validated_full_course",
   "units": [
     {
       "id": "foundation-1",
@@ -253,6 +253,258 @@
         "Anlaşılmayan soruya açıklama isteyerek yanıt ver."
       ],
       "lab_command": "uv run python labs/foundation/check.py --week 4"
+    },
+    {
+      "id": "data-5",
+      "week": 5,
+      "title": "Pandas: modelden önce veriyi tanı",
+      "skill": "Pandas",
+      "why": "Model verideki boşluğu veya yanlış örneklemi kendiliğinden açıklamaz. Önce kaç satırın, hangi eksiklerin ve hangi sınıfların bulunduğunu görünür yap.",
+      "explanation": "DataFrame satır ve sütunlardan oluşan tablodur. isna() eksikleri işaretler; sum() bu işaretleri sayar. Eksik oranı = eksik hücre sayısı / satır sayısıdır; burada yalnız value sütununu ölçüyoruz. Satır sayısı sıfırsa oran tanımsızdır: 0 veya 1 uydurmak yerine None döndür. target_counts, hedef 0 ve 1 sınıflarının adetlerini ayrı gösterir.",
+      "worked_example": "5 satırın value sütununda 2 eksik varsa oran 2/5=0.4 olur. Bu %40, bu küçük tablonun eksik oranıdır; bütün iş piyasası hakkında bir oran değildir.",
+      "exercise": "labs/data_ml/exercises.py içinde summarize(frame) yaz. Beklenen sütunlar customer_id,value,target. rows, missing_values, missing_rate ve string anahtarlı target_counts döndür. Hedef yalnız 0/1 olsun. Girdiyi değiştirme; sıfır satırda missing_rate=None.",
+      "debug_prompt": "Eksik satırları en başta silersen raporun hangi bilgiyi saklar? Eksik oranının paydasını filtreleme öncesi mi sonrası mı seçtiğini açıkla.",
+      "english_prompt": "Describe the size, missingness and target balance of this dataset. Distinguish an observation from an assumption.",
+      "english_terms": [
+        [
+          "missingness",
+          "Veride eksik değerlerin bulunması"
+        ],
+        [
+          "denominator",
+          "Bir oranın paydası"
+        ],
+        [
+          "target distribution",
+          "Hedef sınıfların örneklerdeki dağılımı"
+        ]
+      ],
+      "source_url": "https://pandas.pydata.org/docs/getting_started/intro_tutorials/06_calculate_statistics.html",
+      "questions": [
+        {
+          "id": "missing-rate",
+          "prompt": "10 satırın 3 value değeri eksikse eksik oranı nedir?",
+          "choices": [
+            "3/10 = 0.3",
+            "10/3",
+            "Her zaman 0"
+          ],
+          "correct": 0,
+          "explanation": "Pay eksik sayısı, payda incelenen satır sayısıdır."
+        },
+        {
+          "id": "empty-frame",
+          "prompt": "Sıfır satırlı tabloda eksik oranını nasıl bildirirsin?",
+          "choices": [
+            "%100",
+            "%0 kesin",
+            "Tanımsız / None"
+          ],
+          "correct": 2,
+          "explanation": "Payda sıfır; veri yokluğunu kusursuz veri gibi göstermek yanlış olur."
+        }
+      ],
+      "source_checked_on": "2026-10-06",
+      "technical_rubric": [
+        "Hesabı küçük örnekte elle yeniden yap.",
+        "Sızıntı veya sınır hatasını gösteren bağımsız test yaz.",
+        "Örneklemin sınırını ve sonraki deneyi açıkla."
+      ],
+      "english_rubric": [
+        "Bir iddiayı sayı veya test ile destekle.",
+        "Precision, recall ve leakage terimlerini doğru kullan.",
+        "Belirsizliği ve örnek sayısını açık söyle."
+      ],
+      "lab_command": "uv run --group labs python labs/data_ml/check.py --week 5"
+    },
+    {
+      "id": "data-6",
+      "week": 6,
+      "title": "Veri sızıntısı: sınav bilgisini eğitime karıştırma",
+      "skill": "Model Evaluation",
+      "why": "Aynı müşterinin kopyaları hem eğitimde hem testte olursa modelin yeni müşteride nasıl çalışacağını dürüstçe ölçemezsin.",
+      "explanation": "Train, dönüşümleri ve modeli öğrenmek içindir; test, ayrılmış değerlendirmedir. Önce müşteri gruplarını böl. Eksik doldurmak için ortalamayı sadece eğitim satırlarından hesapla; aynı öğrenilmiş değeri iki bölüme uygula. Testteki büyük değer eğitim ortalamasını değiştirmemeli. Zaman verisinde grup ayrımı tek başına yeterli olmayabilir; zaman sınırı ayrıca tasarlanır.",
+      "worked_example": "Eğitim value=[1, eksik, 3], test value=[100, eksik]. Eğitim ortalaması (1+3)/2=2. İki bölümdeki eksik de 2 ile doldurulur. 100, öğrenilen ortalamaya katılmaz.",
+      "exercise": "prepare_split(frame, test_customers) yaz. Aynı müşteri tek bölümde kalsın. İki bölüm de dolu olsun; bilinmeyen test müşterisini reddet. Eğitim ortalaması sonlu olmalı; tamamı eksik eğitim değerini reddet. train,test,mean döndür ve orijinali değiştirme.",
+      "debug_prompt": "Önce tüm tabloda fillna(mean), sonra split yapan kodu bozup göster. Test değeri 100 yerine 10000 olunca eğitim dönüşümü neden değişmemeli?",
+      "english_prompt": "Explain your unit of splitting and show why changing a held-out value cannot change the training imputation mean.",
+      "english_terms": [
+        [
+          "data leakage",
+          "Değerlendirmede kullanılmaması gereken bilginin öğrenmeye sızması"
+        ],
+        [
+          "fit",
+          "Parametreleri eğitim verisinden öğrenme"
+        ],
+        [
+          "transform",
+          "Öğrenilmiş dönüşümü uygulama"
+        ]
+      ],
+      "source_url": "https://scikit-learn.org/stable/common_pitfalls.html",
+      "questions": [
+        {
+          "id": "fit-scope",
+          "prompt": "Eksik doldurma ortalaması nereden öğrenilmeli?",
+          "choices": [
+            "Eğitim ve testin tamamından",
+            "Yalnız eğitim bölümünden",
+            "Yalnız testten"
+          ],
+          "correct": 1,
+          "explanation": "Test verisini dönüşüm öğrenmek için kullanmak değerlendirmeye bilgi sızdırır."
+        },
+        {
+          "id": "group-boundary",
+          "prompt": "Aynı müşterinin tekrarlı satırları için uygun başlangıç yaklaşımı nedir?",
+          "choices": [
+            "Satırları rastgele dağıtmak her zaman yeterli",
+            "Müşteri grubunu tek bölümde tutmak",
+            "Müşteri kimliğini sonuç puanına eklemek"
+          ],
+          "correct": 1,
+          "explanation": "Grupları ayırmak müşteri tekrarının iki bölüme yayılmasını engeller; diğer sızıntıları ayrıca incelemek gerekir."
+        }
+      ],
+      "source_checked_on": "2026-10-06",
+      "technical_rubric": [
+        "Hesabı küçük örnekte elle yeniden yap.",
+        "Sızıntı veya sınır hatasını gösteren bağımsız test yaz.",
+        "Örneklemin sınırını ve sonraki deneyi açıkla."
+      ],
+      "english_rubric": [
+        "Bir iddiayı sayı veya test ile destekle.",
+        "Precision, recall ve leakage terimlerini doğru kullan.",
+        "Belirsizliği ve örnek sayısını açık söyle."
+      ],
+      "lab_command": "uv run --group labs python labs/data_ml/check.py --week 6"
+    },
+    {
+      "id": "data-7",
+      "week": 7,
+      "title": "Baseline: doğruluk tek başına yeterli mi?",
+      "skill": "Supervised Learning",
+      "why": "Karmaşık modele başlamadan basit bir karşılaştırma gerekir. Çoğunluk sınıfını hep tahmin eden model yüksek accuracy alırken aradığın azınlık sınıfını tamamen kaçırabilir.",
+      "explanation": "Pozitif sınıfı 1 olarak tanımlıyoruz. TP: doğru bulunan pozitif; FP: yanlış pozitif alarm; FN: kaçırılan pozitif; TN: doğru negatif. Precision=TP/(TP+FP), pozitif dediklerinin ne kadarı doğru sorusudur. Recall=TP/(TP+FN), gerçek pozitiflerin ne kadarını buldun sorusudur. F1=2TP/(2TP+FP+FN). Accuracy=(TP+TN)/toplam. Bu lab tanımsız oranları None olarak bildirir; kütüphanelerin varsayılanları farklı olabilir.",
+      "worked_example": "Gerçek=[0,0,0,1], tahmin=[0,0,0,0]. Accuracy=3/4 ama recall=0/1=0. Pozitif tahmin yok: precision paydası sıfır. Bu baseline pozitif sınıfı bulamıyor.",
+      "exercise": "majority_predict(training_targets,count) ve binary_metrics(y_true,y_pred) yaz. Çoğunluğu yalnız training_targets üzerinden seç; eşitlikte 0 kullan. Boş/eşit uzunlukta olmayan/geçersiz etiketleri reddet. TP/FP/FN/TN ve dört oranı döndür.",
+      "debug_prompt": "zip iki farklı uzunluğu sessizce keserse hangi örnekler kaybolur? Önce uzunluk doğrulaması için başarısız test yaz.",
+      "english_prompt": "Compare your majority baseline with an alternative using counts, precision and recall. State which error matters for this specific task.",
+      "english_terms": [
+        [
+          "baseline",
+          "Karmaşık yöntemle karşılaştırılan basit başlangıç"
+        ],
+        [
+          "false positive",
+          "Gerçekte negatifken pozitif tahmin"
+        ],
+        [
+          "false negative",
+          "Gerçekte pozitifken kaçırılan örnek"
+        ]
+      ],
+      "source_url": "https://scikit-learn.org/stable/modules/model_evaluation.html",
+      "questions": [
+        {
+          "id": "rare-recall",
+          "prompt": "95 negatif, 5 pozitif örnekte hep negatif tahmin eden modelin pozitif recall değeri nedir?",
+          "choices": [
+            "0",
+            "0.95",
+            "1"
+          ],
+          "correct": 0,
+          "explanation": "Beş gerçek pozitifin hiçbiri bulunmadı: TP=0, FN=5; recall sıfır."
+        },
+        {
+          "id": "precision-counts",
+          "prompt": "TP=6 ve FP=2 ise precision nedir?",
+          "choices": [
+            "6/8 = 0.75",
+            "2/6",
+            "6/6 = 1"
+          ],
+          "correct": 0,
+          "explanation": "Pozitif tahmin edilen toplam sekiz örneğin altısı doğru."
+        }
+      ],
+      "source_checked_on": "2026-10-06",
+      "technical_rubric": [
+        "Hesabı küçük örnekte elle yeniden yap.",
+        "Sızıntı veya sınır hatasını gösteren bağımsız test yaz.",
+        "Örneklemin sınırını ve sonraki deneyi açıkla."
+      ],
+      "english_rubric": [
+        "Bir iddiayı sayı veya test ile destekle.",
+        "Precision, recall ve leakage terimlerini doğru kullan.",
+        "Belirsizliği ve örnek sayısını açık söyle."
+      ],
+      "lab_command": "uv run --group labs python labs/data_ml/check.py --week 7"
+    },
+    {
+      "id": "data-8",
+      "week": 8,
+      "title": "Hata analizi: hangi örneklerde yanılıyoruz?",
+      "skill": "Imbalanced Learning",
+      "why": "Tek ortalama puan farklı gruplardaki hataları saklayabilir. Hataları saymak, rastgele daha karmaşık model seçmekten önce hangi sorunu çözeceğini gösterir.",
+      "explanation": "Eşik, skoru hangi noktada pozitif saydığını belirler; bu lab score>=threshold kullanır. Eşiği doğrulama verisinde seçip son testi ayrı tut. Dil veya kaynak gibi alt gruplarda n, FP, FN ve recall raporla. n örnek sayısıdır; tek örnekli grupta mükemmel oran güçlü kanıt değildir. Sınıfı veya grubu bilinmeyen kaydı rapordan sessizce çıkarma. Bu egzersiz bir iş başvurusu uygunluk kararı üretmez.",
+      "worked_example": "A grubunda n=2, FP=1, FN=1; B grubunda n=1, FN=0. B daha güvenilir sonucuna atlama: örneklem çok küçük. 0.5 eşikte 0.5 skoru bu labda pozitiftir.",
+      "exercise": "threshold_predict(scores,threshold) ve error_slices(frame) yaz. Skor/eşik sonlu ve 0–1 arasında olsun. slice,target,prediction sütunlarını kullan; eksik slice adını unknown olarak koru. Her grupta n,fp,fn,recall döndür; girdiyi değiştirme.",
+      "debug_prompt": "NaN skoru sessizce negatife dönüşürse hangi veri sorununu saklarsın? Eşiği test sonucuna göre tekrar tekrar değiştirmenin sakıncasını anlat.",
+      "english_prompt": "Present one false-positive and one false-negative case. Explain sample-size limitations and propose one next experiment without claiming a hiring outcome.",
+      "english_terms": [
+        [
+          "threshold",
+          "Pozitif karar için kullanılan eşik"
+        ],
+        [
+          "slice analysis",
+          "Verinin alt gruplarında hata inceleme"
+        ],
+        [
+          "support",
+          "Bir gruptaki örnek sayısı"
+        ]
+      ],
+      "source_url": "https://scikit-learn.org/stable/modules/model_evaluation.html",
+      "questions": [
+        {
+          "id": "threshold-equality",
+          "prompt": "Bu labda skor=0.5 ve eşik=0.5 ise tahmin nedir?",
+          "choices": [
+            "Negatif",
+            "Pozitif",
+            "Rastgele"
+          ],
+          "correct": 1,
+          "explanation": "Belirlenen sözleşme >= kullanır; eşitlik pozitiftir."
+        },
+        {
+          "id": "small-slice",
+          "prompt": "Tek örnekte %100 başarı neyi gösterir?",
+          "choices": [
+            "Grubun tamamında garanti başarı",
+            "Yalnız bu örnekte doğru tahmin; daha çok kanıt gerekir",
+            "Model artık değerlendirilmez"
+          ],
+          "correct": 1,
+          "explanation": "Küçük grubun oranı genelleme garantisi değildir; örnek sayısını da raporlamak gerekir."
+        }
+      ],
+      "source_checked_on": "2026-10-06",
+      "technical_rubric": [
+        "Hesabı küçük örnekte elle yeniden yap.",
+        "Sızıntı veya sınır hatasını gösteren bağımsız test yaz.",
+        "Örneklemin sınırını ve sonraki deneyi açıkla."
+      ],
+      "english_rubric": [
+        "Bir iddiayı sayı veya test ile destekle.",
+        "Precision, recall ve leakage terimlerini doğru kullan.",
+        "Belirsizliği ve örnek sayısını açık söyle."
+      ],
+      "lab_command": "uv run --group labs python labs/data_ml/check.py --week 8"
     }
   ]
 }

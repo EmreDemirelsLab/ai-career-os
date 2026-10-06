@@ -10,6 +10,9 @@ dependencies = ["fastapi==0.142.2", "uvicorn[standard]==0.54.0", "sqlalchemy==2.
 
 [dependency-groups]
 dev = ["pytest==9.1.1", "httpx==0.28.1", "ruff==0.16.10", "mypy==2.4.0"]
+labs = [
+    "pandas>=2.2,<4",
+]
 
 [project.scripts]
 career-os = "career_os.cli:main"

@@ -19,3 +19,5 @@ playwright-report/
 backups/
 *.dump
 *.dump.sha256
+# Real evaluation data and reports must not enter the public repository.
+evaluation-private/

@@ -11,7 +11,7 @@ from career_os.db import build_engine
 from career_os.intelligence import router as intelligence_router
 from career_os.workspace import router
 
-SCHEMA_REVISION = "0004_retention"
+SCHEMA_REVISION = "0005_collection_queue"
 
 
 def create_app(engine: Engine | None = None, api_token: str | None = None) -> FastAPI:

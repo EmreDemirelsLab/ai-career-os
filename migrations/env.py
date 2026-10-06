@@ -1,5 +1,11 @@
 from alembic import context
-from career_os import auth, intelligence_models, models, workspace_models  # noqa: F401
+from career_os import (  # noqa: F401
+    auth,
+    collection_models,
+    intelligence_models,
+    models,
+    workspace_models,
+)
 from career_os.config import Settings
 from career_os.db import Base
 from sqlalchemy import create_engine

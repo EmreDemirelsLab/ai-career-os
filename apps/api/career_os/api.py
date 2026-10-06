@@ -9,6 +9,7 @@ from career_os.auth import router as auth_router
 from career_os.config import Settings
 from career_os.db import build_engine
 from career_os.intelligence import router as intelligence_router
+from career_os.lessons import router as lessons_router
 from career_os.workspace import router
 
 SCHEMA_REVISION = "0005_collection_queue"
@@ -30,6 +31,7 @@ def create_app(engine: Engine | None = None, api_token: str | None = None) -> Fa
     app.include_router(auth_router)
     app.include_router(router)
     app.include_router(intelligence_router)
+    app.include_router(lessons_router)
 
     @app.get("/health")
     def health() -> dict[str, str]:

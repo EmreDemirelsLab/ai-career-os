@@ -1,0 +1,30 @@
+{
+  "schema_version": "mention-gold/1",
+  "dataset_id": "synthetic-test",
+  "version": "1",
+  "taxonomy_version": "0.1.0-seed",
+  "origin": "synthetic",
+  "annotation_policy": "all-literal-mentions/1",
+  "examples": [
+    {
+      "id": "e1",
+      "source_id": "synthetic",
+      "split": "holdout",
+      "leakage_group": "group1",
+      "text": "Python SQL",
+      "text_sha256": "bb0da7fa14692b0dd67c9832c8bf545bdddd0d6fbcb31bef0ed167b0e1b2bd4e",
+      "observed_on": "2026-10-06",
+      "expires_on": "2026-11-05",
+      "source_reference": "synthetic:test",
+      "policy_reference": "synthetic:test",
+      "reviewer": "reviewer-two",
+      "labels": [
+        {
+          "skill": "Python",
+          "start": 0,
+          "end": 6
+        }
+      ]
+    }
+  ]
+}

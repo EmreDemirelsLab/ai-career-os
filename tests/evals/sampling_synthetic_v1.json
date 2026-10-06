@@ -1,0 +1,44 @@
+{
+  "schema_version": "sampling-manifest/1",
+  "id": "synthetic",
+  "version": "1",
+  "origin": "synthetic",
+  "policies": [
+    {
+      "source_id": "synthetic",
+      "status": "approved",
+      "reference": "synthetic:test",
+      "reviewer": "policy-reviewer",
+      "reviewed_on": "2026-10-01",
+      "valid_until": "2026-12-01",
+      "retention_days": 30
+    }
+  ],
+  "samples": [
+    {
+      "id": "e1",
+      "source_id": "synthetic",
+      "split": "holdout",
+      "leakage_group": "group1",
+      "text_sha256": "bb0da7fa14692b0dd67c9832c8bf545bdddd0d6fbcb31bef0ed167b0e1b2bd4e",
+      "observed_on": "2026-10-06",
+      "expires_on": "2026-11-05",
+      "source_reference": "synthetic:test",
+      "company_id": "company-one",
+      "geography": "germany",
+      "role": "ai_engineer",
+      "seniority": "unknown",
+      "language": "unknown",
+      "remote_scope": "unknown",
+      "decision": "include",
+      "exclusion_reason": null,
+      "review": {
+        "author": "author-one",
+        "reviewer": "reviewer-two",
+        "decision": "accepted",
+        "reviewed_on": "2026-10-06",
+        "labels_fingerprint": "881a89f3ea94744e0d3a9f2f16296707e5136c761636fff27bfde2400295700f"
+      }
+    }
+  ]
+}

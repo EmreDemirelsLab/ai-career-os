@@ -1,0 +1,168 @@
+{
+  "schema_version": "mention-gold/1",
+  "dataset_id": "mentions-synthetic",
+  "version": "1",
+  "taxonomy_version": "0.1.0-seed",
+  "origin": "synthetic",
+  "annotation_policy": "all-literal-mentions/1",
+  "examples": [
+    {
+      "id": "s1",
+      "source_id": "synthetic",
+      "split": "development",
+      "leakage_group": "s1",
+      "text": "Python and SQL.",
+      "text_sha256": "49f90f5af5b6431ca518ae773c72825a207b88173c849afdc54e8f8e610d26ef",
+      "observed_on": "2026-10-06",
+      "expires_on": "2027-10-06",
+      "source_reference": "synthetic:authored-fixture",
+      "policy_reference": "docs/29_MARKET_EVALUATION.md",
+      "reviewer": "fixture-author",
+      "labels": [
+        {
+          "skill": "Python",
+          "start": 0,
+          "end": 6
+        },
+        {
+          "skill": "SQL",
+          "start": 11,
+          "end": 14
+        }
+      ]
+    },
+    {
+      "id": "s2",
+      "source_id": "synthetic",
+      "split": "holdout",
+      "leakage_group": "s2",
+      "text": "No Python required.",
+      "text_sha256": "734c0eec01af080426feb6ae04def86cca6751a691ebc9f88222fa63acd96554",
+      "observed_on": "2026-10-06",
+      "expires_on": "2027-10-06",
+      "source_reference": "synthetic:authored-fixture",
+      "policy_reference": "docs/29_MARKET_EVALUATION.md",
+      "reviewer": "fixture-author",
+      "labels": [
+        {
+          "skill": "Python",
+          "start": 3,
+          "end": 9
+        }
+      ]
+    },
+    {
+      "id": "s3",
+      "source_id": "synthetic",
+      "split": "holdout",
+      "leakage_group": "s3",
+      "text": "SQL is preferred.",
+      "text_sha256": "440fbbaf211cc844d2ac889e976fbd130fe6cf63c0080779af581dbfbef8e523",
+      "observed_on": "2026-10-06",
+      "expires_on": "2027-10-06",
+      "source_reference": "synthetic:authored-fixture",
+      "policy_reference": "docs/29_MARKET_EVALUATION.md",
+      "reviewer": "fixture-author",
+      "labels": [
+        {
+          "skill": "SQL",
+          "start": 0,
+          "end": 3
+        }
+      ]
+    },
+    {
+      "id": "s4",
+      "source_id": "synthetic",
+      "split": "holdout",
+      "leakage_group": "s4",
+      "text": "We value communication.",
+      "text_sha256": "5fbd49e97d2de691b0b69f7b4cf1dceabc1a514e3d0742096bcc666e30fba9cc",
+      "observed_on": "2026-10-06",
+      "expires_on": "2027-10-06",
+      "source_reference": "synthetic:authored-fixture",
+      "policy_reference": "docs/29_MARKET_EVALUATION.md",
+      "reviewer": "fixture-author",
+      "labels": []
+    },
+    {
+      "id": "s5",
+      "source_id": "synthetic",
+      "split": "holdout",
+      "leakage_group": "s5",
+      "text": "pythonic SQLAlchemy nosql",
+      "text_sha256": "41a67661099b9bfdc16f4238c8ea24f133e2c5721ab6a21f1bdc1cbabded56cd",
+      "observed_on": "2026-10-06",
+      "expires_on": "2027-10-06",
+      "source_reference": "synthetic:authored-fixture",
+      "policy_reference": "docs/29_MARKET_EVALUATION.md",
+      "reviewer": "fixture-author",
+      "labels": []
+    },
+    {
+      "id": "s6",
+      "source_id": "synthetic",
+      "split": "holdout",
+      "leakage_group": "s6",
+      "text": "AWS Cloud",
+      "text_sha256": "af35c0c21ff270514f69b5516b0e5c62f5cd5c4f9094147fb0d9ec6b30af86db",
+      "observed_on": "2026-10-06",
+      "expires_on": "2027-10-06",
+      "source_reference": "synthetic:authored-fixture",
+      "policy_reference": "docs/29_MARKET_EVALUATION.md",
+      "reviewer": "fixture-author",
+      "labels": [
+        {
+          "skill": "AWS",
+          "start": 0,
+          "end": 9
+        }
+      ]
+    },
+    {
+      "id": "s7",
+      "source_id": "synthetic",
+      "split": "holdout",
+      "leakage_group": "s7",
+      "text": "Python Python",
+      "text_sha256": "5b0f19f11d80c73381716e8e9ac1c87ed797211d6b9fb25682a290d1b569d8b8",
+      "observed_on": "2026-10-06",
+      "expires_on": "2027-10-06",
+      "source_reference": "synthetic:authored-fixture",
+      "policy_reference": "docs/29_MARKET_EVALUATION.md",
+      "reviewer": "fixture-author",
+      "labels": [
+        {
+          "skill": "Python",
+          "start": 0,
+          "end": 6
+        },
+        {
+          "skill": "Python",
+          "start": 7,
+          "end": 13
+        }
+      ]
+    },
+    {
+      "id": "s8",
+      "source_id": "synthetic",
+      "split": "holdout",
+      "leakage_group": "s8",
+      "text": "Türkçe: Python",
+      "text_sha256": "effbb56cb0a8ab01b1f92c09fb9ab34fe16d2a103943c8f0c8ad5e224c1dbdbc",
+      "observed_on": "2026-10-06",
+      "expires_on": "2027-10-06",
+      "source_reference": "synthetic:authored-fixture",
+      "policy_reference": "docs/29_MARKET_EVALUATION.md",
+      "reviewer": "fixture-author",
+      "labels": [
+        {
+          "skill": "Python",
+          "start": 8,
+          "end": 14
+        }
+      ]
+    }
+  ]
+}

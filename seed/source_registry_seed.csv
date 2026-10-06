@@ -1,0 +1,9 @@
+source_id,source_name,source_type,initial_priority,collection_policy_status,notes
+BA,Bundesagentur für Arbeit,official_job_board,P0,REVIEW,Official German labor-market source; investigate supported search/export interfaces
+COMPANY,Company career pages,first_party,P0,PER_SOURCE,Prefer structured career endpoints/ATS feeds
+GREENHOUSE,Greenhouse-hosted careers,ATS,P0,REVIEW,Useful global/EU company postings
+LEVER,Lever-hosted careers,ATS,P0,REVIEW,Useful global/EU company postings
+STEPSTONE,StepStone,job_board,P1,REVIEW,Strong Germany coverage; collection method must be reviewed
+INDEED,Indeed,job_board,P1,REVIEW,Useful coverage; collection method must be reviewed
+LINKEDIN,LinkedIn Jobs,job_board,P1,REVIEW,Research/discovery source; do not assume unrestricted production scraping
+KARIYER,Kariyer.net,job_board,P2,REVIEW,Turkey comparison market

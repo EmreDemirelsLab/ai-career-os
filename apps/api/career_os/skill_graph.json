@@ -1,0 +1,534 @@
+{
+  "version": "prerequisites/1",
+  "status": "authored_baseline_not_empirically_calibrated",
+  "nodes": [
+    {
+      "id": "python",
+      "skill": "Python",
+      "prerequisites": []
+    },
+    {
+      "id": "sql",
+      "skill": "SQL",
+      "prerequisites": []
+    },
+    {
+      "id": "git",
+      "skill": "Git",
+      "prerequisites": []
+    },
+    {
+      "id": "linux",
+      "skill": "Linux",
+      "prerequisites": []
+    },
+    {
+      "id": "http-rest",
+      "skill": "HTTP/REST",
+      "prerequisites": []
+    },
+    {
+      "id": "data-structures-algorithms",
+      "skill": "Data Structures & Algorithms",
+      "prerequisites": []
+    },
+    {
+      "id": "software-testing",
+      "skill": "Software Testing",
+      "prerequisites": []
+    },
+    {
+      "id": "system-design",
+      "skill": "System Design",
+      "prerequisites": []
+    },
+    {
+      "id": "numpy",
+      "skill": "NumPy",
+      "prerequisites": [
+        "python"
+      ]
+    },
+    {
+      "id": "pandas",
+      "skill": "Pandas",
+      "prerequisites": [
+        "python"
+      ]
+    },
+    {
+      "id": "data-cleaning",
+      "skill": "Data Cleaning",
+      "prerequisites": [
+        "pandas"
+      ]
+    },
+    {
+      "id": "feature-engineering",
+      "skill": "Feature Engineering",
+      "prerequisites": [
+        "data-cleaning"
+      ]
+    },
+    {
+      "id": "data-pipelines",
+      "skill": "Data Pipelines",
+      "prerequisites": [
+        "sql",
+        "python"
+      ]
+    },
+    {
+      "id": "postgresql",
+      "skill": "PostgreSQL",
+      "prerequisites": [
+        "sql"
+      ]
+    },
+    {
+      "id": "redis",
+      "skill": "Redis",
+      "prerequisites": []
+    },
+    {
+      "id": "spark-pyspark",
+      "skill": "Spark/PySpark",
+      "prerequisites": []
+    },
+    {
+      "id": "probability",
+      "skill": "Probability",
+      "prerequisites": []
+    },
+    {
+      "id": "statistics",
+      "skill": "Statistics",
+      "prerequisites": []
+    },
+    {
+      "id": "linear-algebra",
+      "skill": "Linear Algebra",
+      "prerequisites": []
+    },
+    {
+      "id": "calculus",
+      "skill": "Calculus",
+      "prerequisites": []
+    },
+    {
+      "id": "supervised-learning",
+      "skill": "Supervised Learning",
+      "prerequisites": [
+        "python",
+        "model-evaluation"
+      ]
+    },
+    {
+      "id": "unsupervised-learning",
+      "skill": "Unsupervised Learning",
+      "prerequisites": []
+    },
+    {
+      "id": "model-evaluation",
+      "skill": "Model Evaluation",
+      "prerequisites": [
+        "statistics"
+      ]
+    },
+    {
+      "id": "imbalanced-learning",
+      "skill": "Imbalanced Learning",
+      "prerequisites": []
+    },
+    {
+      "id": "experiment-design",
+      "skill": "Experiment Design",
+      "prerequisites": []
+    },
+    {
+      "id": "neural-networks",
+      "skill": "Neural Networks",
+      "prerequisites": [
+        "linear-algebra",
+        "calculus"
+      ]
+    },
+    {
+      "id": "backpropagation",
+      "skill": "Backpropagation",
+      "prerequisites": []
+    },
+    {
+      "id": "pytorch",
+      "skill": "PyTorch",
+      "prerequisites": [
+        "python",
+        "neural-networks"
+      ]
+    },
+    {
+      "id": "tensorflow",
+      "skill": "TensorFlow",
+      "prerequisites": []
+    },
+    {
+      "id": "transformers",
+      "skill": "Transformers",
+      "prerequisites": [
+        "pytorch"
+      ]
+    },
+    {
+      "id": "embeddings",
+      "skill": "Embeddings",
+      "prerequisites": [
+        "transformers"
+      ]
+    },
+    {
+      "id": "hugging-face",
+      "skill": "Hugging Face",
+      "prerequisites": []
+    },
+    {
+      "id": "llm-fundamentals",
+      "skill": "LLM Fundamentals",
+      "prerequisites": []
+    },
+    {
+      "id": "prompt-context-engineering",
+      "skill": "Prompt/Context Engineering",
+      "prerequisites": []
+    },
+    {
+      "id": "structured-outputs",
+      "skill": "Structured Outputs",
+      "prerequisites": []
+    },
+    {
+      "id": "rag",
+      "skill": "RAG",
+      "prerequisites": [
+        "embeddings",
+        "model-evaluation"
+      ]
+    },
+    {
+      "id": "vector-databases",
+      "skill": "Vector Databases",
+      "prerequisites": []
+    },
+    {
+      "id": "hybrid-search",
+      "skill": "Hybrid Search",
+      "prerequisites": []
+    },
+    {
+      "id": "reranking",
+      "skill": "Reranking",
+      "prerequisites": []
+    },
+    {
+      "id": "llm-evaluation",
+      "skill": "LLM Evaluation",
+      "prerequisites": [
+        "model-evaluation",
+        "llm-fundamentals"
+      ]
+    },
+    {
+      "id": "fine-tuning",
+      "skill": "Fine-tuning",
+      "prerequisites": [
+        "transformers",
+        "model-evaluation"
+      ]
+    },
+    {
+      "id": "peft",
+      "skill": "PEFT",
+      "prerequisites": []
+    },
+    {
+      "id": "lora",
+      "skill": "LoRA",
+      "prerequisites": []
+    },
+    {
+      "id": "qlora",
+      "skill": "QLoRA",
+      "prerequisites": []
+    },
+    {
+      "id": "quantization",
+      "skill": "Quantization",
+      "prerequisites": []
+    },
+    {
+      "id": "tool-calling",
+      "skill": "Tool Calling",
+      "prerequisites": [
+        "http-rest",
+        "structured-outputs"
+      ]
+    },
+    {
+      "id": "agent-workflows",
+      "skill": "Agent Workflows",
+      "prerequisites": [
+        "tool-calling",
+        "failure-recovery"
+      ]
+    },
+    {
+      "id": "langchain",
+      "skill": "LangChain",
+      "prerequisites": []
+    },
+    {
+      "id": "langgraph",
+      "skill": "LangGraph",
+      "prerequisites": []
+    },
+    {
+      "id": "llamaindex",
+      "skill": "LlamaIndex",
+      "prerequisites": []
+    },
+    {
+      "id": "mcp",
+      "skill": "MCP",
+      "prerequisites": []
+    },
+    {
+      "id": "multi-agent-systems",
+      "skill": "Multi-Agent Systems",
+      "prerequisites": []
+    },
+    {
+      "id": "state-memory",
+      "skill": "State/Memory",
+      "prerequisites": []
+    },
+    {
+      "id": "failure-recovery",
+      "skill": "Failure Recovery",
+      "prerequisites": []
+    },
+    {
+      "id": "fastapi",
+      "skill": "FastAPI",
+      "prerequisites": [
+        "python",
+        "http-rest"
+      ]
+    },
+    {
+      "id": "api-integration",
+      "skill": "API Integration",
+      "prerequisites": []
+    },
+    {
+      "id": "async-python",
+      "skill": "Async Python",
+      "prerequisites": []
+    },
+    {
+      "id": "microservice-concepts",
+      "skill": "Microservice Concepts",
+      "prerequisites": []
+    },
+    {
+      "id": "authentication-authorization",
+      "skill": "Authentication/Authorization",
+      "prerequisites": []
+    },
+    {
+      "id": "docker",
+      "skill": "Docker",
+      "prerequisites": []
+    },
+    {
+      "id": "kubernetes",
+      "skill": "Kubernetes",
+      "prerequisites": []
+    },
+    {
+      "id": "ci-cd",
+      "skill": "CI/CD",
+      "prerequisites": [
+        "git",
+        "software-testing"
+      ]
+    },
+    {
+      "id": "mlflow",
+      "skill": "MLflow",
+      "prerequisites": []
+    },
+    {
+      "id": "weights-biases",
+      "skill": "Weights & Biases",
+      "prerequisites": []
+    },
+    {
+      "id": "model-serving",
+      "skill": "Model Serving",
+      "prerequisites": [
+        "fastapi",
+        "docker"
+      ]
+    },
+    {
+      "id": "model-monitoring",
+      "skill": "Model Monitoring",
+      "prerequisites": []
+    },
+    {
+      "id": "drift-detection",
+      "skill": "Drift Detection",
+      "prerequisites": []
+    },
+    {
+      "id": "observability",
+      "skill": "Observability",
+      "prerequisites": [
+        "software-testing"
+      ]
+    },
+    {
+      "id": "tracing",
+      "skill": "Tracing",
+      "prerequisites": []
+    },
+    {
+      "id": "prompt-model-governance",
+      "skill": "Prompt/Model Governance",
+      "prerequisites": []
+    },
+    {
+      "id": "aws",
+      "skill": "AWS",
+      "prerequisites": []
+    },
+    {
+      "id": "amazon-bedrock",
+      "skill": "Amazon Bedrock",
+      "prerequisites": []
+    },
+    {
+      "id": "amazon-sagemaker",
+      "skill": "Amazon SageMaker",
+      "prerequisites": []
+    },
+    {
+      "id": "s3",
+      "skill": "S3",
+      "prerequisites": []
+    },
+    {
+      "id": "lambda",
+      "skill": "Lambda",
+      "prerequisites": []
+    },
+    {
+      "id": "ecs-ecr",
+      "skill": "ECS/ECR",
+      "prerequisites": []
+    },
+    {
+      "id": "sqs",
+      "skill": "SQS",
+      "prerequisites": []
+    },
+    {
+      "id": "gcp",
+      "skill": "GCP",
+      "prerequisites": []
+    },
+    {
+      "id": "azure",
+      "skill": "Azure",
+      "prerequisites": []
+    },
+    {
+      "id": "infrastructure-as-code",
+      "skill": "Infrastructure as Code",
+      "prerequisites": []
+    },
+    {
+      "id": "terraform",
+      "skill": "Terraform",
+      "prerequisites": []
+    },
+    {
+      "id": "security",
+      "skill": "Security",
+      "prerequisites": [
+        "http-rest"
+      ]
+    },
+    {
+      "id": "iam-secrets",
+      "skill": "IAM/Secrets",
+      "prerequisites": []
+    },
+    {
+      "id": "cost-optimization",
+      "skill": "Cost Optimization",
+      "prerequisites": []
+    },
+    {
+      "id": "latency-optimization",
+      "skill": "Latency Optimization",
+      "prerequisites": []
+    },
+    {
+      "id": "caching",
+      "skill": "Caching",
+      "prerequisites": []
+    },
+    {
+      "id": "reliability-slos",
+      "skill": "Reliability/SLOs",
+      "prerequisites": []
+    },
+    {
+      "id": "responsible-ai",
+      "skill": "Responsible AI",
+      "prerequisites": []
+    },
+    {
+      "id": "documentation",
+      "skill": "Documentation",
+      "prerequisites": []
+    },
+    {
+      "id": "technical-english",
+      "skill": "Technical English",
+      "prerequisites": []
+    },
+    {
+      "id": "technical-writing",
+      "skill": "Technical Writing",
+      "prerequisites": []
+    },
+    {
+      "id": "stakeholder-communication",
+      "skill": "Stakeholder Communication",
+      "prerequisites": []
+    },
+    {
+      "id": "architecture-explanation",
+      "skill": "Architecture Explanation",
+      "prerequisites": [
+        "system-design"
+      ]
+    },
+    {
+      "id": "interview-communication",
+      "skill": "Interview Communication",
+      "prerequisites": []
+    }
+  ]
+}

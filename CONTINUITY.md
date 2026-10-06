@@ -16,7 +16,7 @@ Kullanıcının sistemi tamamen bitirme isteği sürüyor. İş artık [parçal�
 - PR #1 foundation: https://github.com/EmreDemirelsLab/ai-career-os/pull/1
 - PR #2 workspace: https://github.com/EmreDemirelsLab/ai-career-os/pull/2 (base #1 branch)
 - Önceki PR #3: https://github.com/EmreDemirelsLab/ai-career-os/pull/3 (base `feat/career-workspace`)
-- Aktif branch: `feat/retention-maintenance` (P3a; PR #4: https://github.com/EmreDemirelsLab/ai-career-os/pull/4)
+- P3a branch: `feat/retention-maintenance` (PR #4: https://github.com/EmreDemirelsLab/ai-career-os/pull/4)
 - P2 kod head'i: `d934411f562d0aef79634bc27cc86c39f2c1abbd`
 - Bu kayıt PR merge edildiğini varsaymaz; devam ederken remote branch/PR durumunu yeniden oku.
 
@@ -54,3 +54,9 @@ Yerel Ruff/format/mypy geçti; pytest 34 passed / 30 skipped (PostgreSQL yok). �
 ## Gerçek engeller / açık işler
 
 Kaynak-specific review ve gerçek piyasa/gold seti, retention/scheduling kodu, doğrulanmış ders/assessment içeriği, canlı model seçimi-kullanım sınırı-eval, son kariyer çıktı akışları, gerçek hosting/domain/TLS/monitoring/offsite backup ve kullanıcı kabulü açık. Bunların tümü yalnızca API anahtarı eksikliği değildir. Secret istemek yerine ilgili environment/secret store üzerinden kurulum yap.
+
+## P3b1 checkpoint — 2026-10-06
+
+P3a remote head `2cd9f63471ac84839037df4289824ccbdc17c7a0`: PR run 37401610008 completed SUCCESS, including Python, web, Compose/browser and restore. PR #4 ready for review, not merged.
+
+Active branch `feat/collection-scheduling`, stacked on P3a. Migration 0005, PostgreSQL bounded scheduler and metadata queue, CLI and concurrency tests implemented. No worker/network/cron. See docs/27_COLLECTION_SCHEDULING.md. Local Ruff/format/mypy pass; pytest 35 passed / 37 skipped (PostgreSQL unavailable). Next: push and open stacked PR; verify PostgreSQL CI, fix failures, record exact head/run. Then P3b2 worker/recovery per docs27. Full product and live-data/model/hosting gates remain open.

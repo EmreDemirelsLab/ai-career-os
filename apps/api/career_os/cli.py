@@ -15,6 +15,7 @@ from career_os.greenhouse import collect_greenhouse
 from career_os.ingestion import fail_run, ingest, inspect_run
 from career_os.models import Source
 from career_os.retention import retain_source
+from career_os.scheduling import configure_schedule, enqueue_due, inspect_schedule
 
 
 def main() -> None:
@@ -50,6 +51,14 @@ def main() -> None:
     retention.add_argument("--key", required=True)
     retention.add_argument("--apply", action="store_true")
     retention.add_argument("--confirm", default="")
+    schedule = sub.add_parser("schedule-source")
+    schedule.add_argument("source_id")
+    schedule.add_argument("--interval-minutes", type=int, default=1440)
+    schedule.add_argument("--state", choices=["enable", "disable"], required=True)
+    tick = sub.add_parser("schedule-tick")
+    tick.add_argument("--limit", type=int, default=25)
+    show_schedule = sub.add_parser("schedule-status")
+    show_schedule.add_argument("source_id")
     args = parser.parse_args()
     logging.basicConfig(level=logging.INFO, format="%(message)s")
     if args.command == "retention":
@@ -65,7 +74,15 @@ def main() -> None:
     else:
         engine = build_engine(Settings().database_url)
     try:
-        if args.command == "retention":
+        if args.command == "schedule-source":
+            configure_schedule(
+                engine, args.source_id, args.interval_minutes, args.state == "enable"
+            )
+        elif args.command == "schedule-tick":
+            print(json.dumps(enqueue_due(engine, args.limit)))
+        elif args.command == "schedule-status":
+            print(json.dumps(inspect_schedule(engine, args.source_id)))
+        elif args.command == "retention":
             print(json.dumps(retain_source(engine, args.source_id, args.key, apply=args.apply)))
         elif args.command == "register-greenhouse":
             import re

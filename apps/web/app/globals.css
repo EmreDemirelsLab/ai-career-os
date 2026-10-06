@@ -187,7 +187,7 @@ section h2:first-child {
   color: #b4c7dd;
   margin-bottom: 8px;
 }
-input:not([type="checkbox"]),
+input:not([type="checkbox"]):not([type="radio"]),
 select,
 textarea {
   width: 100%;
@@ -209,7 +209,8 @@ a:focus-visible {
   outline: 2px solid #78dec5;
   outline-offset: 3px;
 }
-input[type="checkbox"] {
+input[type="checkbox"],
+input[type="radio"] {
   width: auto;
 }
 form button {
@@ -311,3 +312,5 @@ hr {
     font-size: 50px;
   }
 }
+
+.lesson-code { white-space: pre-wrap; overflow-wrap: anywhere; }

@@ -52,3 +52,8 @@ Worker kaynak başına DB session lock, en fazla üç deneme ve crash recovery k
 
 User explicitly clarified: do not stop after a PR; continue implementing successive parts until an actual limit/blocker, recording checkpoints.
 PR #8 final head 8255f7c408ecc287df7ed4492634b38322b13997 CI 37447289524/37447283848 both SUCCESS. Active branch feat/sampling-review, stacked on #8. sampling.py and docs31 implement private manifest, strata/missingness, policy/retention, independent-token review and stale-gold linkage checks. Synthetic fixtures only. Local Ruff/format/mypy pass; pytest 64 passed / 55 skipped. Next: push PR and verify CI; then proceed to P4 diagnostic/exercise content while real market collection/independent human review stays explicitly open. No live collection/paid calls/merge/deployment.
+
+## Active P4a checkpoint — 2026-10-06
+
+P3c2 PR #9 head 49d6acc278118477a95eee2641269b4acee6579e: runs 37456402632/37456397956 both SUCCESS; Python 100 passed / 19 skipped. Ready for review, not merged.
+Active branch feat/foundation-lessons, stacked on #9. Four authored week1–4 lessons, objective checks separate from mastery, local starter/reference/check runner, authenticated lesson API using LearningAttempt recall/export/delete, and web tab plus browser acceptance implemented. See docs32 and labs/foundation/README.md. Local Python 66 passed / 56 skipped; Ruff/mypy and web lint/type/build passed; reference five checks passed, starter intentionally fails. Next: push PR and verify final CI including new browser flow; fix any failures. Then continue P4 content/diagnosis, not stop after PR. Real-market corpus/independent review and full-course validation remain open.

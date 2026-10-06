@@ -1,0 +1,258 @@
+{
+  "version": "foundation-lessons/1",
+  "status": "authored_foundation_pilot_not_validated_full_course",
+  "units": [
+    {
+      "id": "foundation-1",
+      "week": 1,
+      "title": "Python: güvenilmeyen veriye sınır koy",
+      "skill": "Python",
+      "why": "Bir ilanın başlığı boşken onu veritabanına yazarsan hata daha sonra aramada görünür. Girişte sözleşme koymak, sorunu kaynağına yakın yakalar.",
+      "explanation": "Fonksiyon bir girdiyi alır ve bir sonuç döndürür. Burada sözleşme iki metin alanıdır: source_job_id ve title. Önce alanların gerçekten metin olduğunu kontrol et; sonra baştaki ve sondaki boşlukları temizle; sonra boş kalıp kalmadığını denetle. Eksik veya fazladan alanı sessizce yutma. Beklenen geçersiz girdi için ValueError kullan; her hatayı yakalayıp başarılı gibi davranma.",
+      "worked_example": "Girdi: {source_job_id: \" 42 \", title: \" AI Engineer \"}. Beklenen çıktı: {source_job_id: \"42\", title: \"AI Engineer\"}. title=\"   \" geçersizdir. Girdiyi yerinde değiştirmeden yeni bir sözlük döndür.",
+      "exercise": "labs/foundation/exercises.py içindeki validate_job fonksiyonunu tamamla. İki alan dışında alan kabul etme; ikisi de 1–200 karakter arası, trim edilmiş metin olsun. Girdi sözlüğü değişmemeli.",
+      "debug_prompt": "if value[\"title\"] kontrolü neden yalnız boşluklardan oluşan bir metni kabul eder? Önce bu hatayı ortaya çıkaran bir test yaz.",
+      "english_prompt": "Explain how you validate an untrusted job record. State the contract, one rejected input and why you do not mutate the original record.",
+      "english_terms": [
+        [
+          "contract",
+          "Girdinin ve çıktının açık kuralları"
+        ],
+        [
+          "validation",
+          "Girdinin kurallara uygunluğunu denetleme"
+        ],
+        [
+          "mutation",
+          "Var olan nesneyi değiştirme"
+        ]
+      ],
+      "source_url": "https://docs.python.org/3/tutorial/errors.html",
+      "questions": [
+        {
+          "id": "validation-order",
+          "prompt": "title=\"   \" girdisi hangi sırayla denetlenmeli?",
+          "choices": [
+            "Doğrudan kaydet",
+            "Metin türünü denetle, trim et, boşluğu reddet",
+            "Önce sayıya çevir"
+          ],
+          "correct": 1,
+          "explanation": "Boşluk içeren metin truthy olabilir; trim sonrasında boşluk kontrolü gerekir."
+        },
+        {
+          "id": "unexpected-error",
+          "prompt": "Beklenmeyen programlama hatasını başarılı sonuç gibi döndürmek neye yol açar?",
+          "choices": [
+            "Hata gizlenir ve yanlış veri işlenebilir",
+            "Sözleşme otomatik güçlenir",
+            "Her zaman performans artar"
+          ],
+          "correct": 0,
+          "explanation": "Beklenen doğrulama hatası ile programlama hatasını ayır; başarısızlığı başarı gibi sunma."
+        }
+      ],
+      "source_checked_on": "2026-10-06",
+      "technical_rubric": [
+        "Sözleşmeyi ve bir sınır durumunu açıklayabiliyor musun?",
+        "Başarısız testi gösterip nedenini bağımsız düzeltebiliyor musun?",
+        "Lab ile production sisteminin sınırlarını ayırabiliyor musun?"
+      ],
+      "english_rubric": [
+        "Önce iddia, sonra örnek/test, sonra sınır anlat.",
+        "Terimleri doğru anlamda kullan.",
+        "Anlaşılmayan soruya açıklama isteyerek yanıt ver."
+      ],
+      "lab_command": "uv run python labs/foundation/check.py --week 1"
+    },
+    {
+      "id": "foundation-2",
+      "week": 2,
+      "title": "SQL: ilişki ve benzersizlik",
+      "skill": "SQL",
+      "why": "Aynı ilan iki kez geldiğinde uygulamadaki önce kontrol et, sonra ekle kodu yarışabilir. Kaynak ve ilan kimliğinin birleşimine veritabanında kısıt koymak kuralı ortak noktada uygular.",
+      "explanation": "PRIMARY KEY satırı tanımlar. FOREIGN KEY başka tabloda var olması gereken kaynağı işaret eder. UNIQUE(source_id, external_id) aynı kaynak içindeki tekrarları engeller; farklı kaynaklardaki aynı external_id geçerlidir. LEFT JOIN, hiç ilanı olmayan kaynağı da getirir. COUNT(jobs.id), eşleşmeyen taraftaki NULL değeri saymaz; COUNT(*) ise oluşan satırı sayabilir.",
+      "worked_example": "A kaynağında iki ilan, B kaynağında hiç ilan varsa sonuç [(\"A\", 2), (\"B\", 0)] olmalı. Kaynak tablosunu solda tut; jobs.id say; source.id bazında grupla.",
+      "exercise": "create_schema ve source_counts fonksiyonlarını tamamla. sources(id,name), jobs(id,source_id,external_id) tablolarını kur. Foreign key ve birleşik unique kısıtı kullan. Sonucu source.id sırasıyla döndür. Lab SQLite kullanır; PostgreSQL yarış/yetki kanıtı yerine geçmez.",
+      "debug_prompt": "LEFT JOIN sonrası COUNT(*) neden boş kaynağı 1 gösterebilir? Aynı external_id iki farklı kaynakta geldiğinde reddedilmeli mi?",
+      "english_prompt": "Defend your composite unique constraint and explain how your query preserves sources with zero jobs.",
+      "english_terms": [
+        [
+          "constraint",
+          "Veritabanının uyguladığı kural"
+        ],
+        [
+          "foreign key",
+          "Başka tablodaki kayda ilişki"
+        ],
+        [
+          "composite key",
+          "Birden fazla alandan oluşan anahtar"
+        ]
+      ],
+      "source_url": "https://www.postgresql.org/docs/17/ddl-constraints.html",
+      "questions": [
+        {
+          "id": "unique-scope",
+          "prompt": "İlan kimliği yalnız kendi kaynağında benzersizse doğru kısıt hangisi?",
+          "choices": [
+            "UNIQUE(external_id)",
+            "UNIQUE(source_id, external_id)",
+            "Hiç kısıt kullanmamak"
+          ],
+          "correct": 1,
+          "explanation": "Kimlik kaynak içinde anlamlıdır; tek başına external_id farklı kaynakları yanlışlıkla çakıştırır."
+        },
+        {
+          "id": "zero-source",
+          "prompt": "Sıfır ilanlı kaynağı korumak için hangi yaklaşım uygundur?",
+          "choices": [
+            "INNER JOIN ve COUNT(*)",
+            "LEFT JOIN ve COUNT(jobs.id)",
+            "Yalnız jobs tablosunu okumak"
+          ],
+          "correct": 1,
+          "explanation": "LEFT JOIN kaynağı korur; sağ taraftaki id sayımı eşleşmeyen NULL kaydı saymaz."
+        }
+      ],
+      "source_checked_on": "2026-10-06",
+      "technical_rubric": [
+        "Sözleşmeyi ve bir sınır durumunu açıklayabiliyor musun?",
+        "Başarısız testi gösterip nedenini bağımsız düzeltebiliyor musun?",
+        "Lab ile production sisteminin sınırlarını ayırabiliyor musun?"
+      ],
+      "english_rubric": [
+        "Önce iddia, sonra örnek/test, sonra sınır anlat.",
+        "Terimleri doğru anlamda kullan.",
+        "Anlaşılmayan soruya açıklama isteyerek yanıt ver."
+      ],
+      "lab_command": "uv run python labs/foundation/check.py --week 2"
+    },
+    {
+      "id": "foundation-3",
+      "week": 3,
+      "title": "API: doğrulama ile hata sözleşmesi",
+      "skill": "FastAPI",
+      "why": "Bir API kullanıcısı hangi girdinin kabul edildiğini ve başarısızlığın nasıl bildirildiğini bilmelidir. Geçersiz girdiyi 201 ile döndürmek istemcinin yanlış varsayımla ilerlemesine yol açar.",
+      "explanation": "İstek gövdesi istemcinin gönderdiği veridir; yanıt gövdesi sunucunun döndürdüğüdür. Pydantic modeli alan türlerini ve kısıtları tanımlar. Bu labda POST /jobs geçerli girdide 201 ve temizlenmiş iki alan döndürür; boş, sayısal veya fazla alanlı girdide 422 beklenir. Bu stateless doğrulama alıştırması kayıt saklamaz ve production auth sağlamaz.",
+      "worked_example": "POST /jobs: {source_job_id: \"1\", title: \" Engineer \"} → 201, title=\"Engineer\". title=7 veya title=\"   \" → 422. Test hem durum kodunu hem yanıt içeriğini denetler.",
+      "exercise": "create_app fonksiyonunda yeni FastAPI uygulaması oluştur. POST /jobs rotasını ve sıkı gövde modelini tanımla. Dış ağ çağrısı yapma, veri saklama, gerçek uygulamanın secret ayarlarını kullanma.",
+      "debug_prompt": "Sadece status_code test etmek hangi hatayı kaçırır? 201 yanıtında title hâlâ boşlukluysa sözleşme geçmiş sayılır mı?",
+      "english_prompt": "Describe a valid request, an invalid request and the expected response. Explain which production concerns this lab does not cover.",
+      "english_terms": [
+        [
+          "request body",
+          "İstek içeriği"
+        ],
+        [
+          "status code",
+          "Yanıtın durum kodu"
+        ],
+        [
+          "boundary case",
+          "Sınırda veya beklenmeyen girdi"
+        ]
+      ],
+      "source_url": "https://fastapi.tiangolo.com/tutorial/body/",
+      "questions": [
+        {
+          "id": "invalid-request",
+          "prompt": "Bu lab sözleşmesinde geçersiz gövde için beklenen durum nedir?",
+          "choices": [
+            "201 ve sessiz düzeltme",
+            "422 doğrulama hatası",
+            "Her zaman 500"
+          ],
+          "correct": 1,
+          "explanation": "Bu alıştırma FastAPI gövde doğrulama davranışını test eder; beklenen geçersiz girdi 422 olur."
+        },
+        {
+          "id": "response-check",
+          "prompt": "Başarılı yanıt testinde hangi kontrol gereklidir?",
+          "choices": [
+            "Yalnız port açık mı",
+            "Durum kodu ve normalize edilmiş içerik",
+            "Yalnız log satır sayısı"
+          ],
+          "correct": 1,
+          "explanation": "Doğru durum kodu yanlış yanıt içeriğini tek başına yakalamaz."
+        }
+      ],
+      "source_checked_on": "2026-10-06",
+      "technical_rubric": [
+        "Sözleşmeyi ve bir sınır durumunu açıklayabiliyor musun?",
+        "Başarısız testi gösterip nedenini bağımsız düzeltebiliyor musun?",
+        "Lab ile production sisteminin sınırlarını ayırabiliyor musun?"
+      ],
+      "english_rubric": [
+        "Önce iddia, sonra örnek/test, sonra sınır anlat.",
+        "Terimleri doğru anlamda kullan.",
+        "Anlaşılmayan soruya açıklama isteyerek yanıt ver."
+      ],
+      "lab_command": "uv run python labs/foundation/check.py --week 3"
+    },
+    {
+      "id": "foundation-4",
+      "week": 4,
+      "title": "Veri akışı: tekrar ile değişikliği ayır",
+      "skill": "Data Pipelines",
+      "why": "Toplama yeniden çalıştığında aynı ilanı yeni içerik sanmamalısın. Aynı kimlikte gerçekten değişen açıklamayı da sessizce kaybetmemelisin.",
+      "explanation": "Kimlik ile içerik farklıdır. (source_id, source_job_id) hangi ilan olduğunu söyler; title ve description hash’i içeriğin aynı olup olmadığını söyler. fetched_at her gözlemde değişebilir; içerik hash’ine katılırsa aynı veri farklı sanılır. Bu lab son hash’i bellekte tutar; production sistemindeki immutable revision ve observation tablolarının yerine geçmez.",
+      "worked_example": "İlk kayıt → inserted. Aynı içerik ve yeni fetched_at → duplicate. Aynı kimlikte yeni description → revised. Başka kaynaktaki aynı source_job_id ayrı bir kimliktir.",
+      "exercise": "ingest_revision(store, record) fonksiyonunu tamamla. record beş metin alanı içerir: source_id, source_job_id, title, description, fetched_at. Anahtar ilk iki alan; hash yalnız title/description. Dönen değer inserted/duplicate/revised olsun. Geçersiz girdide store değişmesin.",
+      "debug_prompt": "Hash içine fetched_at eklersen ikinci çalıştırmada ne olur? Python hash() sonucu yerine neden deterministik içerik özeti seçersin?",
+      "english_prompt": "Explain identity versus content, demonstrate a replay and a changed revision, and state what your in-memory exercise cannot guarantee.",
+      "english_terms": [
+        [
+          "idempotency",
+          "Aynı işlemi tekrar uygulamanın ek etki üretmemesi"
+        ],
+        [
+          "revision",
+          "İçeriğin değişmiş sürümü"
+        ],
+        [
+          "provenance",
+          "Verinin nereden ve ne zaman geldiğinin izi"
+        ]
+      ],
+      "source_url": "https://www.postgresql.org/docs/17/ddl-constraints.html",
+      "questions": [
+        {
+          "id": "volatile-field",
+          "prompt": "Aynı içeriği farklı hash’e dönüştürmemek için hangisi içerik özetinden çıkarılmalı?",
+          "choices": [
+            "description",
+            "title",
+            "fetched_at"
+          ],
+          "correct": 2,
+          "explanation": "Gözlem zamanı değişebilir; içerik karşılaştırması gözlem zamanından bağımsız olmalıdır."
+        },
+        {
+          "id": "identity",
+          "prompt": "İki kaynak aynı source_job_id kullanıyorsa nasıl ayırt edilir?",
+          "choices": [
+            "(source_id, source_job_id) ile",
+            "Yalnız source_job_id ile",
+            "İlan başlığını silerek"
+          ],
+          "correct": 0,
+          "explanation": "Kimlik kapsamı kaynaktır; kaynak kimliğini anahtara katmak yanlış çakışmayı önler."
+        }
+      ],
+      "source_checked_on": "2026-10-06",
+      "technical_rubric": [
+        "Sözleşmeyi ve bir sınır durumunu açıklayabiliyor musun?",
+        "Başarısız testi gösterip nedenini bağımsız düzeltebiliyor musun?",
+        "Lab ile production sisteminin sınırlarını ayırabiliyor musun?"
+      ],
+      "english_rubric": [
+        "Önce iddia, sonra örnek/test, sonra sınır anlat.",
+        "Terimleri doğru anlamda kullan.",
+        "Anlaşılmayan soruya açıklama isteyerek yanıt ver."
+      ],
+      "lab_command": "uv run python labs/foundation/check.py --week 4"
+    }
+  ]
+}

@@ -1,5 +1,6 @@
 "use client";
 import Intelligence from "./components/Intelligence";
+import Lessons from "./components/Lessons";
 import {
   useCallback,
   useEffect,
@@ -86,6 +87,7 @@ const tabs = [
   "Profil",
   "24 haftalık plan",
   "Öğren & İngilizce",
+  "Temel alıştırmalar",
   "Kanıtlar",
   "Mülakat",
   "Fırsatlar",
@@ -977,6 +979,7 @@ export default function Home() {
             ))}
           </>
         )}
+        {tab === "Temel alıştırmalar" && <Lessons onSaved={load} />}
         {tab === "Analiz & AI" && (
           <Intelligence
             skills={data.skills}

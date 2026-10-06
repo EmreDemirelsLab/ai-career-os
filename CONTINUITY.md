@@ -4,7 +4,7 @@
 
 ## Devam ederken
 
-Önce AGENTS.md, docs/25_DELIVERY_PLAN.md, docs/29_MARKET_EVALUATION.md ve docs/30_MENTION_POLICY_V2.md oku. Remote head/CI durumunu doğrula. Son aktif branch `fix/mention-overlap`; sıradaki geliştirme parçası P3c2 gerçek veri örneklem manifesti ve bağımsız review hazırlığıdır. Bu parça henüz implement edilmedi.
+Önce AGENTS.md, docs/25_DELIVERY_PLAN.md, docs/29_MARKET_EVALUATION.md ve docs/30_MENTION_POLICY_V2.md oku. Remote head/CI durumunu doğrula. Güncel aktif iş için dosyanın son checkpoint bölümünü oku; eski bölümler tarihçedir.
 
 ## Doğrulanmış teslimler
 
@@ -62,3 +62,9 @@ Active branch feat/foundation-lessons, stacked on #9. Four authored week1–4 le
 
 P4a PR #10 head 470d6159c11c8eb74d3de7c68d22f968a6c51beb: runs 37457433007/37457427281 all SUCCESS; Python 103 passed / 19 skipped, new browser lesson/save/reload/export and restore passed. Ready for review, not merged.
 Active branch feat/data-ml-lessons, stacked on #10. Catalog foundation-lessons/2 adds weeks5–8; labs/data_ml starter/reference/check runner; optional pandas labs dependency group plus uv.lock and CI setup. Local Ruff/mypy passed, pytest 67 passed / 56 skipped using --group labs. Reference five checks passed. A mistaken test-only recall count edit was fixed; per-attempt recall remains four intervals. Next: push PR, verify CI, then implement formative next-practice suggestions without mastery claims. Continue after PR, do not stop routinely. Standard full test command now uv run --group labs pytest -q.
+
+## Integrated workflow checkpoint — 2026-10-06
+
+PR #11 head 559319823b71ffa88a373e9cbff33b33486e4c7c: CI 37458201238 Python/web/Compose/browser/restore SUCCESS; 104 passed / 19 skipped. Ready for review, unmerged.
+Active branch feat/next-practice extends #11. Deterministic next-practice suggestions, latest attempt per lesson beyond the history window, multi-requirement opportunity form, downloadable evidence-linked career preparation, and expanded browser learning/evidence/interview/opportunity/application flow. Local Python 71 passed / 58 skipped; Ruff/mypy and web lint/typecheck/build passed. Remote CI pending. See docs34.
+Next: verify remote CI on this exact code, fix failures, then continue remaining authored learning content and product acceptance. Do not stop routinely after creating a PR. No merge/deploy, live collection or paid AI calls performed. Full course validation, real market benchmarks, live AI evaluation and actual hosting acceptance remain open.

@@ -1,6 +1,8 @@
 "use client";
 import Intelligence from "./components/Intelligence";
 import Lessons from "./components/Lessons";
+import CareerPack from "./components/CareerPack";
+import OpportunityForm from "./components/OpportunityForm";
 import {
   useCallback,
   useEffect,
@@ -792,83 +794,7 @@ export default function Home() {
                 Bunlar senin kaynaklı inceleme notların; piyasa istatistiği
                 değildir. Belirtilmeyen şartları zorunlu kabul etme.
               </p>
-              <form
-                onSubmit={submit((f) => {
-                  const kind = string(f, "kind"),
-                    value = string(f, "value"),
-                    span = string(f, "span");
-                  return mutate("opportunities", {
-                    title: string(f, "title"),
-                    company: string(f, "company"),
-                    source_url: string(f, "source_url"),
-                    observed_on: string(f, "observed_on"),
-                    skills: f.getAll("skills"),
-                    requirements: span
-                      ? [
-                          {
-                            kind,
-                            value,
-                            mandatory: f.get("mandatory") === "on",
-                            evidence_span: span,
-                          },
-                        ]
-                      : [],
-                    review_notes: string(f, "review_notes"),
-                  });
-                })}
-              >
-                <div className="grid">
-                  <Field label="İlan başlığı">
-                    <input name="title" required maxLength={200} />
-                  </Field>
-                  <Field label="Şirket">
-                    <input name="company" required maxLength={200} />
-                  </Field>
-                  <Field label="İlan bağlantısı">
-                    <input type="url" name="source_url" required />
-                  </Field>
-                  <Field label="İnceleme tarihi">
-                    <input type="date" name="observed_on" required />
-                  </Field>
-                  <Field label="Beceriler (çoklu seçim)">
-                    <select name="skills" multiple size={5}>
-                      {data.skills.map((s) => (
-                        <option key={s}>{s}</option>
-                      ))}
-                    </select>
-                  </Field>
-                  <div>
-                    <Field label="Bir uygunluk şartı (isteğe bağlı)">
-                      <select name="kind">
-                        {[
-                          "german",
-                          "english",
-                          "degree",
-                          "experience",
-                          "work_authorization",
-                          "location",
-                        ].map((s) => (
-                          <option key={s}>{s}</option>
-                        ))}
-                      </select>
-                    </Field>
-                    <Field label="Gereken değer: B2, yes, yıl sayısı…">
-                      <input name="value" maxLength={200} />
-                    </Field>
-                    <label>
-                      <input type="checkbox" name="mandatory" /> İlanda açıkça
-                      zorunlu
-                    </label>
-                  </div>
-                </div>
-                <Field label="Şartı destekleyen kısa kaynak metni (en çok 500 karakter)">
-                  <textarea name="span" maxLength={500} />
-                </Field>
-                <Field label="İnceleme notun">
-                  <textarea name="review_notes" required maxLength={10000} />
-                </Field>
-                {button}
-              </form>
+              <OpportunityForm skills={data.skills} onSaved={load} />
             </section>
             <div className="grid">
               {data.opportunities.map((o) => (
@@ -879,6 +805,7 @@ export default function Home() {
                     {o.company} · {o.observed_on}
                   </p>
                   <Link href={o.source_url}>Kaynak ilan</Link>
+                  <CareerPack opportunityId={o.id} />
                   {o.fit.checks.map((c, i) => (
                     <p key={i}>
                       {c.kind}: {c.status} — {c.evidence_span}

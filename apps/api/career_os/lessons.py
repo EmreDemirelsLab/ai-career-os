@@ -11,6 +11,7 @@ from sqlalchemy.orm import Session
 
 from career_os.auth import authorize
 from career_os.contracts import digest
+from career_os.practice import next_practice
 from career_os.workspace import serialize, stamp
 from career_os.workspace_contracts import Contract, Note, Short
 from career_os.workspace_models import LearningAttempt
@@ -45,7 +46,22 @@ def lessons(request: Request) -> dict[str, Any]:
             .order_by(LearningAttempt.created_at.desc(), LearningAttempt.id)
             .limit(50)
         )
-        return {"catalog": public, "attempts": [serialize(x) for x in rows]}
+        recent = [serialize(x) for x in rows]
+        latest = {}
+        for unit in CATALOG["units"]:
+            row = session.scalar(
+                select(LearningAttempt)
+                .where(LearningAttempt.data["lesson_id"].as_string() == unit["id"])
+                .order_by(LearningAttempt.created_at.desc(), LearningAttempt.id.desc())
+                .limit(1)
+            )
+            if row is not None:
+                latest[unit["id"]] = serialize(row)
+        return {
+            "catalog": public,
+            "attempts": recent,
+            "practice": next_practice(CATALOG["units"], latest),
+        }
 
 
 @router.post("/attempts", status_code=201)

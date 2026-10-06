@@ -1,55 +1,49 @@
 # AI Career OS — devam kaydı
 
-2026-10-06. Kullanıcı: sistemi parçalara bölerek tamamla; kaldığın yeri kalıcı notlarla koru. Repo yazımı ve PR açma yetkili. Otomatik merge/deployment yok. Kullanıcının hedefi altı ay içinde Almanya/Avrupa AI/ML/Applied AI rollerine hazırlanmak; üretilen kod bağımsız öğrenme kanıtı değildir.
+2026-10-06, Europe/Istanbul. Kullanıcı sistemi parçalara bölerek tamamlamamızı, test/PR kanıtlarını ve kaldığımız yeri korumamızı istedi. Repo yazımı/PR açma yetkili; otomatik merge/deployment yok. Üretilen kod kullanıcının bağımsız beceri kanıtı değildir.
 
 ## Devam ederken
 
-Önce AGENTS.md, docs/25_DELIVERY_PLAN.md ve aktif parçanın sözleşmesini oku. Remote head/CI'yı doğrula. Yerel çalışmaların remote ile aynı commit geçmişine sahip olduğunu varsayma; force-push yapma. Tam ürün bitti deme: P3c–P7 gerçek veri/model, öğrenme içeriği, kariyer çıktıları ve canlı operasyon kabulü açık.
+Önce AGENTS.md, docs/25_DELIVERY_PLAN.md, docs/29_MARKET_EVALUATION.md ve docs/30_MENTION_POLICY_V2.md oku. Remote head/CI durumunu doğrula. Son aktif branch `fix/mention-overlap`; sıradaki geliştirme parçası P3c2 gerçek veri örneklem manifesti ve bağımsız review hazırlığıdır. Bu parça henüz implement edilmedi.
 
-## Repo ve doğrulanmış parçalar
+## Doğrulanmış teslimler
 
-Repo: https://github.com/EmreDemirelsLab/ai-career-os
+Repo: https://github.com/EmreDemirelsLab/ai-career-os. PR zinciri önceki feature branch üzerine stacked; main tamamlanmış uygulama değildir. Merge yapılmadı.
 
 | Parça | PR / branch | Kanıt |
 | --- | --- | --- |
 | Foundation | #1 / feat/foundation-ingestion | Önceki CI doğrulandı |
-| Workspace | #2 / feat/career-workspace | Önceki CI doğrulandı; #1 üzerine stacked |
-| Intelligence | #3 / feat/intelligence-engines | Kod d934411f; 53 Python passed / 3 skipped; browser/restore geçti. Docs head f9abc6fa CI 37381400914 ve 37381395424 başarılı |
-| Retention P3a | #4 / feat/retention-maintenance | Head 2cd9f63471ac84839037df4289824ccbdc17c7a0; run 37401610008 tüm joblar başarılı. 58 Python passed / 6 skipped; restore düzeltmesi geçti |
-| Scheduling P3b1 | #5 / feat/collection-scheduling | Head 360653972198dc82f43158c5040380e3174f7a69; run 37402154444 tüm joblar başarılı. 64 Python passed / 12 skipped; browser/restore geçti |
-| Worker P3b2 | #6 / feat/collection-worker | Kod head 8bfe5d1b, run 37402576025 tüm joblar başarılı; 71 Python passed / 19 skipped |
+| Workspace | #2 / feat/career-workspace | Önceki CI doğrulandı |
+| Intelligence | #3 / feat/intelligence-engines | Kod d934411f: 53 Python passed / 3 skipped; browser/restore geçti. Docs f9abc6fa CI 37381400914/37381395424 başarılı |
+| Retention | #4 / feat/retention-maintenance | Head 2cd9f634; run 37401610008 başarılı; 58 passed / 6 skipped |
+| Scheduling | #5 / feat/collection-scheduling | Head 36065397; run 37402154444 başarılı; 64 passed / 12 skipped |
+| Worker/recovery | #6 / feat/collection-worker | Final head 36f5ccf1c9b1b5903f670ffef2b56ceeac9e5376; runs 37402795388/37402792874 başarılı; kodda 71 passed / 19 skipped |
+| Offline evaluation | #7 / feat/market-evaluation | Head 9816a4a62c48afc455fb94da4c4beca0ef4bdb00; run 37446633361 tüm joblar başarılı; 87 passed / 19 skipped |
+| Mention overlap fix | #8 / fix/mention-overlap | Kod head 502a36641aea51a097dc4baac7ff09f85d81c04d; run 37446823448 tüm joblar başarılı; 88 passed / 19 skipped |
 
-PR #4 ve #5 incelemeye hazır; merge edilmedi. PR zinciri sırayla üst branch'i hedefliyor; main tamamlanmış uygulama sayılmaz.
+PR #7/#8 Python, web, Compose/browser ve backup/restore kontrolleri geçti. Son checkpoint commit'i yalnız belgeleri günceller; son belge head CI durumunu yeniden kontrol et. Ready-for-review durumunu PR'dan oku; merge varsayma.
 
-## Aktif P3b2
+## Son parçada uygulananlar
 
-Sözleşme: docs/28_COLLECTION_WORKER.md. Operator `collection-work JOB_ID`; per-source PostgreSQL session advisory lock, üç deneme sınırı, DB-clock backoff, source/schedule gate, completed ingestion'dan refetch olmadan kurtarma, orphaned RUNNING kapatma. Lock pool'a dönmeden bırakılır; bırakılamazsa connection invalidate edilir. Network exception içeriği persist edilmez. Terminal FAILED CLI exit code 1.
+`market_eval.py`: çevrimdışı Pydantic annotation şeması; tam metin hash'i, taxonomy/span/expiry kontrolleri; development/holdout group ve normalize exact-text leakage reddi; overall/per-source TP/FP/FN, precision/recall/F1; tanımsız oranlar null; bounded dosya okuma ve redacted CLI. Kaynak metni raporda yok. Reviewer alanı gerçek insan incelemesini kanıtlamaz. Her rapor market_release_gate=NOT_ASSESSED.
 
-Kod head `8bfe5d1b4f27a57ca7e83430b5b3c12bf8665d92`; PR CI 37402576025 tüm joblar SUCCESS: Python 71 passed / 19 skipped, web, Compose/browser ve backup/restore. Sonraki commitler yalnız devam kaydı ve operator belgelerini günceller; kod kapısı doğrulandı. PR #6'nın son belge head'inin check durumunu yeniden okuyarak devam et.
+Authored synthetic fixture gerçek piyasa verisi değildir. AWS Cloud örneği v1 extractor'da iç içe AWS/AWS Cloud tekrarını ortaya çıkardı. Ayrı PR #8, gold'u değiştirmeden literal-mentions/2 politikasıyla aynı canonical skill'in maximal span'ını tutuyor; ayrı tekrarlar korunuyor. Yedi sentetik örnekte 6 TP/1 FP/0 FN → 6 TP/0 FP/0 FN. Bu test incelenerek düzeltildi; bağımsız gerçek-market kalite ölçümü değildir. Eski persisted snapshot'lar yeniden yazılmaz.
 
-Yerel Ruff/format/mypy geçti. pytest 35 passed / 55 skipped: yerelde PostgreSQL yok. Tests synthetic ve mocked HTTP kullanır. Gerçek kaynak toplama, cron/daemon kurulumu, ücretli AI çağrısı, deployment yapılmadı. HTTP exactly-once değildir: download sonrası, DB commit öncesi çökme yeniden indirmeye yol açabilir; raw revision idempotency korunur. Manual collector aynı worker lock'unu kullanmaz; reserved collection key prefix ve eşzamanlı manuel toplama yasak operasyon kuralıdır.
+Yerel Ruff/format/mypy geçti; son pytest 52 passed / 55 skipped (PostgreSQL yerelde yok). CLI smoke geçti. Gerçek kaynak toplama, cron/daemon, ücretli model çağrısı veya deployment yapılmadı.
 
-## Sıradaki işlemler
+## Sıradaki kontrollü iş
 
-1. PR #6 kodu doğrulandı; son belge head CI durumunu ve review-ready bilgisini doğrula. Birleştirme yapılmadı. Sonraki aktif iş P3c ölçüm sözleşmesi ve değerlendirme aracı; bu henüz implement edilmedi.
-2. P3c: docs/14 ve docs/16'daki gerçek piyasa/gold/dedupe benchmark kapısı açık. Önce annotation şeması, örneklem manifesti, ölçüm/eval aracı ve kaynak bazlı inceleme planını ayrı parça yap. Sentetik skoru gerçek piyasa başarısı diye sunma. Eski docs17 beş gözlem, temsilî veri seti veya otomatik kaynak izni değildir.
-3. P4: çalıştırılabilir öğrenme alıştırmaları, başlangıç tanısı, bağımsız debugging ve İngilizce savunma rubrikleri. Mevcut çalışma alanı içerik kalitesini kanıtlamaz.
-4. P5–P7: canlı model eval/bütçe, kanıta bağlı kariyer çıktıları ve gerçek hosting/TLS/offsite backup/user acceptance. Hepsi sadece secret bekleyen işler değildir.
+1. PR #8'in son belge head CI'sını doğrula. Hata varsa aynı branch'te düzelt; yeni kod yazmadan mevcut checkpoint'i oku.
+2. P3c2: private sampling manifest/schema; Germany/other EU/outside/unknown, role, seniority, company/source, language ve remote restriction katmanları; gözlem tarihi, exclusion reason ve missingness. Exact-source policy review kaydı olmadan otomatik toplama yok. docs17'nin beş tarihi gözlemi corpus veya otomatik izin değildir.
+3. Private gerçek örneklem, bağımsız insan etiketlemesi ve disagreement review; leakage-group bazlı frozen split. docs16'daki 500–1,000 corpus / 100+ extraction example hedefleri açık. Dedupe pair/cluster ve semantic requirement/eligibility ölçümleri ayrıca tasarlanmalı. Threshold'ları gerçek baseline ölçümünden önce ilan et; sentetik puanı pazar başarısı diye sunma.
+4. P4: çalıştırılabilir ders/alıştırma, tanı, bağımsız debugging ve İngilizce savunma rubrikleri. P5: canlı model eval/bütçe. P6: kanıta bağlı kariyer çıktıları. P7: gerçek hosting/TLS/monitoring/offsite backup/user acceptance. Bunların tamamı yalnız secret bekleyen işler değildir. Tam ürün bitti deme.
 
-## Doğrulama ve kurtarma
+## Operasyon ve kurtarma
 
-Checkout: `/workspace/scratch/0ce556516ccd/ai-career-os`. Scratch kaybolabilir; GitHub kalıcı kaynak. GitHub connector ile remote base tree → commit → expected_sha fast-forward ref kullanıldı; local commit SHA'ları farklıdır.
+Checkout `/workspace/scratch/0ce556516ccd/ai-career-os`; GitHub kalıcı kaynak. Connector ile remote base tree → commit → expected_sha fast-forward ref kullanıldı; local commit SHA'ları farklıdır. Local history'yi force-push etme. Scratch kaybolursa remote branch'ten kurtar.
 
-`uv sync --locked`; `uv run ruff check .`; `uv run ruff format --check .`; `uv run mypy`; `uv run pytest -q`. Web: `npm ci`, lint/typecheck/build. PostgreSQL17, Compose, Playwright, hosted/Caddy config, restricted role ve backup/restore doğrulaması GitHub Actions'ta. SQLite geçişini PostgreSQL kanıtı sayma.
+`uv sync --locked`; `uv run ruff check .`; `uv run ruff format --check .`; `uv run mypy`; `uv run pytest -q`. Evaluation: `uv run python -m career_os.market_eval tests/evals/mentions_synthetic_v1.json --split holdout --as-of 2026-10-06`. Web lint/typecheck/build ve PostgreSQL17/Compose/Playwright/Caddy/restricted-role/restore CI'da doğrulanır; SQLite kanıtı eşdeğer değildir.
 
-Retention yalnız disposable test verisinde çalıştırıldı. Maintenance DSN ayrı; PUBLIC execute revoked; runtime raw korumasını aşamaz. Kaynak retention'u derived market/plan kayıtlarını da kapsar. Yedek/offsite/export politikası ve gerçek operasyon ayrı kapıdır. Gizli anahtar veya kişisel öğrenen verisini public repo'ya koyma.
+Retention yalnız disposable fixture'larda çalıştırıldı. Maintenance DSN ayrı; gerçek veriye bakım uygulama. Real evaluation dosyaları public repo dışında/ignored evaluation-private altında ve kaynak retention'una tabi; ignore erişim kontrolü değildir. Eval expiry reddeder ama dosya/backup silmez. Gizli anahtarları ve kişisel verileri repo'ya koyma.
 
-## Active P3c1 checkpoint — 2026-10-06
-
-PR #6 final head 36f5ccf1c9b1b5903f670ffef2b56ceeac9e5376 verified: runs 37402795388 / 37402792874 SUCCESS; ready for review, not merged.
-Active branch feat/market-evaluation, stacked on #6. Implemented offline exact-span mention schema/evaluator, provenance/hash/retention guards, development/holdout leakage checks, source-level metrics and synthetic fixture. See docs/29_MARKET_EVALUATION.md. Local Ruff/format/mypy pass; pytest 51 passed / 55 skipped without PostgreSQL. No real dataset or source approval, model call, merge or deployment. Next: push/open PR, verify PostgreSQL/Compose CI, record exact code head/run, then P3c2 private sampling manifest and independent review. Real market gate remains NOT_ASSESSED.
-
-## Active overlap correction — 2026-10-06
-
-P3c1 PR #7: https://github.com/EmreDemirelsLab/ai-career-os/pull/7. Head 9816a4a62c48afc455fb94da4c4beca0ef4bdb00; runs 37446633361 / 37446626850. Python/web passed; Compose was still running at checkpoint.
-The authored evaluator fixture exposed a nested AWS/AWS Cloud duplicate. Active branch fix/mention-overlap, stacked on #7, applies policy literal-mentions/2 without changing gold. See docs30. Local Ruff/format/mypy pass; pytest 52 passed / 55 skipped. Synthetic count changes from 6 TP/1 FP/0 FN to 6 TP/0 FP/0 FN; not real-market quality. Next: push correction PR, verify both PRs' complete CI, save exact results, then P3c2 private sampling/independent review. No merge/deployment.
+Worker kaynak başına DB session lock, en fazla üç deneme ve crash recovery kullanır. HTTP exactly-once değildir; manual collector aynı lock'u kullanmaz. Reserved collection key prefix ve eşzamanlı manuel toplama yasağı operator kuralıdır. Bkz. docs28.

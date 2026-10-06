@@ -137,7 +137,22 @@ def test_versioned_synthetic_fixture_is_reproducible():
     first = evaluate(dataset, "holdout", date(2026, 10, 6))
     assert first == evaluate(dataset, "holdout", date(2026, 10, 6))
     assert first["origin"] == "synthetic"
-    # Known extractor weakness: nested AWS inside AWS Cloud is an extra span.
+    # Policy v2 removes nested aliases without changing authored gold.
     assert first["metrics"]["tp"] == 6
-    assert first["metrics"]["fp"] == 1
+    assert first["metrics"]["fp"] == 0
     assert first["metrics"]["fn"] == 0
+
+
+def test_longest_alias_keeps_separate_occurrences_and_skills():
+    from career_os.market import POLICY, extract_mentions
+
+    text = "AWS Cloud AWS and SQL; AWS Cloud"
+    mentions = extract_mentions(text)
+    assert POLICY == "literal-mentions/2"
+    assert [(m["skill"], m["span"], m["start"]) for m in mentions] == [
+        ("AWS", "AWS Cloud", 0),
+        ("AWS", "AWS", 10),
+        ("SQL", "SQL", 18),
+        ("AWS", "AWS Cloud", 23),
+    ]
+    assert all(m["requirement"] == "unknown" for m in mentions)

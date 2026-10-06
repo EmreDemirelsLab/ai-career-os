@@ -54,3 +54,8 @@ Kaynak-specific review ve gerçek piyasa/gold seti, worker/recovery kodu, doğru
 P3a remote head `2cd9f63471ac84839037df4289824ccbdc17c7a0`: PR run 37401610008 completed SUCCESS, including Python, web, Compose/browser and restore. PR #4 ready for review, not merged.
 
 Active branch `feat/collection-scheduling`, stacked on P3a. Migration 0005, PostgreSQL bounded scheduler and metadata queue, CLI and concurrency tests implemented. No worker/network/cron. See docs/27_COLLECTION_SCHEDULING.md. Local Ruff/format/mypy pass; pytest 35 passed / 41 skipped (PostgreSQL unavailable). PR #5: https://github.com/EmreDemirelsLab/ai-career-os/pull/5. Initial remote code head d63afbb7b91f324410fe3460dec6405a690aadce. CI runs 37402092895 / 37402088816 started. Next: verify latest-head PostgreSQL CI, fix failures, record exact head/run. Then P3b2 worker/recovery per docs27. Full product and live-data/model/hosting gates remain open.
+
+## P3b2 active checkpoint
+
+P3b1 head `360653972198dc82f43158c5040380e3174f7a69`: PR run 37402154444 all jobs SUCCESS; PR #5 ready for review, not merged.
+Active branch now `feat/collection-worker`, stacked on P3b1. Worker/recovery and synthetic failure/concurrency tests implemented; see docs28. Local Ruff/format/mypy pass, pytest 35 passed / 53 skipped; PG worker tests require CI. Next: open stacked PR, verify exact head/run, fix failures. No live source collection, cron installation, model call or deployment.

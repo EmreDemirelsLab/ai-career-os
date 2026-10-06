@@ -78,7 +78,10 @@ def main() -> None:
         engine = build_engine(Settings().database_url)
     try:
         if args.command == "collection-work":
-            print(json.dumps(work_one(engine, args.job_id)))
+            result = work_one(engine, args.job_id)
+            print(json.dumps(result))
+            if result["status"] == "FAILED":
+                raise SystemExit(1)
         elif args.command == "schedule-source":
             configure_schedule(
                 engine, args.source_id, args.interval_minutes, args.state == "enable"

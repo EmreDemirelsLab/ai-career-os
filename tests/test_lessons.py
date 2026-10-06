@@ -22,7 +22,7 @@ def submission():
 
 
 def test_catalog_and_reference_labs():
-    assert len({u["id"] for u in CATALOG["units"]}) == 4
+    assert len({u["id"] for u in CATALOG["units"]}) == 8
     for unit in CATALOG["units"]:
         assert unit["skill"] in SKILLS
         assert unit["skill"] == CURRICULUM["units"][unit["week"] - 1]["skill"]
@@ -92,3 +92,21 @@ def test_lesson_attempt_export_recall_and_delete(engine):
             == 204
         )
         assert client.get("/workspace/lessons").json()["attempts"] == []
+
+
+def test_data_ml_reference_labs():
+    process = subprocess.run(
+        [sys.executable, "labs/data_ml/check.py", "--reference"],
+        capture_output=True,
+        text=True,
+        timeout=30,
+    )
+    assert process.returncode == 0, process.stderr
+    starter = subprocess.run(
+        [sys.executable, "labs/data_ml/check.py", "--week", "5"],
+        capture_output=True,
+        text=True,
+        timeout=30,
+    )
+    assert starter.returncode == 1
+    assert "NotImplementedError" in starter.stderr

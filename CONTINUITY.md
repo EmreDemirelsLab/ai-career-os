@@ -15,8 +15,8 @@ Kullanıcının sistemi tamamen bitirme isteği sürüyor. İş artık [parçal�
 - Repo: https://github.com/EmreDemirelsLab/ai-career-os
 - PR #1 foundation: https://github.com/EmreDemirelsLab/ai-career-os/pull/1
 - PR #2 workspace: https://github.com/EmreDemirelsLab/ai-career-os/pull/2 (base #1 branch)
-- Aktif PR #3: https://github.com/EmreDemirelsLab/ai-career-os/pull/3 (base `feat/career-workspace`)
-- Aktif branch: `feat/intelligence-engines`
+- Önceki PR #3: https://github.com/EmreDemirelsLab/ai-career-os/pull/3 (base `feat/career-workspace`)
+- Aktif branch: `feat/retention-maintenance` (P3a; PR #4: https://github.com/EmreDemirelsLab/ai-career-os/pull/4)
 - P2 kod head'i: `d934411f562d0aef79634bc27cc86c39f2c1abbd`
 - Bu kayıt PR merge edildiğini varsaymaz; devam ederken remote branch/PR durumunu yeniden oku.
 
@@ -33,10 +33,17 @@ AI gateway testleri mocked transport kullanır; canlı model veya gerçek ilan t
 - Önceki P2 CI: Python ve web geçti; browser kaynak seçicinin etiketinde durdu. `aria-label` ile düzeltildi.
 - Son P2 head'i CI: [PR run](https://github.com/EmreDemirelsLab/ai-career-os/actions/runs/37380977411), [push run](https://github.com/EmreDemirelsLab/ai-career-os/actions/runs/37380972149). Push run tamamlandı: tüm job’lar başarılı. 53 Python testi geçti, 3 PostgreSQL-only concurrency SQLite varyantı atlandı; 1 Playwright testi geçti. Restricted-role DDL reddi, hosted/Caddy config doğrulaması, Compose, backup/checksum/restore ve restored kayıt sayısı kontrolü geçti. Canlı TLS/model/ilan toplama doğrulanmadı.
 
+## Aktif P3a çalışma notu
+
+Kaynak: docs/26_RETENTION_CONTRACT.md. `0004_retention` migration, dar PostgreSQL SECURITY DEFINER fonksiyonu, raw DELETE bakım istisnası (owner + function context), normal UPDATE yasağı, içeriksiz audit ve CLI yazıldı. Market/plan üretimi bakım ile advisory transaction lock paylaşır. Bağlı market/plan silinir; learner kayıtları korunur. Restore drill yalnız disposable DB'de retention uygular. Gerçek veri üzerinde bakım çalıştırılmadı.
+
+Yerel Ruff/format/mypy geçti; pytest 34 passed / 30 skipped (PostgreSQL yok). İlk PostgreSQL CI: 58 passed / 6 skipped; bakım testleri geçti. Compose restore, verisi olmayan onaysız seed kaynaklarını da bakım fonksiyonuna gönderdiği için durdu. Restore artık yalnız raw verisi bulunan gerçek kaynakları seçiyor; verisi olup politikası eksik kaynak hâlâ fail-closed. Bu düzeltmenin CI doğrulaması bekleniyor. P3a henüz tamamlanmış sayılmaz.
+
 ## Sıradaki işlem
 
-1. Devam ederken PR #3 ve bu kayıt commit’inin checks durumunu yeniden doğrula; P2 kod head’i doğrulandı.
-2. Sonraki parça P3a retention bakım sözleşmesi. Önce DB trigger/rol ve derived-data planını incele, sonra disposable DB testli küçük PR. Gerçek veri silme veya otomatik source approval yapma.
+1. P3a branch'ini PR #3 branch'ine karşı PR yap ve PostgreSQL/Compose CI'yı çalıştır.
+2. SQL/permission/restore hatası varsa logdan düzelt; veri silme yalnız disposable CI fixture'larında çalışacak.
+3. Yeşil CI sonrası exact commit/run/test sayısını kaydet. Sonraki P3b scheduling/recovery parçasına geç.
 
 ## Çalışma ortamı ve kurtarma
 

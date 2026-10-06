@@ -23,6 +23,24 @@ with path.open("rb") as stream:
         stdin=stream,
         check=True,
     )
+# The restored database is disposable and not exposed to the application.
+subprocess.run(
+    [
+        *base,
+        "psql",
+        "-U",
+        "career",
+        "-d",
+        name,
+        "-v",
+        "ON_ERROR_STOP=1",
+        "-c",
+        "SELECT public.apply_source_retention(id, 'restore-drill', true) "
+        "FROM public.sources s WHERE s.source_type <> 'fixture' "
+        "AND EXISTS (SELECT 1 FROM public.raw_jobs r WHERE r.source_id=s.id);",
+    ],
+    check=True,
+)
 subprocess.run(
     [
         *base,

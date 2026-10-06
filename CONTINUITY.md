@@ -37,13 +37,7 @@ AI gateway testleri mocked transport kullanır; canlı model veya gerçek ilan t
 
 Kaynak: docs/26_RETENTION_CONTRACT.md. `0004_retention` migration, dar PostgreSQL SECURITY DEFINER fonksiyonu, raw DELETE bakım istisnası (owner + function context), normal UPDATE yasağı, içeriksiz audit ve CLI yazıldı. Market/plan üretimi bakım ile advisory transaction lock paylaşır. Bağlı market/plan silinir; learner kayıtları korunur. Restore drill yalnız disposable DB'de retention uygular. Gerçek veri üzerinde bakım çalıştırılmadı.
 
-Yerel Ruff/format/mypy geçti; pytest 34 passed / 30 skipped (PostgreSQL yok). İlk PostgreSQL CI: 58 passed / 6 skipped; bakım testleri geçti. Compose restore, verisi olmayan onaysız seed kaynaklarını da bakım fonksiyonuna gönderdiği için durdu. Restore artık yalnız raw verisi bulunan gerçek kaynakları seçiyor; verisi olup politikası eksik kaynak hâlâ fail-closed. Bu düzeltmenin CI doğrulaması bekleniyor. P3a henüz tamamlanmış sayılmaz.
-
-## Sıradaki işlem
-
-1. P3a branch'ini PR #3 branch'ine karşı PR yap ve PostgreSQL/Compose CI'yı çalıştır.
-2. SQL/permission/restore hatası varsa logdan düzelt; veri silme yalnız disposable CI fixture'larında çalışacak.
-3. Yeşil CI sonrası exact commit/run/test sayısını kaydet. Sonraki P3b scheduling/recovery parçasına geç.
+Yerel Ruff/format/mypy geçti; pytest 34 passed / 30 skipped (PostgreSQL yok). İlk PostgreSQL CI: 58 passed / 6 skipped; bakım testleri geçti. Compose restore, verisi olmayan onaysız seed kaynaklarını da bakım fonksiyonuna gönderdiği için durdu. Restore artık yalnız raw verisi bulunan gerçek kaynakları seçiyor; verisi olup politikası eksik kaynak hâlâ fail-closed. Düzeltme head 2cd9f634 üzerinde PR run 37401610008 ile doğrulandı; tüm joblar başarılı. PR #4 incelemeye hazır.
 
 ## Çalışma ortamı ve kurtarma
 
@@ -53,10 +47,10 @@ Yerel Ruff/format/mypy geçti; pytest 34 passed / 30 skipped (PostgreSQL yok). �
 
 ## Gerçek engeller / açık işler
 
-Kaynak-specific review ve gerçek piyasa/gold seti, retention/scheduling kodu, doğrulanmış ders/assessment içeriği, canlı model seçimi-kullanım sınırı-eval, son kariyer çıktı akışları, gerçek hosting/domain/TLS/monitoring/offsite backup ve kullanıcı kabulü açık. Bunların tümü yalnızca API anahtarı eksikliği değildir. Secret istemek yerine ilgili environment/secret store üzerinden kurulum yap.
+Kaynak-specific review ve gerçek piyasa/gold seti, worker/recovery kodu, doğrulanmış ders/assessment içeriği, canlı model seçimi-kullanım sınırı-eval, son kariyer çıktı akışları, gerçek hosting/domain/TLS/monitoring/offsite backup ve kullanıcı kabulü açık. Bunların tümü yalnızca API anahtarı eksikliği değildir. Secret istemek yerine ilgili environment/secret store üzerinden kurulum yap.
 
 ## P3b1 checkpoint — 2026-10-06
 
 P3a remote head `2cd9f63471ac84839037df4289824ccbdc17c7a0`: PR run 37401610008 completed SUCCESS, including Python, web, Compose/browser and restore. PR #4 ready for review, not merged.
 
-Active branch `feat/collection-scheduling`, stacked on P3a. Migration 0005, PostgreSQL bounded scheduler and metadata queue, CLI and concurrency tests implemented. No worker/network/cron. See docs/27_COLLECTION_SCHEDULING.md. Local Ruff/format/mypy pass; pytest 35 passed / 37 skipped (PostgreSQL unavailable). Next: push and open stacked PR; verify PostgreSQL CI, fix failures, record exact head/run. Then P3b2 worker/recovery per docs27. Full product and live-data/model/hosting gates remain open.
+Active branch `feat/collection-scheduling`, stacked on P3a. Migration 0005, PostgreSQL bounded scheduler and metadata queue, CLI and concurrency tests implemented. No worker/network/cron. See docs/27_COLLECTION_SCHEDULING.md. Local Ruff/format/mypy pass; pytest 35 passed / 41 skipped (PostgreSQL unavailable). PR #5: https://github.com/EmreDemirelsLab/ai-career-os/pull/5. Initial remote code head d63afbb7b91f324410fe3460dec6405a690aadce. CI runs 37402092895 / 37402088816 started. Next: verify latest-head PostgreSQL CI, fix failures, record exact head/run. Then P3b2 worker/recovery per docs27. Full product and live-data/model/hosting gates remain open.

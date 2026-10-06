@@ -84,3 +84,21 @@ def test_sqlite_fails_closed(engine):
         pytest.skip("SQLite-only guard")
     with pytest.raises(ValueError, match="requires_postgresql"):
         enqueue_due(engine)
+
+
+def test_locked_schedule_is_skipped_and_limit_is_respected(engine):
+    approved(engine)
+    from sqlalchemy import select
+
+    with Session(engine) as session, session.begin():
+        session.execute(select(CollectionSchedule).with_for_update()).all()
+        assert enqueue_due(engine)["queued"] == []
+    assert len(enqueue_due(engine, limit=1)["queued"]) == 1
+
+
+def test_policy_revoked_after_configuration(engine):
+    approved(engine)
+    with Session(engine) as session, session.begin():
+        session.get(Source, "QUEUE").policy_status = "PENDING"
+    assert enqueue_due(engine)["blocked_sources"] == ["QUEUE"]
+    assert inspect_schedule(engine, "QUEUE")["recent_jobs"] == []

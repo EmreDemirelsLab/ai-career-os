@@ -149,3 +149,33 @@ def test_crash_before_ingestion_consumes_attempt_then_retries(engine, monkeypatc
     result = collection_worker.work_one(engine, job_id)
     assert result["status"] == "COMPLETED"
     assert result["attempts"] == 2
+
+
+def test_orphaned_ingestion_run_is_closed_before_new_attempt(engine, monkeypatch):
+    from career_os.contracts import FixtureAdapter
+    from career_os.ingestion import ingest
+    from career_os.models import IngestionRun
+
+    job_id = queued(engine, monkeypatch)
+    original = collection_worker.collect_greenhouse
+
+    class InterruptedAdapter(FixtureAdapter):
+        def records(self):
+            raise SystemExit("interrupted atomic batch")
+
+    def interrupted(db, source, board, key):
+        return ingest(db, source, key, InterruptedAdapter([]))
+
+    monkeypatch.setattr(collection_worker, "collect_greenhouse", interrupted)
+    with pytest.raises(SystemExit):
+        collection_worker.work_one(engine, job_id)
+    result = collection_worker.work_one(engine, job_id)
+    assert result["status"] == "RETRY"
+    with Session(engine) as s:
+        previous = s.get(IngestionRun, result["ingestion_run_id"])
+        assert previous.status == "FAILED"
+        assert previous.error_code == "operator_recovery"
+        assert s.scalar(select(func.count()).select_from(RawJob)) == 0
+    monkeypatch.setattr(collection_worker, "collect_greenhouse", original)
+    due(engine, job_id)
+    assert collection_worker.work_one(engine, job_id)["status"] == "COMPLETED"

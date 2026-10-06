@@ -58,4 +58,6 @@ Active branch `feat/collection-scheduling`, stacked on P3a. Migration 0005, Post
 ## P3b2 active checkpoint
 
 P3b1 head `360653972198dc82f43158c5040380e3174f7a69`: PR run 37402154444 all jobs SUCCESS; PR #5 ready for review, not merged.
-Active branch now `feat/collection-worker`, stacked on P3b1. Worker/recovery and synthetic failure/concurrency tests implemented; see docs28. Local Ruff/format/mypy pass, pytest 35 passed / 53 skipped; PG worker tests require CI. Next: open stacked PR, verify exact head/run, fix failures. No live source collection, cron installation, model call or deployment.
+Active branch now `feat/collection-worker`, stacked on P3b1. Worker/recovery and synthetic failure/concurrency tests implemented; see docs28. Local Ruff/format/mypy pass, pytest 35 passed / 55 skipped; PG worker tests require CI. Next: open stacked PR, verify exact head/run, fix failures. No live source collection, cron installation, model call or deployment.
+
+P3b2 PR #6: https://github.com/EmreDemirelsLab/ai-career-os/pull/6. Initial head 83a8c11b8a65524d431744f501c72b90569cefed; CI runs 37402411276 / 37402407343. Added orphaned RUNNING ingestion recovery test; check latest remote head after test commit before declaring this slice verified.

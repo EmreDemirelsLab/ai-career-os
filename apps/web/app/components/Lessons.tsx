@@ -12,9 +12,12 @@ type Attempt = {
   id: string; lesson_title: string; assistance: string; objective_correct: number; objective_total: number;
   objective_checks: { question_id: string; prompt: string; correct: boolean; explanation: string }[];
 };
-type Data = { catalog: { version: string; units: Lesson[] }; attempts: Attempt[] };
+type Practice = { suggested_lesson_id: string | null; scope: string; items: {
+  lesson_id: string; title: string; state: string; reason: string;
+}[] };
+type Data = { catalog: { version: string; units: Lesson[] }; attempts: Attempt[]; practice: Practice | null };
 
-export default function Lessons({ onSaved }: { onSaved: () => Promise<void> }) {
+export default function Lessons({ onSaved, initialWeek = 1 }: { onSaved: () => Promise<void>; initialWeek?: number }) {
   const [data, setData] = useState<Data | null>(null);
   const [selected, setSelected] = useState("foundation-1");
   const [error, setError] = useState("");
@@ -25,10 +28,10 @@ export default function Lessons({ onSaved }: { onSaved: () => Promise<void> }) {
     fetch("/api/workspace/lessons", { cache: "no-store" }).then(async r => {
       if (!r.ok) throw new Error("Dersler alınamadı.");
       const value = await r.json();
-      if (active) setData(value);
+      if (active) { setData(value); setSelected(value.catalog.units.find((x: Lesson) => x.week === initialWeek)?.id || "foundation-1"); }
     }).catch(e => { if (active) setError(e.message); });
     return () => { active = false; };
-  }, []);
+  }, [initialWeek]);
   const lesson = data?.catalog.units.find(x => x.id === selected);
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -45,7 +48,10 @@ export default function Lessons({ onSaved }: { onSaved: () => Promise<void> }) {
       });
       const value = await response.json();
       if (!response.ok) throw new Error(typeof value.detail === "string" ? value.detail : "Yanıtlarını kontrol et.");
-      setResult(value); setData({ ...data, attempts: [value, ...data.attempts].slice(0, 50) });
+      setResult(value); setData({ ...data, attempts: [value, ...data.attempts].slice(0, 50), practice: null });
+      const refreshed = await fetch("/api/workspace/lessons", { cache: "no-store" });
+      if (!refreshed.ok) throw new Error("Yanıt kaydedildi; öneriler yenilenemedi. Sayfayı yenile.");
+      setData(await refreshed.json());
       await onSaved();
     } catch (e) { setError(e instanceof Error ? e.message : "Kayıt yapılamadı."); }
     finally { setBusy(false); }
@@ -53,9 +59,17 @@ export default function Lessons({ onSaved }: { onSaved: () => Promise<void> }) {
   if (!lesson || !data) return <p role="status">{error || "Dersler yükleniyor…"}</p>;
   return <section>
     <h2>Temel alıştırmalar</h2>
-    <p>İlk sekiz haftanın çalışma paketi. Kısa sorular tanı içindir; doğru cevaplar ustalık veya İngilizce seviyesi kanıtı değildir.</p>
+    <p>24 haftaya yayılmış kavram, küçük lab ve İngilizce savunma paketleri. Kısa sorular tanı içindir; doğru cevaplar ustalık veya İngilizce seviyesi kanıtı değildir.</p>
     {error && <p role="alert">{error}</p>}
-    <label className="field"><span>Ders seç</span><select value={selected} disabled={busy} onChange={e => { setSelected(e.target.value); setResult(null); }}>
+    {data.practice && <aside className="card" aria-label="Çalışma önerisi">
+      <h3>Sıradaki çalışma</h3><p>{data.practice.scope}</p>
+      {data.practice.items.filter(x => x.lesson_id === data.practice?.suggested_lesson_id).map(x => <div key={x.lesson_id}>
+        <strong>{x.title}</strong><p>{x.reason}</p>
+        <button type="button" disabled={busy} onClick={() => { setSelected(x.lesson_id); setResult(null); }}>Önerilen dersi aç</button>
+      </div>)}
+      <details><summary>Derslerin çalışma durumu</summary><ul>{data.practice.items.map(x => <li key={x.lesson_id}><strong>{x.title}</strong> — {x.reason}</li>)}</ul></details>
+    </aside>}
+    <label className="field"><span>Ders seç</span><select aria-label="Ders seç" value={selected} disabled={busy} onChange={e => { setSelected(e.target.value); setResult(null); }}>
       {data.catalog.units.map(x => <option key={x.id} value={x.id}>{x.week}. hafta — {x.title}</option>)}
     </select></label>
     <article className="card">

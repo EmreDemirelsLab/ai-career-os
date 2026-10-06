@@ -4,7 +4,7 @@
 
 ## Devam ederken
 
-Önce AGENTS.md, docs/25_DELIVERY_PLAN.md, docs/29_MARKET_EVALUATION.md ve docs/30_MENTION_POLICY_V2.md oku. Remote head/CI durumunu doğrula. Son aktif branch `fix/mention-overlap`; sıradaki geliştirme parçası P3c2 gerçek veri örneklem manifesti ve bağımsız review hazırlığıdır. Bu parça henüz implement edilmedi.
+Önce AGENTS.md, docs/25_DELIVERY_PLAN.md, docs/29_MARKET_EVALUATION.md ve docs/30_MENTION_POLICY_V2.md oku. Remote head/CI durumunu doğrula. Güncel aktif iş için dosyanın son checkpoint bölümünü oku; eski bölümler tarihçedir.
 
 ## Doğrulanmış teslimler
 
@@ -62,3 +62,20 @@ Active branch feat/foundation-lessons, stacked on #9. Four authored week1–4 le
 
 P4a PR #10 head 470d6159c11c8eb74d3de7c68d22f968a6c51beb: runs 37457433007/37457427281 all SUCCESS; Python 103 passed / 19 skipped, new browser lesson/save/reload/export and restore passed. Ready for review, not merged.
 Active branch feat/data-ml-lessons, stacked on #10. Catalog foundation-lessons/2 adds weeks5–8; labs/data_ml starter/reference/check runner; optional pandas labs dependency group plus uv.lock and CI setup. Local Ruff/mypy passed, pytest 67 passed / 56 skipped using --group labs. Reference five checks passed. A mistaken test-only recall count edit was fixed; per-attempt recall remains four intervals. Next: push PR, verify CI, then implement formative next-practice suggestions without mastery claims. Continue after PR, do not stop routinely. Standard full test command now uv run --group labs pytest -q.
+
+## Integrated workflow checkpoint — 2026-10-06
+
+PR #11 head 559319823b71ffa88a373e9cbff33b33486e4c7c: CI 37458201238 Python/web/Compose/browser/restore SUCCESS; 104 passed / 19 skipped. Ready for review, unmerged.
+Active branch feat/next-practice extends #11. Deterministic next-practice suggestions, latest attempt per lesson beyond the history window, multi-requirement opportunity form, downloadable evidence-linked career preparation, and expanded browser learning/evidence/interview/opportunity/application flow. Local Python 71 passed / 58 skipped; Ruff/mypy and web lint/typecheck/build passed. Remote CI pending. See docs34.
+Next: verify remote CI on this exact code, fix failures, then continue remaining authored learning content and product acceptance. Do not stop routinely after creating a PR. No merge/deploy, live collection or paid AI calls performed. Full course validation, real market benchmarks, live AI evaluation and actual hosting acceptance remain open.
+
+## 24-week coverage and browser fixes — active, 2026-10-06
+
+PR #12 feat/next-practice first head 66e845cb786c1564a2748a71cce190e747ee917c had green Python/web but browser failure: global aside style overlaid lesson controls. Head a52fbe68cc4b943bd656226ace5990a49d04f6fd fixes scoped sidebar CSS; its browser test then found ambiguous multi-select labels. Explicit labels fixed locally; do not mark acceptance until new CI passes.
+Same branch now includes catalog v3, all 24 authored weekly units, 16 offline applied-AI labs with starter/reference/checks, direct plan-to-lesson navigation and docs35. Local Python 72 passed / 58 skipped; reference 16 checks passed and all untouched starters fail. These are small engineering boundary exercises, not full framework/model competency or independently validated course. Next: push combined changes to PR12, verify full CI, fix remaining browser failures, record exact final head/run.
+
+## Cumulative release checkpoint — 2026-10-06
+
+Cumulative PR #13 targets main from feat/next-practice and includes implementation PRs #1–12. If #13 is merged, the stacked PRs do not need sequential merging. No merge performed.
+Candidate f6110466d1fed59ffcc3d768be3273ff9321ccfa: run 37496961980 all jobs SUCCESS, including complete browser career workflow and backup/restore. Sidebar overlay and multi-select accessibility fixes verified.
+Final follow-up adds single-command local startup (preserves existing .env/data), exercises it in Compose CI, and verifies plan week24 opens its authored lesson. Next: verify final-head CI, mark cumulative release ready when green, retain production-quality gates. User asked concise updates and to finish usable product; avoid new minor feature branches.

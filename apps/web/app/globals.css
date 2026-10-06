@@ -68,7 +68,7 @@ li {
   grid-template-columns: 236px 1fr;
   min-height: 100vh;
 }
-aside {
+.shell > aside {
   background: #111d2d;
   padding: 30px 18px;
   border-right: 1px solid #27384d;
@@ -283,7 +283,7 @@ hr {
   .shell {
     grid-template-columns: 1fr;
   }
-  aside {
+  .shell > aside {
     height: auto;
     position: relative;
     padding: 18px;

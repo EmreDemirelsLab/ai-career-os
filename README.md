@@ -9,14 +9,17 @@ A market-driven AI/ML learning and career evidence platform. Flagship production
 Requires Docker Engine/Desktop with Compose v2. Local development only; example database credentials are disposable and must never be reused in production.
 
 ```sh
-python3 scripts/init_workspace.py
-docker compose up --build -d --wait
-docker compose exec api career-os seed
-docker compose exec api career-os ingest-fixture --key demo-1
-docker compose exec api career-os ingest-fixture --key demo-2
+python3 scripts/start_local.py
 ```
 
 Open http://localhost:3000 and sign in using CAREER_API_TOKEN from your local .env. Never commit or share this value. An unset token disables the workspace. If .env already exists, preserve it and add a randomly generated token of at least 32 characters. API: http://localhost:8000/health and http://localhost:8000/ready. First fixture run: 3 fetched, 2 accepted/inserted, 1 rejected. Second key: 0 inserted, 2 duplicates, 1 rejected. Same key/input returns the original run without adding observations. A changed input with the same key is refused.
+
+Optional synthetic dashboard example (not live market data):
+
+```sh
+docker compose exec api career-os ingest-fixture --key demo-1
+docker compose exec api career-os ingest-fixture --key demo-2
+```
 
 Inspect errors with `docker compose exec api career-os run <run-id>`. Disable source: `docker compose exec api career-os source-state DEMO disable`. Original source candidates are disabled and cannot be enabled without reviewed policy metadata. Seed reruns preserve operator changes.
 
@@ -77,4 +80,6 @@ Single-owner hosting candidate: [deployment and recovery runbook](docs/24_HOSTIN
 
 Resume work from [CONTINUITY.md](CONTINUITY.md); delivery parts and remaining acceptance gates are tracked in [the delivery plan](docs/25_DELIVERY_PLAN.md).
 
-Foundation and data/ML practice (authored weeks 1–8 pilot): use **Temel alıştırmalar** in the workspace. Local exercise setup and checks: [foundation labs](labs/foundation/README.md), [data/ML labs](labs/data_ml/README.md). Install optional lab dependencies with `uv sync --locked --group labs`. Objective checks do not certify independent skill or English level.
+Authored practice across all 24 weeks: use **Temel alıştırmalar** in the workspace. Local exercise setup and checks: [foundation labs](labs/foundation/README.md), [data/ML labs](labs/data_ml/README.md), [applied AI labs](labs/applied_ai/README.md). Install optional lab dependencies with `uv sync --locked --group labs`. Objective checks do not certify independent skill or English level.
+
+Integrated workflow: start with your profile, open a week from the plan, complete practice, link your artifact in Kanıtlar, rehearse in Mülakat, review job requirements in Fırsatlar, download the preparation packet and record your application. No application is sent automatically. See [integrated acceptance](docs/34_INTEGRATED_WORKFLOW.md) and [24-week practice scope](docs/35_APPLIED_PRACTICE.md).

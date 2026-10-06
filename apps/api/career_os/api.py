@@ -6,6 +6,7 @@ from fastapi.responses import JSONResponse
 from sqlalchemy import Engine, text
 
 from career_os.auth import router as auth_router
+from career_os.career_pack import router as career_pack_router
 from career_os.config import Settings
 from career_os.db import build_engine
 from career_os.intelligence import router as intelligence_router
@@ -32,6 +33,7 @@ def create_app(engine: Engine | None = None, api_token: str | None = None) -> Fa
     app.include_router(router)
     app.include_router(intelligence_router)
     app.include_router(lessons_router)
+    app.include_router(career_pack_router)
 
     @app.get("/health")
     def health() -> dict[str, str]:

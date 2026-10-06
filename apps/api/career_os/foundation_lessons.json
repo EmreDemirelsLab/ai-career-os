@@ -1,5 +1,5 @@
 {
-  "version": "foundation-lessons/2",
+  "version": "foundation-lessons/3",
   "status": "authored_weeks_1_to_8_pilot_not_validated_full_course",
   "units": [
     {
@@ -505,6 +505,950 @@
         "Belirsizliği ve örnek sayısını açık söyle."
       ],
       "lab_command": "uv run --group labs python labs/data_ml/check.py --week 8"
+    },
+    {
+      "id": "applied-9",
+      "week": 9,
+      "title": "Gradient: el hesabından otomatik türeve",
+      "skill": "PyTorch",
+      "why": "Öğrenme, parametre değişiminin kayba etkisini hesaplamayı gerektirir.",
+      "explanation": "Gradient, kaybın parametreye göre yerel değişim hızıdır. y_hat=w*x ve ortalama kare hata için dL/dw=2*mean((w*x-y)*x). Negatif gradient yönünde küçük bir adım kaybı azaltabilir; çok büyük adım kararsızlık yaratabilir. Önce iki sayı üzerinde hesapla, sonra sonlu farkla kontrol et. Bu lab Python aritmetiğidir; PyTorch becerisi için aynı örneği resmî autograd öğreticisinde tensor ve backward ile ayrıca uygula.",
+      "worked_example": "x=[1,2], y=[2,4], w=1: hatalar [-1,-2], MSE=2.5, gradient=-5. lr=0.1 ile yeni w=1.5. (L(w+eps)-L(w-eps))/(2*eps) yaklaşık -5 olmalı.",
+      "exercise": "loss_gradient: eşit uzunluklu, boş olmayan ve sonlu sayılardan oluşan diziler için (MSE, gradient) döndür. Parametreyi bu fonksiyonda güncelleme. El hesabını ve sayısal türevi karşılaştır.",
+      "debug_prompt": "Gradient formülündeki x çarpanını çıkar. Hangi test bunun yanlışlığını gösteriyor? PyTorch tekrarında zero_grad çağrısını kaldırıp birikimi gözle.",
+      "english_prompt": "Explain the sign of the gradient, the learning-rate update and how you checked the derivative. Distinguish this arithmetic exercise from autograd.",
+      "english_terms": [
+        [
+          "gradient",
+          "Kaybın parametreye göre yerel türevi"
+        ],
+        [
+          "learning rate",
+          "Güncellemenin adım büyüklüğü"
+        ]
+      ],
+      "source_url": "https://docs.pytorch.org/tutorials/beginner/basics/autogradqs_tutorial.html",
+      "source_checked_on": "2026-10-06",
+      "questions": [
+        {
+          "id": "applied-9-q1",
+          "prompt": "w=1, gradient=-5, lr=0.1 için yeni w?",
+          "choices": [
+            "0.5",
+            "1.5",
+            "-4"
+          ],
+          "correct": 1,
+          "explanation": "w_new = w - lr*gradient = 1.5."
+        },
+        {
+          "id": "applied-9-q2",
+          "prompt": "Bu labın başarılı olması neyi gösterir?",
+          "choices": [
+            "Tüm PyTorch modellerinde ustalık",
+            "Verilen aritmetik sözleşmesinin testleri geçti",
+            "Model production için hazır"
+          ],
+          "correct": 1,
+          "explanation": "Küçük test, autograd veya büyük model deneyimi yerine geçmez."
+        }
+      ],
+      "technical_rubric": [
+        "loss_gradient sözleşmesini ve başarısız bir sınır testini açıkla.",
+        "Referansı kapatıp farklı girdide davranışı bağımsız üret.",
+        "Bu küçük labın production veya model kalitesi hakkında neyi kanıtlamadığını söyle."
+      ],
+      "english_rubric": [
+        "Önce iddia, sonra örnek/test, sonra sınır anlat.",
+        "Terimleri doğru anlamda kullan.",
+        "Anlaşılmayan soruya açıklama isteyerek yanıt ver."
+      ],
+      "lab_command": "uv run python labs/applied_ai/check.py --week 9"
+    },
+    {
+      "id": "applied-10",
+      "week": 10,
+      "title": "Eğitim ve validation sınırını koru",
+      "skill": "Neural Networks",
+      "why": "Veri, tahmin, kayıp ve güncelleme adımlarını ayırt etmelisin.",
+      "explanation": "Eğitim döngüsü tahmin, kayıp, gradient ve parametre güncellemesinden oluşur. Validation verisi güncelleme için kullanılmaz. Her adım sonrası iki kaybı ayrı kaydet: eğitim kaybının düşmesi genelleme kanıtı değildir. Bu tek parametreli doğrusal örnek, sinir ağı eğitiminden önce veri sınırını görünür yapar. Resmî öğreticide model.train/eval ve gradient kapatma davranışını ayrı dene.",
+      "worked_example": "Train x=[1,2], y=[2,4] ile w sıfırdan yaklaşık 2 olur. Validation y değerini 6 yerine 100 yapmak öğrenilen w değerini değiştirmemeli; yalnız validation kaybını değiştirmeli.",
+      "exercise": "train_linear: w=0 ile başla, lr>0 ve 1–10000 adım uygula. Her adımın train/validation kaybını history listesine kaydet. Validation etiketleri güncellemeye giremez. Sonlu olmayan değerleri reddet.",
+      "debug_prompt": "Gradient hesabına validation satırlarını yanlışlıkla ekle. Validation etiketini değiştiren test neden başarısız oluyor?",
+      "english_prompt": "Explain why changing validation labels must not change training updates. Name one cause of a widening train-validation loss gap.",
+      "english_terms": [
+        [
+          "validation",
+          "Güncellemeden ayrı değerlendirme verisi"
+        ],
+        [
+          "generalization",
+          "Görülmeyen örneklerde davranış"
+        ]
+      ],
+      "source_url": "https://docs.pytorch.org/tutorials/beginner/basics/optimization_tutorial.html",
+      "source_checked_on": "2026-10-06",
+      "questions": [
+        {
+          "id": "applied-10-q1",
+          "prompt": "Validation etiketini değiştirmek neyi değiştirmeli?",
+          "choices": [
+            "Öğrenilen parametreyi",
+            "Yalnız validation kaybını",
+            "Train verisinin kimliğini"
+          ],
+          "correct": 1,
+          "explanation": "Bu sabit döngüde validation güncellemeye katılmaz."
+        },
+        {
+          "id": "applied-10-q2",
+          "prompt": "Train kaybı düşük, validation yüksekse?",
+          "choices": [
+            "Kesin production başarısı",
+            "Veri ayrımını, dağılımı ve aşırı uyumu incele",
+            "Validation verisini train içine koy"
+          ],
+          "correct": 1,
+          "explanation": "Fark bir araştırma sinyalidir; tek başına nedeni kesinleştirmez."
+        }
+      ],
+      "technical_rubric": [
+        "train_linear sözleşmesini ve başarısız bir sınır testini açıkla.",
+        "Referansı kapatıp farklı girdide davranışı bağımsız üret.",
+        "Bu küçük labın production veya model kalitesi hakkında neyi kanıtlamadığını söyle."
+      ],
+      "english_rubric": [
+        "Önce iddia, sonra örnek/test, sonra sınır anlat.",
+        "Terimleri doğru anlamda kullan.",
+        "Anlaşılmayan soruya açıklama isteyerek yanıt ver."
+      ],
+      "lab_command": "uv run python labs/applied_ai/check.py --week 10"
+    },
+    {
+      "id": "applied-11",
+      "week": 11,
+      "title": "Deneyi yeniden bul: veri, kod ve ayar",
+      "skill": "Experiment Design",
+      "why": "Sonucun hangi veri ve ayardan geldiğini yeniden bulabilmelisin.",
+      "explanation": "Seed tek başına yeniden üretilebilirlik sağlamaz. Veri sürümü, kod sürümü, parametreler ve çalışma ortamı da gerekir. Bu lab deney kimliğini veri/kod/seed/parametre sözlüğünün canonical JSON hashinden üretir. Sözlük anahtar sırası sonucu değiştirmez; veri sürümü değiştirmelidir. Gerçek deneyde ortam kilidini, çıktıları ve validation metriklerini de sakla; hash bunların varlığını doğrulamaz.",
+      "worked_example": "data_version=d1, code_version=c1, seed=7, parameters={lr:0.1}. Anahtarları yeniden sıralamak aynı kimliği verir; d1→d2 yeni kimlik üretir.",
+      "exercise": "experiment_id: tam olarak data_version, code_version, seed, parameters alanlarını canonical JSON ile SHA-256 hashle. Eksik sürüm ve NaN reddedilsin. Üç farklı öğrenme oranının kayıtlarını ayrı artifact olarak sakla.",
+      "debug_prompt": "Sadece seed değerini hashleyen uygulamada veri değiştiğinde neden aynı run gibi görünüyor?",
+      "english_prompt": "Describe the minimum experiment provenance and why a random seed does not guarantee reproducibility across environments.",
+      "english_terms": [
+        [
+          "provenance",
+          "Sonucun hangi girdilerden geldiği"
+        ],
+        [
+          "artifact",
+          "Deneyin saklanan çıktısı"
+        ]
+      ],
+      "source_url": "https://mlflow.org/docs/latest/ml/tracking/",
+      "source_checked_on": "2026-10-06",
+      "questions": [
+        {
+          "id": "applied-11-q1",
+          "prompt": "Anahtar sırası değişirse deney kimliği?",
+          "choices": [
+            "Aynı kalmalı",
+            "Her zaman değişmeli",
+            "Rastgele olmalı"
+          ],
+          "correct": 0,
+          "explanation": "Canonical serileştirme anlamsız anahtar sırasını yok eder."
+        },
+        {
+          "id": "applied-11-q2",
+          "prompt": "Aynı seed yeterli mi?",
+          "choices": [
+            "Evet",
+            "Hayır; veri, kod, ortam ve ayarlar da gerekir",
+            "Yalnız GPU varsa"
+          ],
+          "correct": 1,
+          "explanation": "Bir seed deneyin tüm koşullarını tanımlamaz."
+        }
+      ],
+      "technical_rubric": [
+        "experiment_id sözleşmesini ve başarısız bir sınır testini açıkla.",
+        "Referansı kapatıp farklı girdide davranışı bağımsız üret.",
+        "Bu küçük labın production veya model kalitesi hakkında neyi kanıtlamadığını söyle."
+      ],
+      "english_rubric": [
+        "Önce iddia, sonra örnek/test, sonra sınır anlat.",
+        "Terimleri doğru anlamda kullan.",
+        "Anlaşılmayan soruya açıklama isteyerek yanıt ver."
+      ],
+      "lab_command": "uv run python labs/applied_ai/check.py --week 11"
+    },
+    {
+      "id": "applied-12",
+      "week": 12,
+      "title": "Model çıktısına servis sözleşmesi koy",
+      "skill": "Model Serving",
+      "why": "Model dosyası ile çalışan servis farklı sorumluluklar taşır.",
+      "explanation": "Model ağırlığı ile API sözleşmesi farklıdır. İstemcinin hangi model sürümünden sonuç aldığını bilmesi gerekir. Boyut ve sayısal sınırları doğrula; boş veya aşırı büyük batch kabul etme. Buradaki predict_batch saf fonksiyondur. Bunu hafta 3 FastAPI alıştırmasındaki endpoint arkasına alırken doğrulama hatalarını 422 olarak dönüştür, model sürümünü cevaba ekle; güvenilmeyen pickle çalıştırma.",
+      "worked_example": "model={version:linear-v1, weight:2}; values=[1,3] → {model_version:linear-v1, predictions:[2,6]}. NaN, sonsuz, boolean, boş veya 101 öğelik batch reddedilir.",
+      "exercise": "predict_batch: 1–100 sonlu sayıyı tek ağırlıkla çarp, sürüm ve predictions döndür. Manifest sadece version/weight içersin. Ayrı API uzantında valid/invalid istek testleri ve önceki model sürümüne dönüş planı yaz.",
+      "debug_prompt": "Python bool değerinin int alt türü olması hangi geçersiz girdiyi kabul ettirebilir? Bir testle yakala.",
+      "english_prompt": "Explain input validation, model versioning and a rollback trigger. Separate the pure inference function from deployment responsibilities.",
+      "english_terms": [
+        [
+          "inference",
+          "Eğitilmiş parametreyle tahmin"
+        ],
+        [
+          "rollback",
+          "Önceki doğrulanmış sürüme dönüş"
+        ]
+      ],
+      "source_url": "https://fastapi.tiangolo.com/tutorial/",
+      "source_checked_on": "2026-10-05",
+      "questions": [
+        {
+          "id": "applied-12-q1",
+          "prompt": "Cevapta hangi bilgi izlenebilirliği artırır?",
+          "choices": [
+            "Model sürümü",
+            "Secret token",
+            "Rastgele başarı yüzdesi"
+          ],
+          "correct": 0,
+          "explanation": "Model sürümü tahminin hangi artifactten geldiğini belirler."
+        },
+        {
+          "id": "applied-12-q2",
+          "prompt": "101 öğelik batch için sözleşme?",
+          "choices": [
+            "Sessizce kırp",
+            "Reddet",
+            "İlk 100 sonucu tüm batchmiş gibi dön"
+          ],
+          "correct": 1,
+          "explanation": "Sessiz kırpma istemci beklentisini bozar."
+        }
+      ],
+      "technical_rubric": [
+        "predict_batch sözleşmesini ve başarısız bir sınır testini açıkla.",
+        "Referansı kapatıp farklı girdide davranışı bağımsız üret.",
+        "Bu küçük labın production veya model kalitesi hakkında neyi kanıtlamadığını söyle."
+      ],
+      "english_rubric": [
+        "Önce iddia, sonra örnek/test, sonra sınır anlat.",
+        "Terimleri doğru anlamda kullan.",
+        "Anlaşılmayan soruya açıklama isteyerek yanıt ver."
+      ],
+      "lab_command": "uv run python labs/applied_ai/check.py --week 12"
+    },
+    {
+      "id": "applied-13",
+      "week": 13,
+      "title": "Context bütçesi: token ve cevap payı",
+      "skill": "Transformers",
+      "why": "Metnin modele nasıl girdiğini bilmek sınırları anlamayı sağlar.",
+      "explanation": "Token, karakter veya kelimeyle aynı şey değildir; modelin tokenizer çıktısına bağlıdır. Lab tokenizer çalıştırmaz: önceden üretilmiş token ID dizilerini alır. Toplam context kapasitesinden cevap payını ayır, kalan yere sığan chunkları verilen sırayla seç. Büyük chunk sığmazsa sonraki küçük chunk denenebilir. Gerçek entegrasyonda sistem mesajı, araç şemaları ve mesaj sarmalayıcılarının tokenlarını da bütçeye kat.",
+      "worked_example": "chunks=[[1,2,3],[4,5],[6]], capacity=5, reserved=1 → chunk 0 ve 2, input_tokens=4. Capacity yalnız içerik için kalan bütçedir; gerçek model context ölçümü ayrıca yapılır.",
+      "exercise": "pack_context: kapasite ve rezerv tamsayı olsun; 0<=reserved<=capacity. Negatif veya boolean token ID reddedilsin. Chunkları bölmeden ilk sığanları ekle. Seçilen indeks ve kullanılan token sayısını döndür.",
+      "debug_prompt": "Reserved değerini düşmeden paketleyen kod, modelin cevap üretememesine nasıl yol açar?",
+      "english_prompt": "Explain why character counts cannot guarantee a context fit and which prompt components consume tokens.",
+      "english_terms": [
+        [
+          "tokenizer",
+          "Metni modelin tokenlarına dönüştüren bileşen"
+        ],
+        [
+          "context budget",
+          "İstek ve cevap için kullanılabilir token alanı"
+        ]
+      ],
+      "source_url": "https://huggingface.co/learn/llm-course/chapter2/4",
+      "source_checked_on": "2026-10-06",
+      "questions": [
+        {
+          "id": "applied-13-q1",
+          "prompt": "capacity=5, reserved=1 için giriş bütçesi?",
+          "choices": [
+            "5",
+            "4",
+            "6"
+          ],
+          "correct": 1,
+          "explanation": "Cevap payı toplamdan çıkarılır."
+        },
+        {
+          "id": "applied-13-q2",
+          "prompt": "Bir Türkçe karakter daima bir token mıdır?",
+          "choices": [
+            "Evet",
+            "Hayır; tokenizer ve metne bağlı",
+            "Yalnız boşluk varsa"
+          ],
+          "correct": 1,
+          "explanation": "Token sınırı karakter sayısıyla bire bir değildir."
+        }
+      ],
+      "technical_rubric": [
+        "pack_context sözleşmesini ve başarısız bir sınır testini açıkla.",
+        "Referansı kapatıp farklı girdide davranışı bağımsız üret.",
+        "Bu küçük labın production veya model kalitesi hakkında neyi kanıtlamadığını söyle."
+      ],
+      "english_rubric": [
+        "Önce iddia, sonra örnek/test, sonra sınır anlat.",
+        "Terimleri doğru anlamda kullan.",
+        "Anlaşılmayan soruya açıklama isteyerek yanıt ver."
+      ],
+      "lab_command": "uv run python labs/applied_ai/check.py --week 13"
+    },
+    {
+      "id": "applied-14",
+      "week": 14,
+      "title": "Retrieval: benzerlik ve doğru belge",
+      "skill": "Embeddings",
+      "why": "Benzer metinleri bulmak, cevabın doğru olduğunu tek başına kanıtlamaz.",
+      "explanation": "Embedding uzayında cosine similarity yön benzerliğini ölçer. Vektörün büyüklüğünü normalleştirerek karşılaştır; sıfır vektörde yön tanımsızdır. Bu lab önceden verilmiş küçük vektörleri sıralar, model indirmez. Eşit skorları belge kimliğine göre sıralamak tekrarlanabilir sonuç verir. Yüksek benzerlik, belgenin soruya doğru cevap verdiğini veya güncel olduğunu göstermez.",
+      "worked_example": "query=[1,0], a=[1,0], b=[2,0], c=[0,1] → a ve b skoru 1, c skoru 0. Tie-break a sonra b. k=2 için a,b.",
+      "exercise": "cosine_rank: boyutları eşit, sonlu, sıfır olmayan vektörleri sırala. (-score, document_id) anahtarı kullan. k>=1 olsun. Ardından gerçek embedding deneyi için sabit küçük soru/belge gold seti tasarla.",
+      "debug_prompt": "Dot productı normalize etmeden kullanınca [100,1] neden daha yakınmış gibi görünebilir?",
+      "english_prompt": "Compare cosine similarity and raw dot product. Explain what a retrieval score does not prove.",
+      "english_terms": [
+        [
+          "embedding",
+          "Verinin sayısal vektör temsili"
+        ],
+        [
+          "retrieval",
+          "İlgili aday belgeleri bulma"
+        ]
+      ],
+      "source_url": "https://sbert.net/examples/sentence_transformer/applications/semantic-search/README.html",
+      "source_checked_on": "2026-10-06",
+      "questions": [
+        {
+          "id": "applied-14-q1",
+          "prompt": "[1,0] ve [2,0] cosine benzerliği?",
+          "choices": [
+            "0",
+            "1",
+            "2"
+          ],
+          "correct": 1,
+          "explanation": "Aynı yönde oldukları için normalize benzerlik 1 olur."
+        },
+        {
+          "id": "applied-14-q2",
+          "prompt": "Sıfır vektör için bu sözleşme?",
+          "choices": [
+            "1 puan ver",
+            "Reddet",
+            "Rastgele sırala"
+          ],
+          "correct": 1,
+          "explanation": "Yön tanımsızdır; sessiz skor yerine hata gerekir."
+        }
+      ],
+      "technical_rubric": [
+        "cosine_rank sözleşmesini ve başarısız bir sınır testini açıkla.",
+        "Referansı kapatıp farklı girdide davranışı bağımsız üret.",
+        "Bu küçük labın production veya model kalitesi hakkında neyi kanıtlamadığını söyle."
+      ],
+      "english_rubric": [
+        "Önce iddia, sonra örnek/test, sonra sınır anlat.",
+        "Terimleri doğru anlamda kullan.",
+        "Anlaşılmayan soruya açıklama isteyerek yanıt ver."
+      ],
+      "lab_command": "uv run python labs/applied_ai/check.py --week 14"
+    },
+    {
+      "id": "applied-15",
+      "week": 15,
+      "title": "RAG: kaynak bulmak ile iddiayı doğrulamak",
+      "skill": "RAG",
+      "why": "Yanıtı dayandığı belgeyle değerlendirmek gerekir.",
+      "explanation": "Bir iddia, kaynak kimliği ve alıntısıyla izlenebilir olmalı. Ancak alıntının belgede bulunması, iddianın alıntıdan çıktığını kanıtlamaz. Bu lab yalnız exact quote provenance denetler; entailment değerlendirmesi ayrı kalır. Kaynak yoksa cevap uydurmak yerine abstain davranışı kur. Retrieval metni talimat kaynağı değil, güvenilmeyen veridir.",
+      "worked_example": "Belge: \"Synthetic role requires Python.\" Alıntı \"Python\" bulunur. \"Visa sponsorship\" bulunmaz ve reddedilir. \"Şirket herkese vize verir\" iddiasına \"Python\" alıntısını eklemek de anlamca geçerli değildir; lab bunu otomatik saptamaz.",
+      "exercise": "validate_citations: her claim için claim/source_id/quote alanlarını denetle; boş alıntı, bilinmeyen belge ve belgede olmayan metin reddedilsin. Boş claim listesi abstain döndürsün. Semantik destek durumunu unassessed tut.",
+      "debug_prompt": "Boş string her metnin alt dizisidir. Sadece quote in document kontrolü neden yetersiz?",
+      "english_prompt": "Explain the difference between citation validity and claim entailment. Give one unanswerable question and an abstention response.",
+      "english_terms": [
+        [
+          "citation",
+          "İddianın gösterdiği kaynak referansı"
+        ],
+        [
+          "entailment",
+          "Kaynağın iddiayı anlamca desteklemesi"
+        ]
+      ],
+      "source_url": "https://huggingface.co/learn/cookbook/advanced_rag",
+      "source_checked_on": "2026-10-06",
+      "questions": [
+        {
+          "id": "applied-15-q1",
+          "prompt": "Alıntı belgede bulununca iddia doğru mudur?",
+          "choices": [
+            "Kesinlikle",
+            "Hayır; anlamca destek ayrıca incelenir",
+            "Kaynak uzun ise evet"
+          ],
+          "correct": 1,
+          "explanation": "Metin eşleşmesi doğruluk veya entailment ölçümü değildir."
+        },
+        {
+          "id": "applied-15-q2",
+          "prompt": "Hiç kaynaklı claim yoksa?",
+          "choices": [
+            "Başarı uydur",
+            "Abstain",
+            "Rastgele kaynak ekle"
+          ],
+          "correct": 1,
+          "explanation": "Kaynak eksikliğini görünür tut."
+        }
+      ],
+      "technical_rubric": [
+        "validate_citations sözleşmesini ve başarısız bir sınır testini açıkla.",
+        "Referansı kapatıp farklı girdide davranışı bağımsız üret.",
+        "Bu küçük labın production veya model kalitesi hakkında neyi kanıtlamadığını söyle."
+      ],
+      "english_rubric": [
+        "Önce iddia, sonra örnek/test, sonra sınır anlat.",
+        "Terimleri doğru anlamda kullan.",
+        "Anlaşılmayan soruya açıklama isteyerek yanıt ver."
+      ],
+      "lab_command": "uv run python labs/applied_ai/check.py --week 15"
+    },
+    {
+      "id": "applied-16",
+      "week": 16,
+      "title": "Eval: sabit vakalar ve ayrı paydalar",
+      "skill": "LLM Evaluation",
+      "why": "Örnek gösterim yerine sabit test kümesiyle değişiklikleri ölçersin.",
+      "explanation": "Değerlendirme vakalarını geliştirme örneklerinden ayır. Her sorunun relevant belge kimliklerini gold olarak kaydet. Recall, bulunan relevant sayısının toplam relevant sayısına oranıdır. Cevapsız sorularda recall paydası sıfırdır; onları ayrı abstention metriğinde ölç. Lab verilen sıralama kesiminde macro recall hesaplar; gerçek dil kalitesi veya held-out bağımsızlığı kendiliğinden doğrulanmaz.",
+      "worked_example": "q1 gold={a,b}, retrieved={a}: recall=0.5. q2 gold boş, retrieved boş: abstention doğru. Rapor answerable=1, recall=0.5, abstention_accuracy=1.0.",
+      "exercise": "retrieval_eval: gold ve ranked vaka kimlikleri tam eşleşsin, duplicate retrieved ID reddedilsin. Cevaplı soruların recall ortalamasını, cevapsız soruların abstention accuracy oranını ayrı döndür. Boş paydalar None.",
+      "debug_prompt": "Başarısız soruları sonuç sözlüğünden silince skorun yükselmesini nasıl engellersin?",
+      "english_prompt": "Define recall and abstention accuracy with their denominators. Explain how tuning on evaluation cases invalidates a held-out claim.",
+      "english_terms": [
+        [
+          "held-out",
+          "Geliştirmede kullanılmayan değerlendirme parçası"
+        ],
+        [
+          "denominator",
+          "Oranın paydası"
+        ]
+      ],
+      "source_url": "https://huggingface.co/docs/evaluate/index",
+      "source_checked_on": "2026-10-06",
+      "questions": [
+        {
+          "id": "applied-16-q1",
+          "prompt": "2 relevant belgeden 1 tanesi bulunduğunda recall?",
+          "choices": [
+            "0.5",
+            "1",
+            "2"
+          ],
+          "correct": 0,
+          "explanation": "Bulunan relevant / tüm relevant = 1/2."
+        },
+        {
+          "id": "applied-16-q2",
+          "prompt": "Gold soru eksikse ne yapılmalı?",
+          "choices": [
+            "Yoksay",
+            "Değerlendirmeyi reddet",
+            "Otomatik doğru say"
+          ],
+          "correct": 1,
+          "explanation": "Eksik vaka başarısızlıkları gizleyebilir."
+        }
+      ],
+      "technical_rubric": [
+        "retrieval_eval sözleşmesini ve başarısız bir sınır testini açıkla.",
+        "Referansı kapatıp farklı girdide davranışı bağımsız üret.",
+        "Bu küçük labın production veya model kalitesi hakkında neyi kanıtlamadığını söyle."
+      ],
+      "english_rubric": [
+        "Önce iddia, sonra örnek/test, sonra sınır anlat.",
+        "Terimleri doğru anlamda kullan.",
+        "Anlaşılmayan soruya açıklama isteyerek yanıt ver."
+      ],
+      "lab_command": "uv run python labs/applied_ai/check.py --week 16"
+    },
+    {
+      "id": "applied-17",
+      "week": 17,
+      "title": "Araç çağrısını izin sınırında tut",
+      "skill": "Tool Calling",
+      "why": "Dış işlemlere izin veren sınırları açıkça tanımlamalısın.",
+      "explanation": "Modelin ürettiği araç adı ve argüman güvenilir değildir. Dispatcher yalnız izin verilen read_document aracını, tam argüman şemasını ve erişilebilir belge kimliğini kabul eder. Kaynaktaki \"tüm veriyi sil\" gibi metinler çalıştırılmaz. Lab bellek içi okuma yapar; shell, eval, ağ veya gerçek yazma işlemi yoktur. Production yazma işlemlerinde kullanıcı yetkisi ve onay sınırı ayrıca uygulanır.",
+      "worked_example": "{name:read_document, arguments:{id:d1}} yalnız d1 izinli kümedeyse metni döndürür. delete_all veya ek shell argümanı reddedilir.",
+      "exercise": "dispatch_read: tam name/arguments şeması, tek id alanı ve allowlisted belge denetimi uygula. Geçerli belgenin içindeki talimat benzeri metni sadece string olarak döndür.",
+      "debug_prompt": "Bilinmeyen anahtarları sessizce yutan bir dispatcher ileride neden tehlikeli olabilir?",
+      "english_prompt": "Explain why tool-call syntax is not permission and how you separate untrusted document content from executable instructions.",
+      "english_terms": [
+        [
+          "allowlist",
+          "İzin verilenlerin açık listesi"
+        ],
+        [
+          "authorization",
+          "İşlem ve kaynak için erişim kararı"
+        ]
+      ],
+      "source_url": "https://huggingface.co/docs/transformers/chat_extras",
+      "source_checked_on": "2026-10-06",
+      "questions": [
+        {
+          "id": "applied-17-q1",
+          "prompt": "Model delete_all önerirse?",
+          "choices": [
+            "Adı geçerli JSON ise çalıştır",
+            "İzin listesinde olmadığı için reddet",
+            "Metindeki güvenlik iddiasına inan"
+          ],
+          "correct": 1,
+          "explanation": "Model çıktısı yetki vermez."
+        },
+        {
+          "id": "applied-17-q2",
+          "prompt": "Belge içindeki talimat?",
+          "choices": [
+            "Sistem talimatı olur",
+            "Veri olarak kalır",
+            "Otomatik araç çağrısı olur"
+          ],
+          "correct": 1,
+          "explanation": "Kaynak içeriği kontrol katmanına yükseltilmez."
+        }
+      ],
+      "technical_rubric": [
+        "dispatch_read sözleşmesini ve başarısız bir sınır testini açıkla.",
+        "Referansı kapatıp farklı girdide davranışı bağımsız üret.",
+        "Bu küçük labın production veya model kalitesi hakkında neyi kanıtlamadığını söyle."
+      ],
+      "english_rubric": [
+        "Önce iddia, sonra örnek/test, sonra sınır anlat.",
+        "Terimleri doğru anlamda kullan.",
+        "Anlaşılmayan soruya açıklama isteyerek yanıt ver."
+      ],
+      "lab_command": "uv run python labs/applied_ai/check.py --week 17"
+    },
+    {
+      "id": "applied-18",
+      "week": 18,
+      "title": "Retry: sınır ve idempotency ayrı işler",
+      "skill": "Failure Recovery",
+      "why": "Bir adımın başarısızlığı tüm işin hangi durumda kaldığını belirsiz bırakmamalı.",
+      "explanation": "Geçici hata yeniden denenebilir, fakat her hata geçici değildir. Bu lab 429/500/502/503/504 için 5 ve 10 saniyelik bekleme önerir; üçüncü başarısız denemede durur. Bekleme önerisi HTTP çağrısı veya uyku çalıştırmaz. Retry aynı yan etkiyi iki kez üretebilir; idempotency key, kalıcı durum ve transaction sınırını ayrıca tasarlamalısın. Gerçek serviste Retry-After, jitter ve eşzamanlı worker davranışını ele al.",
+      "worked_example": "503 sonrası attempt=1→5, 2→10, 3→None. 400→None. Timeouttan önce dış sistem işlemi yapmış olabilir; tekrar deneme otomatik olarak exactly-once değildir.",
+      "exercise": "retry_delay: pozitif attempt ve tamsayı status al; politika dışı durum veya limitte None döndür. Testlerden sonra aynı request key ile iki çağrının yan etkisini engelleyen bir durum diyagramı yaz.",
+      "debug_prompt": "Bütün 4xx hatalarını sonsuz tekrar eden kodun kullanıcıya ve sağlayıcıya etkisi ne olur?",
+      "english_prompt": "Explain a timeout with an unknown side effect and how an idempotency key differs from a retry counter.",
+      "english_terms": [
+        [
+          "retry",
+          "Başarısız işlemi yeniden deneme"
+        ],
+        [
+          "idempotency",
+          "Tekrarın ek yan etki üretmemesi"
+        ]
+      ],
+      "source_url": "https://fastapi.tiangolo.com/tutorial/",
+      "source_checked_on": "2026-10-05",
+      "questions": [
+        {
+          "id": "applied-18-q1",
+          "prompt": "Üçüncü 503 sonrası bu politika?",
+          "choices": [
+            "Dur",
+            "20 saniye sonra sonsuza dek sür",
+            "Başarılı say"
+          ],
+          "correct": 0,
+          "explanation": "Azami üç deneme sınırı var."
+        },
+        {
+          "id": "applied-18-q2",
+          "prompt": "Retry exactly-once garantisi verir mi?",
+          "choices": [
+            "Evet",
+            "Hayır",
+            "Yalnız 503te"
+          ],
+          "correct": 1,
+          "explanation": "Dış yan etkinin gerçekleşip gerçekleşmediği ayrı problemdir."
+        }
+      ],
+      "technical_rubric": [
+        "retry_delay sözleşmesini ve başarısız bir sınır testini açıkla.",
+        "Referansı kapatıp farklı girdide davranışı bağımsız üret.",
+        "Bu küçük labın production veya model kalitesi hakkında neyi kanıtlamadığını söyle."
+      ],
+      "english_rubric": [
+        "Önce iddia, sonra örnek/test, sonra sınır anlat.",
+        "Terimleri doğru anlamda kullan.",
+        "Anlaşılmayan soruya açıklama isteyerek yanıt ver."
+      ],
+      "lab_command": "uv run python labs/applied_ai/check.py --week 18"
+    },
+    {
+      "id": "applied-19",
+      "week": 19,
+      "title": "Fine-tuning: önce ölçülebilir karar",
+      "skill": "Fine-tuning",
+      "why": "Ek eğitimden önce ölçülebilir bir sorunu ve baselineı tanımlamalısın.",
+      "explanation": "Fine-tuning araçtır; amaç değildir. Aynı sürümlü değerlendirme üzerinde baseline ve adayın kalite/maliyet değerlerini karşılaştır. Minimum kazanç ve maliyet tavanını sonuçları görmeden belirle. Lab küçük bir karar kapısıdır; istatistiksel anlamlılık veya gerçek fine-tuning çalıştırmaz. Hata nedeni güncel bilgi eksikliği ise retrieval, biçim/talimat sorunu ise prompt ve veri kalitesi alternatiflerini önce incele.",
+      "worked_example": "Baseline quality=0.50, candidate=0.75, cost=0.20; min_gain=0.125, max_cost=0.25 → geçer. Maliyet tavanı 0.15 olursa geçmez. Farklı eval_version karşılaştırması reddedilir.",
+      "exercise": "compare_candidate: aynı eval_version, 0–1 kalite ve sonlu negatif olmayan maliyet/politika değerlerini denetle. Kazanç ve bütçe koşulları birlikte sağlansın. Sonuçları karar notuna koşullarıyla yaz.",
+      "debug_prompt": "Adayı daha kolay bir test kümesinde ölçmek neden gerçek iyileşme gibi görünebilir?",
+      "english_prompt": "Present a decision against fine-tuning using a baseline, measured failure category and a predeclared evaluation gate.",
+      "english_terms": [
+        [
+          "baseline",
+          "Karşılaştırma için başlangıç sistemi"
+        ],
+        [
+          "predeclared gate",
+          "Sonuçtan önce tanımlanan kabul ölçütü"
+        ]
+      ],
+      "source_url": "https://huggingface.co/learn/llm-course/chapter1/1",
+      "source_checked_on": "2026-10-05",
+      "questions": [
+        {
+          "id": "applied-19-q1",
+          "prompt": "Farklı eval sürümleriyle kazanç iddiası?",
+          "choices": [
+            "Reddet; eşit koşullarda yeniden ölç",
+            "En iyi sayıyı seç",
+            "Sürümleri gizle"
+          ],
+          "correct": 0,
+          "explanation": "Test kümesi değişimi sistem kazancıyla karışabilir."
+        },
+        {
+          "id": "applied-19-q2",
+          "prompt": "Daha iyi kalite ama bütçe üstü aday?",
+          "choices": [
+            "Bu politika kapısını geçmez",
+            "Her zaman geçer",
+            "Maliyeti rapordan çıkar"
+          ],
+          "correct": 0,
+          "explanation": "Kabul iki koşulu birlikte gerektirir."
+        }
+      ],
+      "technical_rubric": [
+        "compare_candidate sözleşmesini ve başarısız bir sınır testini açıkla.",
+        "Referansı kapatıp farklı girdide davranışı bağımsız üret.",
+        "Bu küçük labın production veya model kalitesi hakkında neyi kanıtlamadığını söyle."
+      ],
+      "english_rubric": [
+        "Önce iddia, sonra örnek/test, sonra sınır anlat.",
+        "Terimleri doğru anlamda kullan.",
+        "Anlaşılmayan soruya açıklama isteyerek yanıt ver."
+      ],
+      "lab_command": "uv run python labs/applied_ai/check.py --week 19"
+    },
+    {
+      "id": "applied-20",
+      "week": 20,
+      "title": "Maliyet: kullanım, birim ve kalite",
+      "skill": "Cost Optimization",
+      "why": "Kalite, gecikme ve maliyet birlikte değerlendirilmelidir.",
+      "explanation": "Maliyeti çağrı sayısıyla değil doğru kullanım birimiyle hesapla. Giriş ve çıkış token fiyatı farklı olabilir. Bu lab oranları çağırandan alır; güncel sağlayıcı fiyatı varsaymaz. Üretimde fiyatın para birimini, kontrol tarihini, model sürümünü ve gerçek usage cevabını sakla. Maliyeti azaltırken aynı eval üzerinde kaliteyi ve gecikmeyi de kontrol et.",
+      "worked_example": "1000 input ve 500 output token; milyon başına input=2, output=8 varsayımsal birim: 1000*2/1e6 + 500*8/1e6 = 0.006. Bu gerçek sağlayıcı fiyatı değildir.",
+      "exercise": "request_cost: negatif olmayan tamsayı token ve sonlu negatif olmayan oran kabul et. Toplamı milyon birimine göre hesapla. Tahmini maliyetle gerçek faturayı ayrı tut; caching veya batch indirimi bu sözleşmede yok.",
+      "debug_prompt": "Milyon başına fiyatı bin başına sanınca sonuç kaç kat değişir?",
+      "english_prompt": "Explain your cost calculation, the source and date of pricing, and how you would check quality after an optimization.",
+      "english_terms": [
+        [
+          "usage",
+          "Gerçek tüketim miktarı"
+        ],
+        [
+          "unit price",
+          "Belirli kullanım biriminin fiyatı"
+        ]
+      ],
+      "source_url": "https://huggingface.co/learn/llm-course/chapter1/1",
+      "source_checked_on": "2026-10-05",
+      "questions": [
+        {
+          "id": "applied-20-q1",
+          "prompt": "Örnekte toplam maliyet?",
+          "choices": [
+            "6",
+            "0.006",
+            "0.000006"
+          ],
+          "correct": 1,
+          "explanation": "Token sayısı milyon başına oranla çarpılıp 1e6ya bölünür."
+        },
+        {
+          "id": "applied-20-q2",
+          "prompt": "Daha ucuz ama kalite ölçülmemiş sistem?",
+          "choices": [
+            "Kesin daha iyi",
+            "Kalite etkisi bilinmiyor",
+            "Otomatik production"
+          ],
+          "correct": 1,
+          "explanation": "Maliyet tek başına toplam faydayı ölçmez."
+        }
+      ],
+      "technical_rubric": [
+        "request_cost sözleşmesini ve başarısız bir sınır testini açıkla.",
+        "Referansı kapatıp farklı girdide davranışı bağımsız üret.",
+        "Bu küçük labın production veya model kalitesi hakkında neyi kanıtlamadığını söyle."
+      ],
+      "english_rubric": [
+        "Önce iddia, sonra örnek/test, sonra sınır anlat.",
+        "Terimleri doğru anlamda kullan.",
+        "Anlaşılmayan soruya açıklama isteyerek yanıt ver."
+      ],
+      "lab_command": "uv run python labs/applied_ai/check.py --week 20"
+    },
+    {
+      "id": "applied-21",
+      "week": 21,
+      "title": "Loglarda veri minimizasyonu",
+      "skill": "Security",
+      "why": "Veriye erişebilen her yolun aynı güven sınırlarına uyması gerekir.",
+      "explanation": "Log alanları hata ayıklamaya yardım ederken özel veri sızdırabilir. Kara liste yaklaşımı yeni secret alanlarını kaçırabilir. Bu lab yalnız enum status ve sayısal duration_ms alanlarını kabul eden allowlist kullanır; token, body ve bilinmeyen alanlar çıktıya taşınmaz. Bu redaction örneği bütün uygulamanın güvenlik denetimi değildir; yetki sınırları ve export/delete davranışı ayrı test edilir.",
+      "worked_example": "{status:failed, duration_ms:7, token:secret, body:private} → {status:failed, duration_ms:7}. Status yerine serbest kullanıcı metni kabul edilmez.",
+      "exercise": "safe_event: status ok/failed olsun, duration_ms sonlu ve negatif olmayan sayı olsun. Yeni temiz sözlük üret; orijinal payload değişmesin. Secret taşıyan nested verinin de loga girmediğini göster.",
+      "debug_prompt": "Sadece password anahtarını silen kod neden authorization, token veya serbest body içindeki sırları kaçırır?",
+      "english_prompt": "Explain your logging allowlist and the difference between authentication, authorization and data minimization.",
+      "english_terms": [
+        [
+          "data minimization",
+          "Gerekenden fazla veri tutmama"
+        ],
+        [
+          "redaction",
+          "Hassas bilgiyi çıktıdan çıkarma"
+        ]
+      ],
+      "source_url": "https://fastapi.tiangolo.com/tutorial/security/",
+      "source_checked_on": "2026-10-05",
+      "questions": [
+        {
+          "id": "applied-21-q1",
+          "prompt": "Bilinmeyen log alanına ne olur?",
+          "choices": [
+            "Otomatik yazılır",
+            "Allowlist dışında bırakılır",
+            "Status içine eklenir"
+          ],
+          "correct": 1,
+          "explanation": "Bu sözleşme yalnız iki güvenli alan taşır."
+        },
+        {
+          "id": "applied-21-q2",
+          "prompt": "Log filtresi yetkilendirme yerine geçer mi?",
+          "choices": [
+            "Hayır",
+            "Evet",
+            "Yalnız küçük sistemlerde"
+          ],
+          "correct": 0,
+          "explanation": "Erişim kontrolü ayrı güven sınırıdır."
+        }
+      ],
+      "technical_rubric": [
+        "safe_event sözleşmesini ve başarısız bir sınır testini açıkla.",
+        "Referansı kapatıp farklı girdide davranışı bağımsız üret.",
+        "Bu küçük labın production veya model kalitesi hakkında neyi kanıtlamadığını söyle."
+      ],
+      "english_rubric": [
+        "Önce iddia, sonra örnek/test, sonra sınır anlat.",
+        "Terimleri doğru anlamda kullan.",
+        "Anlaşılmayan soruya açıklama isteyerek yanıt ver."
+      ],
+      "lab_command": "uv run python labs/applied_ai/check.py --week 21"
+    },
+    {
+      "id": "applied-22",
+      "week": 22,
+      "title": "Operasyon: örneklemle birlikte sinyal",
+      "skill": "Observability",
+      "why": "Sorun çıktığında nedeni ve etkilenen kullanıcı akışını bulabilmelisin.",
+      "explanation": "Ortalama gecikme kuyruktaki yavaş istekleri gizleyebilir. Bu lab nearest-rank p95 ve hata oranını n ile birlikte verir. n=0 için oran ve percentile tanımsızdır. Küçük örneklemde p95 kararsız olabilir; pencere ve örneklem kapsamını yaz. Gerçek operasyonda alarm eşiği, runbook, sahibi ve restore tatbikatı gerekir; metrik hesaplamak bunları yapmış olmak değildir.",
+      "worked_example": "1..20 ms süreli 20 istekte en sonuncusu failed: error_rate=1/20=0.05, nearest-rank p95=19 ms. Boş listede n=0, oran/p95=None.",
+      "exercise": "service_summary: safe_event sözleşmesini uygulayıp n, error_rate ve p95_ms hesapla. p95 indeksi ceil(0.95*n)-1. Sonra yedekten geri dönüşün hangi veri kaybı ve süre sınırını ölçmesi gerektiğini yaz.",
+      "debug_prompt": "ceil yerine floor ve yanlış sıfır tabanlı indeks kullanan percentile kodunu hangi küçük örnek ortaya çıkarır?",
+      "english_prompt": "Explain the sample window, error-rate denominator and percentile convention. Describe what a restore drill must verify.",
+      "english_terms": [
+        [
+          "percentile",
+          "Dağılımda belirli sıraya karşılık gelen değer"
+        ],
+        [
+          "runbook",
+          "Sorunda izlenecek operasyon adımları"
+        ]
+      ],
+      "source_url": "https://opentelemetry.io/docs/languages/python/",
+      "source_checked_on": "2026-10-06",
+      "questions": [
+        {
+          "id": "applied-22-q1",
+          "prompt": "20 örnekte 1 hata oranı?",
+          "choices": [
+            "0.05",
+            "0.5",
+            "20"
+          ],
+          "correct": 0,
+          "explanation": "Hatalı istek / tüm istek = 1/20."
+        },
+        {
+          "id": "applied-22-q2",
+          "prompt": "Boş örneklemde p95?",
+          "choices": [
+            "0 olarak başarı",
+            "None; ölçüm yok",
+            "100"
+          ],
+          "correct": 1,
+          "explanation": "Sıfır gecikmeyle gözlem yokluğu farklıdır."
+        }
+      ],
+      "technical_rubric": [
+        "service_summary sözleşmesini ve başarısız bir sınır testini açıkla.",
+        "Referansı kapatıp farklı girdide davranışı bağımsız üret.",
+        "Bu küçük labın production veya model kalitesi hakkında neyi kanıtlamadığını söyle."
+      ],
+      "english_rubric": [
+        "Önce iddia, sonra örnek/test, sonra sınır anlat.",
+        "Terimleri doğru anlamda kullan.",
+        "Anlaşılmayan soruya açıklama isteyerek yanıt ver."
+      ],
+      "lab_command": "uv run python labs/applied_ai/check.py --week 22"
+    },
+    {
+      "id": "applied-23",
+      "week": 23,
+      "title": "Mimari kararını kanıtla savun",
+      "skill": "Architecture Explanation",
+      "why": "Seçimleri ve reddedilen alternatifleri kanıtlarıyla anlatmalısın.",
+      "explanation": "Bir mimari kararı bağlam, seçenek, gerekçe, maliyet ve geri dönüş koşuluyla anlat. Tek kullanıcı için modular monolith seçmek bir kısıt kararıdır; trafik artınca hemen mikroservis gerektiği sonucu çıkmaz. Önce ölçülmüş darboğazı bul. Lab ADR alanlarının doluluğunu denetler; yazının doğruluğunu veya tasarım kalitesini puanlamaz. Savunmada bir gerçek test veya ölçüm bağlantısı göster.",
+      "worked_example": "context=tek kullanıcı, decision=monolith, alternative=servisler, tradeoff=ortak runtime, evidence=test link, rollback=boş → eksik alan rollback. Dolu ama anlamsız metin yine insan incelemesi gerektirir.",
+      "exercise": "decision_gaps: context/decision/alternative/tradeoff/evidence/rollback alanlarından eksik, metin olmayan veya boş olanları sırayla döndür. AI Career OS için gerçek bir ADR yaz; üç dakikalık İngilizce savunmasını kaydet.",
+      "debug_prompt": "Sadece anahtar varlığını kontrol eden kod neden boş kararları tamamlanmış sayar?",
+      "english_prompt": "Defend one architectural choice with constraints, an alternative, evidence and a condition that would make you reconsider.",
+      "english_terms": [
+        [
+          "trade-off",
+          "Bir fayda için kabul edilen maliyet"
+        ],
+        [
+          "constraint",
+          "Seçenekleri sınırlayan koşul"
+        ]
+      ],
+      "source_url": "https://fastapi.tiangolo.com/tutorial/",
+      "source_checked_on": "2026-10-05",
+      "questions": [
+        {
+          "id": "applied-23-q1",
+          "prompt": "Trafik on kat artarsa ilk adım?",
+          "choices": [
+            "Ölçülmüş darboğazı bul",
+            "Hemen tüm sistemi yeniden yaz",
+            "Testleri kapat"
+          ],
+          "correct": 0,
+          "explanation": "Kararı gözlem ve gereksinim yönlendirmeli."
+        },
+        {
+          "id": "applied-23-q2",
+          "prompt": "ADR alanlarının dolu olması?",
+          "choices": [
+            "Tasarıma kalite garantisi",
+            "Yalnız yapısal tamamlık",
+            "Production onayı"
+          ],
+          "correct": 1,
+          "explanation": "Anlam ve kanıt ayrıca değerlendirilir."
+        }
+      ],
+      "technical_rubric": [
+        "decision_gaps sözleşmesini ve başarısız bir sınır testini açıkla.",
+        "Referansı kapatıp farklı girdide davranışı bağımsız üret.",
+        "Bu küçük labın production veya model kalitesi hakkında neyi kanıtlamadığını söyle."
+      ],
+      "english_rubric": [
+        "Önce iddia, sonra örnek/test, sonra sınır anlat.",
+        "Terimleri doğru anlamda kullan.",
+        "Anlaşılmayan soruya açıklama isteyerek yanıt ver."
+      ],
+      "lab_command": "uv run python labs/applied_ai/check.py --week 23"
+    },
+    {
+      "id": "applied-24",
+      "week": 24,
+      "title": "Portfolyo: iddiadan artifacte",
+      "skill": "Interview Communication",
+      "why": "İlan gereksinimi ile gösterebildiğin kanıtı eşleştirirsin.",
+      "explanation": "Portfolyo iddiası gösterebildiğin çalışma ve rolünle sınırlı olmalı. Bir URLnin bulunması beceriyi doğrulamaz; yardım düzeyi ve bağımsız savunma önemlidir. Bu lab iddia/evidence bağlantısının varlığını kontrol eder ve linked_not_verified etiketi taşır. İngilizce yanıtta bağlam, eylem, ölçülmüş sonuç ve sınır anlat. Metrik yoksa uydurma; hangi testi yaptığını söyle.",
+      "worked_example": "Claim \"Built a small validation example\" → e1 → artifact URL + assisted. E1 yoksa bağlantı reddedilir; varsa iddia bağımsız doğrulanmış olmaz.",
+      "exercise": "claim_inventory: her text/evidence_id için mevcut HTTPS artifact ve assistance kaydını bağla. Eksik kanıtı reddet. Üç gerçek ilan için yalnız açıklayabildiğin çalışmalarla hazırlık paketi oluştur; otomatik başvuru yapma.",
+      "debug_prompt": "Artifact URLsi olan her kayda verified=true veren kod hangi yanlış güveni üretir?",
+      "english_prompt": "Tell me about a failure, your own contribution, assistance received and the evidence for the improvement. State one remaining limitation.",
+      "english_terms": [
+        [
+          "claim",
+          "Kanıtla desteklenmesi gereken ifade"
+        ],
+        [
+          "contribution",
+          "Senin yaptığın belirli katkı"
+        ]
+      ],
+      "source_url": "https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes",
+      "source_checked_on": "2026-10-05",
+      "questions": [
+        {
+          "id": "applied-24-q1",
+          "prompt": "AI tarafından yazılmış projeyi nasıl sunmalı?",
+          "choices": [
+            "Tamamen bağımsızmış gibi",
+            "Yardımı açıkça belirterek kendi katkını savun",
+            "Ölçüm uydurarak"
+          ],
+          "correct": 1,
+          "explanation": "Yardım düzeyi ile bağımsız yetkinlik farklıdır."
+        },
+        {
+          "id": "applied-24-q2",
+          "prompt": "Kanıt bağlantısı neyi garanti eder?",
+          "choices": [
+            "İşe alınmayı",
+            "Yalnız bağlantının kayda bağlandığını",
+            "CEFR C1"
+          ],
+          "correct": 1,
+          "explanation": "Factual doğruluk ve beceri bağımsız değerlendirme gerektirir."
+        }
+      ],
+      "technical_rubric": [
+        "claim_inventory sözleşmesini ve başarısız bir sınır testini açıkla.",
+        "Referansı kapatıp farklı girdide davranışı bağımsız üret.",
+        "Bu küçük labın production veya model kalitesi hakkında neyi kanıtlamadığını söyle."
+      ],
+      "english_rubric": [
+        "Önce iddia, sonra örnek/test, sonra sınır anlat.",
+        "Terimleri doğru anlamda kullan.",
+        "Anlaşılmayan soruya açıklama isteyerek yanıt ver."
+      ],
+      "lab_command": "uv run python labs/applied_ai/check.py --week 24"
     }
   ]
 }

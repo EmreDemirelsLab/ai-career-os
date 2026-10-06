@@ -7,6 +7,7 @@ from pathlib import Path
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import Session
 
+from career_os.collection_worker import work_one
 from career_os.config import Settings
 from career_os.contracts import FixtureAdapter
 from career_os.db import build_engine
@@ -59,6 +60,8 @@ def main() -> None:
     tick.add_argument("--limit", type=int, default=25)
     show_schedule = sub.add_parser("schedule-status")
     show_schedule.add_argument("source_id")
+    worker = sub.add_parser("collection-work")
+    worker.add_argument("job_id")
     args = parser.parse_args()
     logging.basicConfig(level=logging.INFO, format="%(message)s")
     if args.command == "retention":
@@ -74,7 +77,12 @@ def main() -> None:
     else:
         engine = build_engine(Settings().database_url)
     try:
-        if args.command == "schedule-source":
+        if args.command == "collection-work":
+            result = work_one(engine, args.job_id)
+            print(json.dumps(result))
+            if result["status"] == "FAILED":
+                raise SystemExit(1)
+        elif args.command == "schedule-source":
             configure_schedule(
                 engine, args.source_id, args.interval_minutes, args.state == "enable"
             )

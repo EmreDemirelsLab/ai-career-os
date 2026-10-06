@@ -43,3 +43,8 @@ Checkout: `/workspace/scratch/0ce556516ccd/ai-career-os`. Scratch kaybolabilir; 
 `uv sync --locked`; `uv run ruff check .`; `uv run ruff format --check .`; `uv run mypy`; `uv run pytest -q`. Web: `npm ci`, lint/typecheck/build. PostgreSQL17, Compose, Playwright, hosted/Caddy config, restricted role ve backup/restore doğrulaması GitHub Actions'ta. SQLite geçişini PostgreSQL kanıtı sayma.
 
 Retention yalnız disposable test verisinde çalıştırıldı. Maintenance DSN ayrı; PUBLIC execute revoked; runtime raw korumasını aşamaz. Kaynak retention'u derived market/plan kayıtlarını da kapsar. Yedek/offsite/export politikası ve gerçek operasyon ayrı kapıdır. Gizli anahtar veya kişisel öğrenen verisini public repo'ya koyma.
+
+## Active P3c1 checkpoint — 2026-10-06
+
+PR #6 final head 36f5ccf1c9b1b5903f670ffef2b56ceeac9e5376 verified: runs 37402795388 / 37402792874 SUCCESS; ready for review, not merged.
+Active branch feat/market-evaluation, stacked on #6. Implemented offline exact-span mention schema/evaluator, provenance/hash/retention guards, development/holdout leakage checks, source-level metrics and synthetic fixture. See docs/29_MARKET_EVALUATION.md. Local Ruff/format/mypy pass; pytest 51 passed / 55 skipped without PostgreSQL. No real dataset or source approval, model call, merge or deployment. Next: push/open PR, verify PostgreSQL/Compose CI, record exact code head/run, then P3c2 private sampling manifest and independent review. Real market gate remains NOT_ASSESSED.

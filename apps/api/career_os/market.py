@@ -7,7 +7,7 @@ from datetime import UTC, datetime, timedelta
 from importlib.resources import files
 from typing import Any
 
-from sqlalchemy import func, select
+from sqlalchemy import func, select, text
 from sqlalchemy.orm import Session
 
 from career_os.contracts import digest
@@ -36,7 +36,13 @@ def extract_mentions(text: str) -> list[dict[str, Any]]:
     return sorted(found.values(), key=lambda x: (x["start"], x["end"], x["skill"]))
 
 
+def retention_read_lock(session: Session) -> None:
+    if session.get_bind().dialect.name == "postgresql":
+        session.execute(text("SELECT pg_advisory_xact_lock_shared(71420601)"))
+
+
 def market_snapshot(session: Session, source_ids: list[str], include_demo: bool) -> dict[str, Any]:
+    retention_read_lock(session)
     sources = list(session.scalars(select(Source).where(Source.id.in_(source_ids))))
     if len(sources) != len(set(source_ids)):
         raise ValueError("source_not_found")

@@ -1,8 +1,10 @@
 import argparse
 import json
 import logging
+import os
 from pathlib import Path
 
+from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import Session
 
 from career_os.config import Settings
@@ -12,6 +14,7 @@ from career_os.governance import seed_sources, set_enabled
 from career_os.greenhouse import collect_greenhouse
 from career_os.ingestion import fail_run, ingest, inspect_run
 from career_os.models import Source
+from career_os.retention import retain_source
 
 
 def main() -> None:
@@ -42,11 +45,29 @@ def main() -> None:
     register.add_argument("--policy-reference", required=True)
     register.add_argument("--reviewed-by", required=True)
     register.add_argument("--retention-days", type=int, required=True)
+    retention = sub.add_parser("retention")
+    retention.add_argument("source_id")
+    retention.add_argument("--key", required=True)
+    retention.add_argument("--apply", action="store_true")
+    retention.add_argument("--confirm", default="")
     args = parser.parse_args()
     logging.basicConfig(level=logging.INFO, format="%(message)s")
-    engine = build_engine(Settings().database_url)
+    if args.command == "retention":
+        maintenance_url = os.environ.get("CAREER_MAINTENANCE_DATABASE_URL")
+        if not maintenance_url:
+            parser.exit(2, "Set a separate CAREER_MAINTENANCE_DATABASE_URL for maintenance\n")
+        if args.apply and args.confirm != "delete-expired-source-data":
+            parser.exit(2, "Apply requires --confirm delete-expired-source-data\n")
+        try:
+            engine = build_engine(maintenance_url)
+        except Exception:
+            parser.exit(2, "Invalid maintenance database configuration\n")
+    else:
+        engine = build_engine(Settings().database_url)
     try:
-        if args.command == "register-greenhouse":
+        if args.command == "retention":
+            print(json.dumps(retain_source(engine, args.source_id, args.key, apply=args.apply)))
+        elif args.command == "register-greenhouse":
             import re
 
             if not re.fullmatch(r"[a-zA-Z0-9_-]{1,80}", args.board):
@@ -99,6 +120,8 @@ def main() -> None:
             print(json.dumps(result))
             if result["status"] == "FAILED":
                 raise SystemExit(1)
+    except SQLAlchemyError:
+        parser.exit(2, "Database operation refused; inspect maintenance permissions and policy\n")
     except ValueError as exc:
         parser.exit(2, f"Operation refused: {exc}\n")
     finally:

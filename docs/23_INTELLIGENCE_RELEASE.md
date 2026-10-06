@@ -1,3 +1,5 @@
+> 2026-10-06 update: [P3a retention contract](26_RETENTION_CONTRACT.md) supersedes the earlier absence of a primary-data maintenance mechanism. Its CI gates and external-backup limitations remain explicit.
+
 # Intelligence engines and release gates — 2026-10-05
 
 This extension implements executable market analysis, prerequisite planning and an opt-in AI feedback gateway. It supersedes older statements saying these components do not exist. It does **not** claim the empirical market study, semantic extraction quality, expert-calibrated teaching, or hosted production acceptance has been completed.

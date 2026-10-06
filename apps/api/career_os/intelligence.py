@@ -11,7 +11,7 @@ from career_os.auth import authorize
 from career_os.contracts import digest
 from career_os.ingestion import insert_for
 from career_os.intelligence_models import AIBudget, AIRequest, EngineRecord
-from career_os.market import GRAPH, adaptive_plan, market_snapshot
+from career_os.market import GRAPH, adaptive_plan, market_snapshot, retention_read_lock
 from career_os.models import Source
 from career_os.workspace import CURRICULUM, all_rows, latest_profile, serialize, stamp
 from career_os.workspace_contracts import Contract, Short
@@ -82,6 +82,7 @@ def build_market(body: MarketInput, request: Request) -> dict[str, Any]:
 @router.post("/plans", status_code=201)
 def build_plan(body: PlanInput, request: Request) -> dict[str, Any]:
     with Session(request.app.state.engine) as session, session.begin():
+        retention_read_lock(session)
         market = session.get(EngineRecord, body.market_snapshot_id)
         profile = latest_profile(session)
         if not market or market.kind != "market":

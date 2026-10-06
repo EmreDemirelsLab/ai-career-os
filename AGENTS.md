@@ -5,3 +5,5 @@ Read docs/16_ARCHITECTURE_REVIEW_v1_3.md and docs/18_SPRINT1_ACCEPTANCE.md first
 For intelligence-engine work, docs/23_INTELLIGENCE_RELEASE.md is the current v1.4 implementation and release boundary. Mocked AI/collector tests do not establish live quality or source approval.
 
 Continuity: at the start of a resumed task, read CONTINUITY.md and docs/25_DELIVERY_PLAN.md, verify the remote head/checks, and continue the recorded active part. Before pausing, update the checkpoint with the exact verified result and next action. Do not mark pending gates complete.
+
+For retention work, docs/26_RETENTION_CONTRACT.md governs owner/runtime separation and derived data. Never run maintenance on real user data while implementing/testing this part; use disposable fixtures.

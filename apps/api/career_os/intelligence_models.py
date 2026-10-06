@@ -1,4 +1,4 @@
-from sqlalchemy import Integer, String
+from sqlalchemy import ForeignKey, Integer, String, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column
 
 from career_os.db import Base
@@ -21,3 +21,10 @@ class AIBudget(Base):
     __tablename__ = "ai_budgets"
     day: Mapped[str] = mapped_column(String(10), primary_key=True)
     used: Mapped[int] = mapped_column(Integer)
+
+
+class RetentionRun(Record, Base):
+    __tablename__ = "retention_runs"
+    source_id: Mapped[str] = mapped_column(ForeignKey("sources.id"))
+    request_key: Mapped[str] = mapped_column(String(120))
+    __table_args__ = (UniqueConstraint("source_id", "request_key"),)

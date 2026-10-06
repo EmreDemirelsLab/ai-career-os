@@ -16,7 +16,7 @@ from career_os.models import Observation, RawJob, Source
 from career_os.workspace import SKILLS, TAXONOMY
 
 GRAPH: dict[str, Any] = json.loads(files("career_os").joinpath("skill_graph.json").read_text())
-POLICY = "literal-mentions/1"
+POLICY = "literal-mentions/2"
 
 
 def extract_mentions(text: str) -> list[dict[str, Any]]:
@@ -33,7 +33,17 @@ def extract_mentions(text: str) -> list[dict[str, Any]]:
                 status="mention_only",
                 requirement="unknown",
             )
-    return sorted(found.values(), key=lambda x: (x["start"], x["end"], x["skill"]))
+    # For one canonical skill, keep maximal spans; separate occurrences survive.
+    # Sorting avoids quadratic pairwise comparisons on repetitive source content.
+    maximal = []
+    furthest: dict[str, int] = {}
+    for mention in sorted(found.values(), key=lambda x: (x["skill"], x["start"], -x["end"])):
+        skill = mention["skill"]
+        if mention["end"] <= furthest.get(skill, -1):
+            continue
+        maximal.append(mention)
+        furthest[skill] = mention["end"]
+    return sorted(maximal, key=lambda x: (x["start"], x["end"], x["skill"]))
 
 
 def retention_read_lock(session: Session) -> None:

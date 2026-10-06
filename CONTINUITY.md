@@ -48,3 +48,8 @@ Retention yalnız disposable test verisinde çalıştırıldı. Maintenance DSN 
 
 PR #6 final head 36f5ccf1c9b1b5903f670ffef2b56ceeac9e5376 verified: runs 37402795388 / 37402792874 SUCCESS; ready for review, not merged.
 Active branch feat/market-evaluation, stacked on #6. Implemented offline exact-span mention schema/evaluator, provenance/hash/retention guards, development/holdout leakage checks, source-level metrics and synthetic fixture. See docs/29_MARKET_EVALUATION.md. Local Ruff/format/mypy pass; pytest 51 passed / 55 skipped without PostgreSQL. No real dataset or source approval, model call, merge or deployment. Next: push/open PR, verify PostgreSQL/Compose CI, record exact code head/run, then P3c2 private sampling manifest and independent review. Real market gate remains NOT_ASSESSED.
+
+## Active overlap correction — 2026-10-06
+
+P3c1 PR #7: https://github.com/EmreDemirelsLab/ai-career-os/pull/7. Head 9816a4a62c48afc455fb94da4c4beca0ef4bdb00; runs 37446633361 / 37446626850. Python/web passed; Compose was still running at checkpoint.
+The authored evaluator fixture exposed a nested AWS/AWS Cloud duplicate. Active branch fix/mention-overlap, stacked on #7, applies policy literal-mentions/2 without changing gold. See docs30. Local Ruff/format/mypy pass; pytest 52 passed / 55 skipped. Synthetic count changes from 6 TP/1 FP/0 FN to 6 TP/0 FP/0 FN; not real-market quality. Next: push correction PR, verify both PRs' complete CI, save exact results, then P3c2 private sampling/independent review. No merge/deployment.

@@ -9,14 +9,17 @@ A market-driven AI/ML learning and career evidence platform. Flagship production
 Requires Docker Engine/Desktop with Compose v2. Local development only; example database credentials are disposable and must never be reused in production.
 
 ```sh
-python3 scripts/init_workspace.py
-docker compose up --build -d --wait
-docker compose exec api career-os seed
-docker compose exec api career-os ingest-fixture --key demo-1
-docker compose exec api career-os ingest-fixture --key demo-2
+python3 scripts/start_local.py
 ```
 
 Open http://localhost:3000 and sign in using CAREER_API_TOKEN from your local .env. Never commit or share this value. An unset token disables the workspace. If .env already exists, preserve it and add a randomly generated token of at least 32 characters. API: http://localhost:8000/health and http://localhost:8000/ready. First fixture run: 3 fetched, 2 accepted/inserted, 1 rejected. Second key: 0 inserted, 2 duplicates, 1 rejected. Same key/input returns the original run without adding observations. A changed input with the same key is refused.
+
+Optional synthetic dashboard example (not live market data):
+
+```sh
+docker compose exec api career-os ingest-fixture --key demo-1
+docker compose exec api career-os ingest-fixture --key demo-2
+```
 
 Inspect errors with `docker compose exec api career-os run <run-id>`. Disable source: `docker compose exec api career-os source-state DEMO disable`. Original source candidates are disabled and cannot be enabled without reviewed policy metadata. Seed reruns preserve operator changes.
 

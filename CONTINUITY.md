@@ -73,3 +73,9 @@ Next: verify remote CI on this exact code, fix failures, then continue remaining
 
 PR #12 feat/next-practice first head 66e845cb786c1564a2748a71cce190e747ee917c had green Python/web but browser failure: global aside style overlaid lesson controls. Head a52fbe68cc4b943bd656226ace5990a49d04f6fd fixes scoped sidebar CSS; its browser test then found ambiguous multi-select labels. Explicit labels fixed locally; do not mark acceptance until new CI passes.
 Same branch now includes catalog v3, all 24 authored weekly units, 16 offline applied-AI labs with starter/reference/checks, direct plan-to-lesson navigation and docs35. Local Python 72 passed / 58 skipped; reference 16 checks passed and all untouched starters fail. These are small engineering boundary exercises, not full framework/model competency or independently validated course. Next: push combined changes to PR12, verify full CI, fix remaining browser failures, record exact final head/run.
+
+## Cumulative release checkpoint — 2026-10-06
+
+Cumulative PR #13 targets main from feat/next-practice and includes implementation PRs #1–12. If #13 is merged, the stacked PRs do not need sequential merging. No merge performed.
+Candidate f6110466d1fed59ffcc3d768be3273ff9321ccfa: run 37496961980 all jobs SUCCESS, including complete browser career workflow and backup/restore. Sidebar overlay and multi-select accessibility fixes verified.
+Final follow-up adds single-command local startup (preserves existing .env/data), exercises it in Compose CI, and verifies plan week24 opens its authored lesson. Next: verify final-head CI, mark cumulative release ready when green, retain production-quality gates. User asked concise updates and to finish usable product; avoid new minor feature branches.

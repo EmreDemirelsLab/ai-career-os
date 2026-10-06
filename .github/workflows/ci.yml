@@ -55,12 +55,11 @@ jobs:
           python3 scripts/init_hosted.py ci.example.invalid
           docker compose --env-file .env.hosted -f compose.hosted.yaml config --quiet
           docker run --rm -e CAREER_DOMAIN=ci.example.invalid -v "$PWD/infra/caddy/Caddyfile:/etc/caddy/Caddyfile:ro" caddy:2-alpine caddy adapt --config /etc/caddy/Caddyfile --validate > /dev/null
-      - run: docker compose up --build -d --wait --wait-timeout 180
+      - run: python3 scripts/start_local.py
       - run: |
           curl --fail http://localhost:8000/health
           curl --fail http://localhost:8000/ready
           curl --fail http://localhost:3000
-          docker compose exec -T api career-os seed
           docker compose exec -T api career-os ingest-fixture --key ci-1
           docker compose exec -T api career-os ingest-fixture --key ci-2
           docker compose exec -T postgres psql -U career -d career -tAc "SELECT count(*) = 2 FROM raw_jobs" | grep -qx t

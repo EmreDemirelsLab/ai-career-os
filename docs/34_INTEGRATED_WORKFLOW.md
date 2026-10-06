@@ -15,4 +15,4 @@ Learners can now open a suggested next lesson, record concept/English practice, 
 
 Local Python: 71 passed / 58 skipped (no PostgreSQL); Ruff/mypy pass; web lint/typecheck/build pass. Remote CI pending on branch. No migration or new infrastructure required.
 
-Eight authored lesson units and 24 activity scaffolds remain distinct. Market sampling fixtures are synthetic; live source approval, empirical evaluation, live model evaluation, full-course independent review and deployment acceptance remain open. This workflow is a usable personal product increment, not evidence that those gates passed.
+Catalog v3 now contains 24 authored lesson units alongside the activity scaffolds; see docs35 for the small-lab and independent-validation boundary. Market sampling fixtures are synthetic; live source approval, empirical evaluation, live model evaluation, full-course independent review and deployment acceptance remain open. This workflow is a usable personal product increment, not evidence that those gates passed.

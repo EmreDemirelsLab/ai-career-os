@@ -82,6 +82,10 @@ test("private workspace persists profile, roadmap and learning without certifyin
   await page.reload();
   await page.getByRole("button", { name: "Temel alıştırmalar", exact: true }).click();
   await expect(page.getByRole("listitem").filter({ hasText: "ustalık doğrulanmadı" })).toHaveCount(1);
+  await page.getByRole("button", { name: "24 haftalık plan", exact: true }).click();
+  const finalWeek = page.locator("section").filter({ has: page.getByRole("heading", { name: "Portfolyo ve mülakat", exact: true }) });
+  await finalWeek.getByRole("button", { name: "Çalışma paketini aç →", exact: true }).click();
+  await expect(page.getByRole("heading", { name: "Portfolyo: iddiadan artifacte", exact: true })).toBeVisible();
   await page.getByRole("button", { name: "Fırsatlar", exact: true }).click();
   await page.getByLabel("İlan başlığı", { exact: true }).fill("Synthetic AI Engineer");
   await page.getByLabel("Şirket", { exact: true }).fill("Synthetic Employer");

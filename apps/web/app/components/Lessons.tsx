@@ -69,7 +69,7 @@ export default function Lessons({ onSaved, initialWeek = 1 }: { onSaved: () => P
       </div>)}
       <details><summary>Derslerin çalışma durumu</summary><ul>{data.practice.items.map(x => <li key={x.lesson_id}><strong>{x.title}</strong> — {x.reason}</li>)}</ul></details>
     </aside>}
-    <label className="field"><span>Ders seç</span><select value={selected} disabled={busy} onChange={e => { setSelected(e.target.value); setResult(null); }}>
+    <label className="field"><span>Ders seç</span><select aria-label="Ders seç" value={selected} disabled={busy} onChange={e => { setSelected(e.target.value); setResult(null); }}>
       {data.catalog.units.map(x => <option key={x.id} value={x.id}>{x.week}. hafta — {x.title}</option>)}
     </select></label>
     <article className="card">

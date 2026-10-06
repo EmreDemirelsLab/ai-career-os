@@ -43,7 +43,7 @@ career-os retention SOURCE_ID --key maintenance-cycle-001 \
 
 Her iki komut `CAREER_MAINTENANCE_DATABASE_URL` ister. Dry-run çıktısındaki `*_deleted` değerleri apply edilmediyse yalnız aday sayısıdır (`applied:false`). Uygulama DSN'ine otomatik fallback yoktur. Yeni tur için yeni key; apply replay aynı kaydı döndürür. Eksik retention tanımı veya fixture kaynağı reddedilir.
 
-`restore_drill.py` yalnız yeni disposable database'e restore eder ve fixture olmayan kaynaklarda restore sonrası retention uygular. Eski backup'ta fonksiyon/migration yoksa açık hata verir; önce izole DB'yi migrate edip kaynak politikalarını güncellemek gerekir. Bu, primary database'de bakım çalıştırmaz.
+`restore_drill.py` yalnız yeni disposable database'e restore eder ve raw verisi bulunan, fixture olmayan kaynaklarda restore sonrası retention uygular. Verisiz source adayları bakım gerektirmez; verisi olup politikası eksik kaynak reddedilir. Eski backup'ta fonksiyon/migration yoksa açık hata verir; önce izole DB'yi migrate edip kaynak politikalarını güncellemek gerekir. Bu, primary database'de bakım çalıştırmaz.
 
 ### Bilinen sınırlar
 

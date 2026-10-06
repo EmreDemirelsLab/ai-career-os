@@ -16,7 +16,7 @@ Kullanıcının sistemi tamamen bitirme isteği sürüyor. İş artık [parçal�
 - PR #1 foundation: https://github.com/EmreDemirelsLab/ai-career-os/pull/1
 - PR #2 workspace: https://github.com/EmreDemirelsLab/ai-career-os/pull/2 (base #1 branch)
 - Önceki PR #3: https://github.com/EmreDemirelsLab/ai-career-os/pull/3 (base `feat/career-workspace`)
-- Aktif branch: `feat/retention-maintenance` (P3a; PR açılacak)
+- Aktif branch: `feat/retention-maintenance` (P3a; PR #4: https://github.com/EmreDemirelsLab/ai-career-os/pull/4)
 - P2 kod head'i: `d934411f562d0aef79634bc27cc86c39f2c1abbd`
 - Bu kayıt PR merge edildiğini varsaymaz; devam ederken remote branch/PR durumunu yeniden oku.
 
@@ -37,7 +37,7 @@ AI gateway testleri mocked transport kullanır; canlı model veya gerçek ilan t
 
 Kaynak: docs/26_RETENTION_CONTRACT.md. `0004_retention` migration, dar PostgreSQL SECURITY DEFINER fonksiyonu, raw DELETE bakım istisnası (owner + function context), normal UPDATE yasağı, içeriksiz audit ve CLI yazıldı. Market/plan üretimi bakım ile advisory transaction lock paylaşır. Bağlı market/plan silinir; learner kayıtları korunur. Restore drill yalnız disposable DB'de retention uygular. Gerçek veri üzerinde bakım çalıştırılmadı.
 
-Yerel Ruff/format/mypy geçti; pytest 34 passed / 30 skipped (PostgreSQL yok). PostgreSQL silme/rol/rollback/replay/refresh testleri henüz CI'da doğrulanmadı. Bu nedenle P3a tamamlanmış sayılmaz.
+Yerel Ruff/format/mypy geçti; pytest 34 passed / 30 skipped (PostgreSQL yok). İlk PostgreSQL CI: 58 passed / 6 skipped; bakım testleri geçti. Compose restore, verisi olmayan onaysız seed kaynaklarını da bakım fonksiyonuna gönderdiği için durdu. Restore artık yalnız raw verisi bulunan gerçek kaynakları seçiyor; verisi olup politikası eksik kaynak hâlâ fail-closed. Bu düzeltmenin CI doğrulaması bekleniyor. P3a henüz tamamlanmış sayılmaz.
 
 ## Sıradaki işlem
 

@@ -47,3 +47,8 @@ Checkout `/workspace/scratch/0ce556516ccd/ai-career-os`; GitHub kalıcı kaynak.
 Retention yalnız disposable fixture'larda çalıştırıldı. Maintenance DSN ayrı; gerçek veriye bakım uygulama. Real evaluation dosyaları public repo dışında/ignored evaluation-private altında ve kaynak retention'una tabi; ignore erişim kontrolü değildir. Eval expiry reddeder ama dosya/backup silmez. Gizli anahtarları ve kişisel verileri repo'ya koyma.
 
 Worker kaynak başına DB session lock, en fazla üç deneme ve crash recovery kullanır. HTTP exactly-once değildir; manual collector aynı lock'u kullanmaz. Reserved collection key prefix ve eşzamanlı manuel toplama yasağı operator kuralıdır. Bkz. docs28.
+
+## Active P3c2 checkpoint — 2026-10-06
+
+User explicitly clarified: do not stop after a PR; continue implementing successive parts until an actual limit/blocker, recording checkpoints.
+PR #8 final head 8255f7c408ecc287df7ed4492634b38322b13997 CI 37447289524/37447283848 both SUCCESS. Active branch feat/sampling-review, stacked on #8. sampling.py and docs31 implement private manifest, strata/missingness, policy/retention, independent-token review and stale-gold linkage checks. Synthetic fixtures only. Local Ruff/format/mypy pass; pytest 64 passed / 55 skipped. Next: push PR and verify CI; then proceed to P4 diagnostic/exercise content while real market collection/independent human review stays explicitly open. No live collection/paid calls/merge/deployment.

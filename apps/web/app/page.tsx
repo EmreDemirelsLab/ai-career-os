@@ -360,7 +360,7 @@ export default function Home() {
                 </ol>
                 <button
                   onClick={() =>
-                    setTab(data.profile ? "Öğren & İngilizce" : "Profil")
+                    setTab(data.profile ? "Temel alıştırmalar" : "Profil")
                   }
                 >
                   Başla →
@@ -565,7 +565,7 @@ export default function Home() {
                     className="text-button"
                     onClick={() => {
                       setWeek(u.week);
-                      setTab("Öğren & İngilizce");
+                      setTab("Temel alıştırmalar");
                     }}
                   >
                     Çalışma paketini aç →
@@ -682,7 +682,7 @@ export default function Home() {
               >
                 <div className="grid">
                   <Field label="Beceri">
-                    <select name="skill">
+                    <select aria-label="Beceri" name="skill">
                       {data.skills.map((s) => (
                         <option key={s}>{s}</option>
                       ))}
@@ -838,7 +838,7 @@ export default function Home() {
                 )}
               >
                 <Field label="Kayıtlı fırsat">
-                  <select name="opportunity_id" required>
+                  <select aria-label="Kayıtlı fırsat" name="opportunity_id" required>
                     <option value="">Seç</option>
                     {data.opportunities.map((o) => (
                       <option key={o.id} value={o.id}>
@@ -884,7 +884,7 @@ export default function Home() {
                   )}
                 >
                   <Field label="Yeni aşama">
-                    <select name="stage">
+                    <select aria-label="Yeni aşama" name="stage">
                       {[
                         "applied",
                         "screening",
@@ -906,7 +906,7 @@ export default function Home() {
             ))}
           </>
         )}
-        {tab === "Temel alıştırmalar" && <Lessons onSaved={load} />}
+        {tab === "Temel alıştırmalar" && <Lessons onSaved={load} initialWeek={week} />}
         {tab === "Analiz & AI" && (
           <Intelligence
             skills={data.skills}

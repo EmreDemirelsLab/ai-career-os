@@ -33,11 +33,11 @@ export default function OpportunityForm({ skills, onSaved }: { skills: string[];
       <label className="field"><span>Şirket</span><input name="company" required maxLength={200} /></label>
       <label className="field"><span>İlan bağlantısı</span><input name="source_url" type="url" required /></label>
       <label className="field"><span>İnceleme tarihi</span><input name="observed_on" type="date" required /></label>
-      <label className="field"><span>Beceriler (çoklu seçim)</span><select name="skills" multiple size={5}>{skills.map(s => <option key={s}>{s}</option>)}</select></label>
+      <label className="field"><span>Beceriler (çoklu seçim)</span><select aria-label="Beceriler (çoklu seçim)" name="skills" multiple size={5}>{skills.map(s => <option key={s}>{s}</option>)}</select></label>
     </div>
     <p>Yalnız ilanda açıkça yazan şartları, kısa kaynak metniyle ekle. Belirtilmeyen bilgi bilinmiyor olarak kalır.</p>
     {requirements.map((id, index) => <fieldset key={id}><legend>Şart {index + 1}</legend>
-      <label className="field"><span>Şart türü {index + 1}</span><select name={`kind-${id}`}>
+      <label className="field"><span>Şart türü {index + 1}</span><select aria-label={`Şart türü ${index + 1}`} name={`kind-${id}`}>
         <option value="german">Almanca</option><option value="english">İngilizce</option>
         <option value="degree">İlgili diploma</option><option value="experience">Profesyonel deneyim</option>
         <option value="work_authorization">Çalışma hakkı</option><option value="location">Konum</option>

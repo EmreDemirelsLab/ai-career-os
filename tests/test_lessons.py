@@ -22,7 +22,7 @@ def submission():
 
 
 def test_catalog_and_reference_labs():
-    assert len({u["id"] for u in CATALOG["units"]}) == 8
+    assert len({u["id"] for u in CATALOG["units"]}) == 24
     for unit in CATALOG["units"]:
         assert unit["skill"] in SKILLS
         assert unit["skill"] == CURRICULUM["units"][unit["week"] - 1]["skill"]
@@ -110,3 +110,23 @@ def test_data_ml_reference_labs():
     )
     assert starter.returncode == 1
     assert "NotImplementedError" in starter.stderr
+
+
+def test_applied_reference_labs():
+    process = subprocess.run(
+        [sys.executable, "labs/applied_ai/check.py", "--reference"],
+        capture_output=True,
+        text=True,
+        timeout=30,
+    )
+    assert process.returncode == 0, process.stderr
+    assert "Ran 16 tests" in process.stderr
+    for week in range(9, 25):
+        starter = subprocess.run(
+            [sys.executable, "labs/applied_ai/check.py", "--week", str(week)],
+            capture_output=True,
+            text=True,
+            timeout=30,
+        )
+        assert starter.returncode == 1
+        assert "NotImplementedError" in starter.stderr

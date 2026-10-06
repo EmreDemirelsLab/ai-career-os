@@ -17,7 +17,7 @@ type Practice = { suggested_lesson_id: string | null; scope: string; items: {
 }[] };
 type Data = { catalog: { version: string; units: Lesson[] }; attempts: Attempt[]; practice: Practice | null };
 
-export default function Lessons({ onSaved }: { onSaved: () => Promise<void> }) {
+export default function Lessons({ onSaved, initialWeek = 1 }: { onSaved: () => Promise<void>; initialWeek?: number }) {
   const [data, setData] = useState<Data | null>(null);
   const [selected, setSelected] = useState("foundation-1");
   const [error, setError] = useState("");
@@ -28,10 +28,10 @@ export default function Lessons({ onSaved }: { onSaved: () => Promise<void> }) {
     fetch("/api/workspace/lessons", { cache: "no-store" }).then(async r => {
       if (!r.ok) throw new Error("Dersler alınamadı.");
       const value = await r.json();
-      if (active) setData(value);
+      if (active) { setData(value); setSelected(value.catalog.units.find((x: Lesson) => x.week === initialWeek)?.id || "foundation-1"); }
     }).catch(e => { if (active) setError(e.message); });
     return () => { active = false; };
-  }, []);
+  }, [initialWeek]);
   const lesson = data?.catalog.units.find(x => x.id === selected);
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -59,7 +59,7 @@ export default function Lessons({ onSaved }: { onSaved: () => Promise<void> }) {
   if (!lesson || !data) return <p role="status">{error || "Dersler yükleniyor…"}</p>;
   return <section>
     <h2>Temel alıştırmalar</h2>
-    <p>İlk sekiz haftanın çalışma paketi. Kısa sorular tanı içindir; doğru cevaplar ustalık veya İngilizce seviyesi kanıtı değildir.</p>
+    <p>24 haftaya yayılmış kavram, küçük lab ve İngilizce savunma paketleri. Kısa sorular tanı içindir; doğru cevaplar ustalık veya İngilizce seviyesi kanıtı değildir.</p>
     {error && <p role="alert">{error}</p>}
     {data.practice && <aside className="card" aria-label="Çalışma önerisi">
       <h3>Sıradaki çalışma</h3><p>{data.practice.scope}</p>

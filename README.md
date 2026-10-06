@@ -77,4 +77,6 @@ Single-owner hosting candidate: [deployment and recovery runbook](docs/24_HOSTIN
 
 Resume work from [CONTINUITY.md](CONTINUITY.md); delivery parts and remaining acceptance gates are tracked in [the delivery plan](docs/25_DELIVERY_PLAN.md).
 
-Foundation and data/ML practice (authored weeks 1–8 pilot): use **Temel alıştırmalar** in the workspace. Local exercise setup and checks: [foundation labs](labs/foundation/README.md), [data/ML labs](labs/data_ml/README.md). Install optional lab dependencies with `uv sync --locked --group labs`. Objective checks do not certify independent skill or English level.
+Authored practice across all 24 weeks: use **Temel alıştırmalar** in the workspace. Local exercise setup and checks: [foundation labs](labs/foundation/README.md), [data/ML labs](labs/data_ml/README.md), [applied AI labs](labs/applied_ai/README.md). Install optional lab dependencies with `uv sync --locked --group labs`. Objective checks do not certify independent skill or English level.
+
+Integrated workflow: start with your profile, open a week from the plan, complete practice, link your artifact in Kanıtlar, rehearse in Mülakat, review job requirements in Fırsatlar, download the preparation packet and record your application. No application is sent automatically. See [integrated acceptance](docs/34_INTEGRATED_WORKFLOW.md) and [24-week practice scope](docs/35_APPLIED_PRACTICE.md).
